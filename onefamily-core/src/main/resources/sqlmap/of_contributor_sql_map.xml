@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="onefamily">
+
+    <resultMap id="RM-CONTRIBUTOR"
+               class="name.elegant.onefamily.client.dataobject.onefamily.Contributor">
+        <result property="contributorId" column="contributor_id" javaType="long" jdbcType="bigint" nullValue="0"/>
+        <result property="bizId" column="biz_id" javaType="java.lang.String" jdbcType="varchar"/>
+        <result property="originalBizId" column="original_biz_id" javaType="java.lang.String" jdbcType="varchar"/>
+        <result property="contributorName" column="contributor_name" javaType="java.lang.String" jdbcType="varchar"/>
+        <result property="type" column="type" javaType="java.lang.String" jdbcType="varchar"/>
+        <result property="identityCard" column="identity_card" javaType="java.lang.String" jdbcType="varchar"/>
+        <result property="sex" column="sex" javaType="java.lang.String" jdbcType="varchar"/>
+        <result property="age" column="age" javaType="int" jdbcType="int"/>
+        <result property="nationality" column="nationality" javaType="java.lang.String" jdbcType="varchar"/>
+        <result property="status" column="status" javaType="java.lang.String" jdbcType="varchar"/>
+        <result property="level" column="level" javaType="java.lang.String" jdbcType="varchar"/>
+        <result property="remark" column="remark" javaType="java.lang.String" jdbcType="varchar"/>
+        <result property="contactMap" column="contact_map" javaType="java.lang.String" jdbcType="varchar"/>
+        <result property="extraMap" column="extra_map" javaType="java.lang.String" jdbcType="varchar"/>
+        <result property="createTime" column="create_time" javaType="java.util.Date" jdbcType="datetime"/>
+        <result property="modifyTime" column="modify_time" javaType="java.util.Date" jdbcType="datetime"/>
+    </resultMap>
+
+
+    <!--===================================-->
+    <!-- Insert语句 -->
+    <!--===================================-->
+    <insert id="ContributorDAO.insertContributor">
+        <![CDATA[
+            insert into of_contributor(
+            biz_id,original_biz_id,contributor_name,type,identity_card,sex,age,nationality,status,
+            level,remark,contact_map,extra_map,create_time,modify_time
+            ) values (
+            #bizId#,#originalBizId#,#contributorName#,#type#,#identityCard#,#sex#,#age#,#nationality#,#status#,
+            #level#,#remark#,#contactMap#,#extraMap#,now(),now()
+            )
+        ]]>
+
+        <selectKey resultClass="int" keyProperty="contributorId">
+            select LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+
+    <!--===================================-->
+    <!-- Select语句 -->
+    <!--===================================-->
+    <select id="ContributorDAO.queryContributorById" resultMap="RM-CONTRIBUTOR">
+        SELECT
+        *
+        FROM of_contributor
+        WHERE contributor_id=#contributorId#
+    </select>
+
+    <select id="ContributorDAO.queryContributorByPageNo" resultMap="RM-CONTRIBUTOR">
+        SELECT
+        *
+        FROM of_contributor
+        limit #pageNo#,#size#
+    </select>
+
+</sqlMap>

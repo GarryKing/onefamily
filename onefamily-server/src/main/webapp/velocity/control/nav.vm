@@ -1,0 +1,49 @@
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <a class="navbar-brand" style="font-weight: bold;" href="/onefamily/index.html">益家 - One
+                Family</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            #if(${isLogin})
+                <ul class="nav navbar-nav">
+                    <li class="#if(${contriPage})active#end"><a href="/onefamily/contriPage.html">捐助人管理</a></li>
+                    <li class="#if(${peerPage})active#end"><a href="/onefamily/peerPage.html">结对管理</a></li>
+                    <li class="#if(${donatePage})active#end"><a href="/onefamily/donatePage.html">捐助管理</a></li>
+                    <li class="#if(${actPage})active#end"><a href="/onefamily/actPage.html">活动管理</a></li>
+                    <li class="#if(${operatePage})active#end"><a href="/onefamily/operatePage.html">操作记录</a></li>
+                    <li class="#if(${systemPage})active#end"><a href="/onefamily/systemPage.html">系统管理</a></li>
+                </ul>
+            #end
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" #if(!${isLogin})data-toggle="modal" data-target="#myModal" #else style="color: #286090;" #end>
+                        <span class="glyphicon glyphicon-user" aria-hidden="true" style="margin: 0 10px;"></span>
+                        #if(${isLogin})
+                            $!{userName}
+                        #else
+                            登录
+                        #end
+                    </a>
+                </li>
+                #if(${isLogin})
+                    <li><a href="/onefamily/logout.do">退出</a></li>
+                #end
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+
+## login model
+#parse("/control/loginModel.vm")
+
+## message alert
+<script type="text/javascript">
+        #if(${message})
+        alert("${message}");
+        #end
+</script>

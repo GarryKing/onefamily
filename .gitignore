@@ -1,0 +1,13 @@
+#################
+## idea
+#################
+*.idea
+*.iml
+
+
+#################
+## tmp
+#################
+onefamily-client/target
+onefamily-core/target
+onefamily-server/target

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="onefamily">
+
+    <resultMap id="RM-SYSTEM-USER"
+               class="name.elegant.onefamily.client.dataobject.admin.SystemUser">
+        <result property="userId" column="user_id" javaType="long" jdbcType="bigint" nullValue="0"/>
+        <result property="userName" column="user_name" javaType="java.lang.String" jdbcType="varchar"/>
+        <result property="password" column="password" javaType="java.lang.String" jdbcType="varchar"/>
+        <result property="authExtra" column="auth_extra" javaType="java.lang.String" jdbcType="varchar"/>
+    </resultMap>
+
+
+    <!--===================================-->
+    <!-- Insert语句 -->
+    <!--===================================-->
+    <insert id="SystemUserDAO.insertUser">
+        <![CDATA[
+            insert into of_system_user(user_name,password,auth_extra) values (#userId#,#password#,#authExtra#)
+        ]]>
+
+        <selectKey resultClass="int" keyProperty="userId">
+            select LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+
+    <!--===================================-->
+    <!-- Select语句 -->
+    <!--===================================-->
+    <select id="SystemUserDAO.queryUserById" resultMap="RM-SYSTEM-USER">
+        SELECT
+          *
+        FROM of_system_user
+        WHERE user_id=#userId#
+    </select>
+
+    <select id="SystemUserDAO.queryUserByName" parameterClass="java.lang.String" resultMap="RM-SYSTEM-USER">
+        SELECT
+        *
+        FROM of_system_user
+        WHERE user_name = #userName#
+    </select>
+
+</sqlMap>

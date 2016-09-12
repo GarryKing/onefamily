@@ -1,0 +1,106 @@
+<!-- Modal -->
+<div class="modal fade" id="contriModal_$!{contri.contributorId}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">捐助人详情</h4>
+            </div>
+
+            <div class="modal-body" style="height: 1500px;">
+                <form class="form-horizontal" action="/onefamily/" accept-charset="GBK">
+                    <input type="hidden" name="contributorId" class="form-control" value="$!{contri.contributorId}">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">编号</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="bizId" class="form-control" value="$!{contri.bizId}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">姓名</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="contributorName" class="form-control" value="$!{contri.contributorName}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">原始编号</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="originalBizId" class="form-control" value="$!{contri.bizId}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">人员类型</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="type" class="form-control" value="$!{contri.type}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">身份证</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="identityCard" class="form-control" value="$!{contri.identityCard}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">性别</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="sex" class="form-control" value="$!{contri.sex}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">年龄</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="age" class="form-control" value="$!{contri.age}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">名族</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="nationality" class="form-control" value="$!{contri.nationality}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">状态</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="status" class="form-control" value="$!{contri.status}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">星级</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="level" class="form-control" value="$!{contri.level}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">备注</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="remark" class="form-control" value="$!{contri.remark}">
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">联系方式</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="nationality" class="form-control" value="${contri.extra00}">
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">扩展信息</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="nationality" class="form-control" value="$!{contri.nationality}">
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary">保存</button>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,59 @@
+<div class="screen_container">
+
+    <div class="btn btn-sm btn-success">新增捐助人</div>
+
+##翻页器
+    <ul class="pagination" style="margin: 0px;float: right;font-size: 12px;">
+        <li>
+            <a href="/onefamily/contriPage.html?pageNo=$!{prev}" aria-label="Previous">
+                <span aria-hidden="true">上一页</span>
+            </a>
+        </li>
+        <li>
+            <a href="/onefamily/contriPage.html?pageNo=$!{curr}">$!{curr}</a>
+        </li>
+        <li>
+            <a href="/onefamily/contriPage.html?pageNo=$!{next}" aria-label="Next">
+                <span aria-hidden="true">下一页</span>
+            </a>
+        </li>
+    </ul>
+
+
+    <table class="table table-hover" style="font-size: 14px;">
+        <thead>
+        <tr>
+            <td>编号</td>
+            <td>姓名</td>
+            <td>历史编号</td>
+            <td>人员类型</td>
+            <td>当前状态</td>
+            <td>累计捐款金额</td>
+            <td>累计活动小数</td>
+            <td>人员星级</td>
+            <td>操作</td>
+        </tr>
+        </thead>
+        <tbody>
+            #foreach($contri in $contriList)
+            <tr>
+                <td id="td_padding">$!{contri.bizId}</td>
+                <td id="td_padding">$!{contri.contributorName}</td>
+                <td id="td_padding">$!{contri.originalBizId}</td>
+                <td id="td_padding">$!{contri.type}</td>
+                <td id="td_padding">$!{contri.status}</td>
+                <td id="td_padding">$!{contri.totalMoney}</td>
+                <td id="td_padding">$!{contri.totalActTime}</td>
+                <td id="td_padding">$!{contri.level}</td>
+                <td>
+                    <div class="btn btn-sm btn-primary" data-toggle="modal"
+                         data-target="#contriModal_$!{contri.contributorId}">详情
+                    </div>
+                ## login model
+                    #parse("/control/contriModel.vm")
+                </td>
+            </tr>
+            #end
+        </tbody>
+    </table>
+</div>
