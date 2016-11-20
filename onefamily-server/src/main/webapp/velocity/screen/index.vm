@@ -1,1 +1,10 @@
-试一下
+#set($layout = "/layout/index.vm")
+
+<div style="margin: 0 auto;">
+    <div style="text-align: center;font-size: 60px;color: #fafafa;top: 30px;padding: 200px;text-shadow: 0.1em 0.1em 0.3em #383838;">
+        付出 · 关爱 · 责任
+    </div>
+</div>
+
+
+##<script type="text/javascript" src="/static/js/banner.js"></script>

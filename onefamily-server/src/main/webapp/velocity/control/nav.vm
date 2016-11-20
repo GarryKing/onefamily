@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-default" style="margin-bottom: 0px;">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -21,7 +21,8 @@
 
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <a href="#" #if(!${isLogin})data-toggle="modal" data-target="#myModal" #else style="color: #286090;" #end>
+                    <a href="#"
+                       #if(!${isLogin})data-toggle="modal" data-target="#myModal" #else style="color: #286090;" #end>
                         <span class="glyphicon glyphicon-user" aria-hidden="true" style="margin: 0 10px;"></span>
                         #if(${isLogin})
                             $!{userName}

@@ -7,7 +7,12 @@
 
 </head>
 <body>
+
     #parse("/control/nav.vm")
+
+<div class="screen_container" style="margin-top: 20px;">
     $screen_content
+</div>
+
 </body>
 </html>
