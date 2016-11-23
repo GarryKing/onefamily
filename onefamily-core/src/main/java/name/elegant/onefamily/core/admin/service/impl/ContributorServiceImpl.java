@@ -1,6 +1,6 @@
 package name.elegant.onefamily.core.admin.service.impl;
 
-import name.elegant.onefamily.client.dataobject.onefamily.Contributor;
+import name.elegant.onefamily.client.dataobject.onefamily.ContributorDO;
 import name.elegant.onefamily.core.admin.dao.ContributorDAO;
 import name.elegant.onefamily.core.admin.service.ContributorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,7 @@ public class ContributorServiceImpl implements ContributorService {
     @Autowired
     private ContributorDAO contributorDAO;
 
-    public List<Contributor> queryContributorByPageNo(int pageNo, int size) {
+    public List<ContributorDO> queryContributorByPageNo(int pageNo, int size) {
         return contributorDAO.queryContributorByPageNo(pageNo, size);
     }
 }

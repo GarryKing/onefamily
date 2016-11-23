@@ -1,6 +1,6 @@
 package name.elegant.onefamily.core.admin.service;
 
-import name.elegant.onefamily.client.dataobject.onefamily.Contributor;
+import name.elegant.onefamily.client.dataobject.onefamily.ContributorDO;
 
 import java.util.List;
 
@@ -10,6 +10,6 @@ import java.util.List;
  */
 public interface ContributorService {
 
-    public List<Contributor> queryContributorByPageNo(int pageNo, int size);
+    public List<ContributorDO> queryContributorByPageNo(int pageNo, int size);
 
 }

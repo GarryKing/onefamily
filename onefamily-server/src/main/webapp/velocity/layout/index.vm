@@ -8,7 +8,7 @@
     <link rel="stylesheet" type="text/css" href="/static/comm/flexslider/flexslider.css">
     <script type="text/javascript" src="/static/comm/flexslider/jquery.flexslider-min.js"></script>
 </head>
-<body style="background: url('/static/image/index_banner3.jpg') no-repeat;width: 100%;height: 100%;background-size: cover;">
+<body style="background: url('/static/image/index_banner3_1.jpg') no-repeat;width: 100%;height: 100%;background-size: cover;">
     #parse("/control/nav.vm")
     $screen_content
 </body>

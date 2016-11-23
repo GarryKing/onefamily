@@ -1,6 +1,6 @@
 package name.elegant.onefamily.server.screen;
 
-import name.elegant.onefamily.client.dataobject.onefamily.Contributor;
+import name.elegant.onefamily.client.dataobject.onefamily.ContributorDO;
 import name.elegant.onefamily.core.admin.service.ContributorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -36,7 +36,7 @@ public class ContriAction extends BaseScreen {
         if (pageNo == null || pageNo < 1)
             pageNo = 1;
         Map<String, Object> result = new HashMap<String, Object>();
-        List<Contributor> contributorList = contributorService.queryContributorByPageNo(pageNo, PAGE_SIZE);
+        List<ContributorDO> contributorList = contributorService.queryContributorByPageNo(pageNo, PAGE_SIZE);
         int prev = pageNo <= 1 ? 1 : (pageNo + 1);
         int next = CollectionUtils.isEmpty(contributorList) || contributorList.size() < PAGE_SIZE ? pageNo : (pageNo + 1);
 

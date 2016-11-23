@@ -1,6 +1,6 @@
 package name.elegant.onefamily.core.admin.dao;
 
-import name.elegant.onefamily.client.dataobject.onefamily.Contributor;
+import name.elegant.onefamily.client.dataobject.onefamily.ContributorDO;
 
 import java.util.List;
 
@@ -11,10 +11,10 @@ import java.util.List;
  */
 public interface ContributorDAO {
 
-    public Long insertContributor(Contributor contributor);
+    public Long insertContributor(ContributorDO contributor);
 
-    public Contributor queryContributorById(long contributorId);
+    public ContributorDO queryContributorById(long contributorId);
 
-    public List<Contributor> queryContributorByPageNo(int pageNo, int size);
+    public List<ContributorDO> queryContributorByPageNo(int pageNo, int size);
 
 }

@@ -11,7 +11,7 @@ import java.util.List;
  * Created by GarryKing on 2016/8/17.
  * E-mail£ºflyhzq@sina.com
  */
-public class Contributor {
+public class ContributorDO {
 
     /**
      * =================================================
@@ -201,8 +201,13 @@ public class Contributor {
         this.remark = remark;
     }
 
-    public JSONObject getContactMap() {
-        return JSON.parseObject(contactMap);
+    public String getContactMap() {
+        JSONObject contactJSON = JSON.parseObject(contactMap);
+        String result = "";
+        for (String contactKey : CONTACT_KEY_MAP) {
+            result += contactKey + "£º" + ((contactJSON == null || contactJSON.get(contactKey) == null) ? "" : contactJSON.get(contactKey)) + ",\n\r";
+        }
+        return result;
     }
 
     public void setContactMap(String contactMap) {

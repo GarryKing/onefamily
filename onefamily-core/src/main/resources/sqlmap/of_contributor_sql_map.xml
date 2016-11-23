@@ -3,7 +3,7 @@
 <sqlMap namespace="onefamily">
 
     <resultMap id="RM-CONTRIBUTOR"
-               class="name.elegant.onefamily.client.dataobject.onefamily.Contributor">
+               class="name.elegant.onefamily.client.dataobject.onefamily.ContributorDO">
         <result property="contributorId" column="contributor_id" javaType="long" jdbcType="bigint" nullValue="0"/>
         <result property="bizId" column="biz_id" javaType="java.lang.String" jdbcType="varchar"/>
         <result property="originalBizId" column="original_biz_id" javaType="java.lang.String" jdbcType="varchar"/>
