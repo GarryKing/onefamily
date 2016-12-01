@@ -10,6 +10,8 @@ import java.util.List;
  */
 public interface ContributorService {
 
+    public void updateContributor(ContributorDO contributorDO);
+
     public List<ContributorDO> queryContributorByPageNo(int pageNo, int size);
 
 }

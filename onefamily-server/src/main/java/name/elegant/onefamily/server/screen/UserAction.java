@@ -41,7 +41,6 @@ public class UserAction extends BaseScreen {
         String userName = request.getParameter("userName");
         String password = request.getParameter("password");
         boolean isRight = adminService.checkPassword(userName, password);
-        Map<String, Object> result = new HashMap<String, Object>();
         if (isRight) {
             request.getSession().setAttribute("isLogin", true);
             request.getSession().setAttribute("userName", userName);

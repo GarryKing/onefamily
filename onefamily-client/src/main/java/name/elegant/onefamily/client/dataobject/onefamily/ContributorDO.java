@@ -3,9 +3,7 @@ package name.elegant.onefamily.client.dataobject.onefamily;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by GarryKing on 2016/8/17.
@@ -42,12 +40,21 @@ public class ContributorDO {
      * <p>
      * 40用户群体：
      */
-    public static final List<String> EXTRA_00 = Arrays.asList("是否在校", "学校名称", "在校年级", "行业", "单位", "职务", "特长");
-    public static final List<String> EXTRA_10 = Arrays.asList("加入约上群时间", "参加益家活动项目");
-    public static final List<String> EXTRA_20 = Arrays.asList("加入约上群时间", "参加益家活动项目");
+    public static final List<String> EXTRA_00 = Arrays.asList("学校名称", "在校年级", "行业", "单位", "职务", "特长");
+    public static final List<String> EXTRA_10_20 = Arrays.asList("加入约上群时间", "参加益家活动项目");
     public static final List<String> EXTRA_30 = Arrays.asList("加入益家志愿者时间", "是否有公益经历", "公益经历时间", "公益经历组织",
             "公益经历内容", "志愿岗位", "是否服从分配岗位", "实际安排志愿岗位", "是否是注册志愿者", "注册志愿者时间");
-    public static final List<String> EXTRA_40 = Arrays.asList("");
+    public static final List<String> EXTRA_40 = Arrays.asList("参加活动时间", "参加活动内容", "活动评定星级");
+
+    public static final List<String> ALL_EXTRA_KEY;
+
+    static {
+        ALL_EXTRA_KEY = new ArrayList<String>();
+        ALL_EXTRA_KEY.addAll(EXTRA_00);
+        ALL_EXTRA_KEY.addAll(EXTRA_10_20);
+        ALL_EXTRA_KEY.addAll(EXTRA_30);
+        ALL_EXTRA_KEY.addAll(EXTRA_40);
+    }
 
 
     /**
@@ -202,10 +209,15 @@ public class ContributorDO {
     }
 
     public String getContactMap() {
+        return contactMap;
+    }
+
+    public Map<String, String> getContactMapObj() {
         JSONObject contactJSON = JSON.parseObject(contactMap);
-        String result = "";
+        Map<String, String> result = new HashMap<String, String>();
         for (String contactKey : CONTACT_KEY_MAP) {
-            result += contactKey + "：" + ((contactJSON == null || contactJSON.get(contactKey) == null) ? "" : contactJSON.get(contactKey)) + ",\n\r";
+            String value = (contactJSON == null || contactJSON.get(contactKey) == null) ? "" : contactJSON.get(contactKey) + "";
+            result.put(contactKey, value);
         }
         return result;
     }
@@ -214,8 +226,18 @@ public class ContributorDO {
         this.contactMap = contactMap;
     }
 
-    public JSONObject getExtraMap() {
-        return JSON.parseObject(extraMap);
+    public String getExtraMap() {
+        return extraMap;
+    }
+
+    public Map<String, String> getExtraMapObj() {
+        JSONObject contactJSON = JSON.parseObject(extraMap);
+        Map<String, String> result = new HashMap<String, String>();
+        for (String contactKey : ALL_EXTRA_KEY) {
+            String value = (contactJSON == null || contactJSON.get(contactKey) == null) ? "" : contactJSON.get(contactKey) + "";
+            result.put(contactKey, value);
+        }
+        return result;
     }
 
     public void setExtraMap(String extraMap) {
@@ -262,12 +284,8 @@ public class ContributorDO {
         return EXTRA_40;
     }
 
-    public static List<String> getExtra20() {
-        return EXTRA_20;
-    }
-
-    public static List<String> getExtra10() {
-        return EXTRA_10;
+    public static List<String> getExtra1020() {
+        return EXTRA_10_20;
     }
 
     public static List<String> getExtra00() {

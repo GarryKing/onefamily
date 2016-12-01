@@ -4,9 +4,9 @@
 
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-        <property name="username" value=""/>
-        <property name="password" value=""/>
-        <property name="url" value="jdbc:mysql://:3306/onefamily?characterEncoding=GBK"/>
+        <property name="username" value="root"/>
+        <property name="password" value="73747521hzq"/>
+        <property name="url" value="jdbc:mysql://42.121.31.110:3306/onefamily?characterEncoding=GBK"/>
     </bean>
 
     <bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">

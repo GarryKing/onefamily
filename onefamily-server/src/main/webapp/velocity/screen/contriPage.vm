@@ -54,3 +54,11 @@
         #end
     </tbody>
 </table>
+
+<script type="text/javascript">
+    $(function () {
+        $(".J_save").click(function () {
+            $(this).parent().parent().find("form").submit();
+        });
+    })
+</script>

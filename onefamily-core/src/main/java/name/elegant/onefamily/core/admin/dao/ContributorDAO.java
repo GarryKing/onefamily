@@ -13,6 +13,8 @@ public interface ContributorDAO {
 
     public Long insertContributor(ContributorDO contributor);
 
+    public void updateContributor(ContributorDO contributor);
+
     public ContributorDO queryContributorById(long contributorId);
 
     public List<ContributorDO> queryContributorByPageNo(int pageNo, int size);

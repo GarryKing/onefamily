@@ -42,6 +42,27 @@
         </selectKey>
     </insert>
 
+    <update id="ContributorDAO.updateContributor">
+        UPDATE of_contributor
+        SET
+        biz_id = #bizId#,
+        original_biz_id = #originalBizId#,
+        contributor_name = #contributorName#,
+        type = #type#,
+        identity_card = #identityCard#,
+        sex = #sex#,
+        age = #age#,
+        nationality = #nationality#,
+        status = #status#,
+        level = #level#,
+        remark = #remark#,
+        contact_map = #contactMap#,
+        extra_map = #extraMap#,
+        modify_time = now()
+        WHERE
+        contributor_id = #contributorId#
+    </update>
+
     <!--===================================-->
     <!-- SelectÓï¾ä -->
     <!--===================================-->

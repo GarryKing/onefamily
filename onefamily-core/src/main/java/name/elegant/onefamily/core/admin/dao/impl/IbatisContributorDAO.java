@@ -20,6 +20,10 @@ public class IbatisContributorDAO extends BaseDao implements ContributorDAO {
         return (Long) this.getSqlMapClientTemplate().insert("ContributorDAO.insertContributor", contributor);
     }
 
+    public void updateContributor(ContributorDO contributor) {
+        this.getSqlMapClientTemplate().update("ContributorDAO.updateContributor", contributor);
+    }
+
     public ContributorDO queryContributorById(long contributorId) {
         return (ContributorDO) this.getSqlMapClientTemplate().queryForObject("ContributorDAO.queryContributorById", contributorId);
     }
