@@ -37,7 +37,7 @@
             )
         ]]>
 
-        <selectKey resultClass="int" keyProperty="contributorId">
+        <selectKey resultClass="long" keyProperty="contributorId">
             select LAST_INSERT_ID()
         </selectKey>
     </insert>
@@ -66,7 +66,7 @@
     <!--===================================-->
     <!-- SelectÓï¾ä -->
     <!--===================================-->
-    <select id="ContributorDAO.queryContributorById" resultMap="RM-CONTRIBUTOR">
+    <select id="ContributorDAO.queryContributorById" parameterClass="Map" resultMap="RM-CONTRIBUTOR">
         SELECT
         *
         FROM of_contributor
@@ -77,6 +77,15 @@
         SELECT
         *
         FROM of_contributor
+        <dynamic prepend="WHERE">
+            <isNotEmpty property="keyWord">
+                biz_id LIKE concat('%',#keyWord#,'%')
+                or contributor_name LIKE concat('%',#keyWord#,'%')
+                or identity_card LIKE concat('%',#keyWord#,'%')
+                or status LIKE concat('%',#keyWord#,'%')
+                or type LIKE concat('%',#keyWord#,'%')
+            </isNotEmpty>
+        </dynamic>
         limit #pageNo#,#size#
     </select>
 

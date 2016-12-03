@@ -6,7 +6,6 @@ import name.elegant.onefamily.core.admin.service.ContributorService;
 import name.elegant.onefamily.core.util.text.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -28,36 +27,40 @@ public class ContriAction extends BaseScreen {
     @Autowired
     private ContributorService contributorService;
 
-    private static final int PAGE_SIZE = 15;
-
     @RequestMapping("/contriPage.html")
     public ModelAndView loadPage(HttpServletRequest request, HttpServletResponse response) {
         if (!isLogin(request)) return new ModelAndView("redirect:/onefamily/index.html");
-//        String message = (String) request.getSession().getAttribute("message");
-//        if (!StringUtil.isBlank(message)) {
-//            request.getSession().setAttribute("message", null);
-//        }
-        Integer pageNo = (Integer) request.getAttribute("pageNo");
-        if (pageNo == null || pageNo < 1)
-            pageNo = 1;
-        Map<String, Object> result = new HashMap<String, Object>();
-        List<ContributorDO> contributorList = contributorService.queryContributorByPageNo(pageNo, PAGE_SIZE);
-        int prev = pageNo <= 1 ? 1 : (pageNo + 1);
-        int next = CollectionUtils.isEmpty(contributorList) || contributorList.size() < PAGE_SIZE ? pageNo : (pageNo + 1);
-
-        result.put("contriList", contributorList);
-        result.put("contriPage", true);
-        result.put("curr", pageNo);
-        result.put("prev", prev);
-        result.put("next", next);
-        return new ModelAndView("screen/contriPage", result);
+        List<ContributorDO> contributorList = contributorService.queryContributorByPageNo(getPageNo(request), PAGE_SIZE, request.getParameter("keyWord"));
+        return new ModelAndView("screen/contriPage", getListPageResult(request, "contriPage", contributorList));
     }
 
     @RequestMapping(value = "/saveContri.from", produces = {"application/json;charset=GBK"})
     public ModelAndView saveFrom(HttpServletRequest request, HttpServletResponse response) {
         if (!isLogin(request)) return new ModelAndView("redirect:/onefamily/index.html");
+        try {
+            contributorService.updateContributor(assembleContributorDO(request, response));
+            request.getSession().setAttribute("message", request.getParameter("contributorName") + " 的信息已经保存成功！");
+        } catch (Exception e) {
+            request.getSession().setAttribute("message", request.getParameter("contributorName") + " 的信息保存失败，请检查输入内容！！！");
+        }
+        return new ModelAndView("redirect:/onefamily/contriPage.html");
+    }
 
-        String contributorId = request.getParameter("contributorId");
+    @RequestMapping(value = "/newContri.from", produces = {"application/json;charset=GBK"})
+    public ModelAndView newFrom(HttpServletRequest request, HttpServletResponse response) {
+        if (!isLogin(request)) return new ModelAndView("redirect:/onefamily/index.html");
+        try {
+            contributorService.insertContributor(assembleContributorDO(request, response));
+            request.getSession().setAttribute("message", request.getParameter("contributorName") + " 的信息已经创建成功！");
+        } catch (Exception e) {
+            request.getSession().setAttribute("message", request.getParameter("contributorName") + " 的信息创建失败，请检查输入内容！！！");
+        }
+        return new ModelAndView("redirect:/onefamily/contriPage.html");
+    }
+
+    private ContributorDO assembleContributorDO(HttpServletRequest request, HttpServletResponse response) {
+        String contributorIdStr = request.getParameter("contributorId");
+        long contributorId = StringUtil.isBlank(contributorIdStr) ? 0 : Long.parseLong(contributorIdStr);
         String bizId = request.getParameter("bizId");
         String contributorName = request.getParameter("contributorName");
         String originalBizId = request.getParameter("originalBizId");
@@ -72,28 +75,23 @@ public class ContriAction extends BaseScreen {
         String[] contactMap = request.getParameterValues("contactMap");
         String[] extraMap = request.getParameterValues("extraMap");
 
-        try {
-            ContributorDO contributorDO = new ContributorDO();
-            contributorDO.setContributorId(Long.parseLong(contributorId));
-            contributorDO.setBizId(bizId);
-            contributorDO.setContributorName(contributorName);
-            contributorDO.setOriginalBizId(originalBizId);
-            contributorDO.setType(type);
-            contributorDO.setIdentityCard(identityCard);
-            contributorDO.setSex(sex);
-            contributorDO.setAge(Integer.parseInt(age));
-            contributorDO.setNationality(nationality);
-            contributorDO.setStatus(status);
-            contributorDO.setLevel(level);
-            contributorDO.setRemark(remark);
-            contributorDO.setContactMap(JSON.toJSONString(turnBizArrayToMap(contactMap, 1)));
-            contributorDO.setExtraMap(JSON.toJSONString(turnBizArrayToMap(extraMap, 2)));
-            contributorService.updateContributor(contributorDO);
-            request.getSession().setAttribute("message", contributorName + " 的信息已经保存成功！");
-        } catch (Exception e) {
-            request.getSession().setAttribute("message", contributorName + " 的信息保存失败，请检查输入内容！！！");
-        }
-        return new ModelAndView("redirect:/onefamily/contriPage.html");
+        ContributorDO contributorDO = new ContributorDO();
+        contributorDO.setContributorId(contributorId);
+        contributorDO.setBizId(bizId);
+        contributorDO.setContributorName(contributorName);
+        contributorDO.setOriginalBizId(originalBizId);
+        contributorDO.setType(type);
+        contributorDO.setIdentityCard(identityCard);
+        contributorDO.setSex(sex);
+        contributorDO.setAge(StringUtil.isBlank(age) ? 0 : Integer.parseInt(age));
+        contributorDO.setNationality(nationality);
+        contributorDO.setStatus(status);
+        contributorDO.setLevel(level);
+        contributorDO.setRemark(remark);
+        contributorDO.setContactMap(JSON.toJSONString(turnBizArrayToMap(contactMap, 1)));
+        contributorDO.setExtraMap(JSON.toJSONString(turnBizArrayToMap(extraMap, 2)));
+
+        return contributorDO;
     }
 
     private Map<String, String> turnBizArrayToMap(String[] bizArray, int bizType) {

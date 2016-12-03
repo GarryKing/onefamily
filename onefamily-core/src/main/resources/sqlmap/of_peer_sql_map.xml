@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="onefamily">
+
+    <resultMap id="RM-PEER" class="name.elegant.onefamily.client.dataobject.onefamily.PeerDO">
+        <result property="peerId" column="peer_id" javaType="long" jdbcType="bigint" nullValue="0"/>
+        <result property="bizId" column="biz_id" javaType="java.lang.String" jdbcType="varchar"/>
+        <result property="aidedName" column="aided_name" javaType="java.lang.String" jdbcType="varchar"/>
+        <result property="identify" column="identify" javaType="java.lang.String" jdbcType="varchar"/>
+        <result property="pic" column="pic" javaType="java.lang.String" jdbcType="varchar"/>
+        <result property="birthday" column="birthday" javaType="java.util.Date" jdbcType="datetime"/>
+        <result property="sex" column="sex" javaType="java.lang.String" jdbcType="varchar"/>
+        <result property="age" column="age" javaType="int" jdbcType="int"/>
+        <result property="nationality" column="nationality" javaType="java.lang.String" jdbcType="varchar"/>
+        <result property="aidedType" column="aided_type" javaType="java.lang.String" jdbcType="varchar"/>
+        <result property="status" column="status" javaType="java.lang.String" jdbcType="varchar"/>
+        <result property="remark" column="remark" javaType="java.lang.String" jdbcType="varchar"/>
+        <result property="bank" column="bank" javaType="java.lang.String" jdbcType="varchar"/>
+        <result property="account" column="account" javaType="java.lang.String" jdbcType="varchar"/>
+        <result property="payee" column="payee" javaType="java.lang.String" jdbcType="varchar"/>
+        <result property="contactMap" column="contact_map" javaType="java.lang.String" jdbcType="varchar"/>
+        <result property="extraMap" column="extra_map" javaType="java.lang.String" jdbcType="varchar"/>
+        <result property="peerTime" column="peer_time" javaType="java.util.Date" jdbcType="datetime"/>
+        <result property="payPeriod" column="pay_period" javaType="java.lang.String" jdbcType="varchar"/>
+        <result property="contributorId" column="contributor_id" javaType="long" jdbcType="bigint" nullValue="0"/>
+        <result property="createTime" column="create_time" javaType="java.util.Date" jdbcType="datetime"/>
+        <result property="modifyTime" column="modify_time" javaType="java.util.Date" jdbcType="datetime"/>
+
+        <result property="contributorBizId" column="contributor_biz_id" javaType="java.lang.String" jdbcType="varchar"/>
+        <result property="contributorName" column="contributor_name" javaType="java.lang.String" jdbcType="varchar"/>
+        <result property="contributorCard" column="identity_card" javaType="java.lang.String" jdbcType="varchar"/>
+    </resultMap>
+
+
+    <!--===================================-->
+    <!-- Insert语句 -->
+    <!--===================================-->
+    <insert id="PeerDAO.insertPeer">
+        <![CDATA[
+            insert into of_peer(
+            biz_id,aided_name,identify,pic,birthday,sex,age,nationality,status,aided_type,
+            remark,bank,account,payee,contact_map,extra_map,peer_time,pay_period,contributor_id,create_time,modify_time
+            ) values (
+            #bizId#,#aidedName#,#identify#,#pic#,#birthday#,#sex#,#age#,#nationality#,#status#,#aidedType#,#remark#,#bank#,
+            #account#,#payee#,#contactMap#,#extraMap#,#peerTime#,#payPeriod#,#contributorId#,now(),now()
+            )
+        ]]>
+
+        <selectKey resultClass="long" keyProperty="peerId">
+            select LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+
+    <update id="PeerDAO.updatePeer">
+        UPDATE of_peer
+        SET
+        biz_id=#bizId#,
+        aided_name=#aidedName#,
+        identify=#identify#,
+        pic=#pic#,
+        birthday=#birthday#,
+        sex=#sex#,
+        age=#age#,
+        nationality=#nationality#,
+        status=#status#,
+        aided_type=#aidedType#,
+        remark=#remark#,
+        bank=#bank#,
+        account=#account#,
+        payee=#payee#,
+        contact_map=#contactMap#,
+        extra_map=#extraMap#,
+        peer_time=#peerTime#,
+        pay_period=#payPeriod#,
+        contributor_id=#contributorId#,
+        modify_time = now()
+        WHERE
+        peer_id = #peerId#
+    </update>
+
+    <!--===================================-->
+    <!-- Select语句 -->
+    <!--===================================-->
+    <select id="PeerDAO.queryPeerById" parameterClass="Map" resultMap="RM-PEER">
+        select a.* ,b.biz_id as contributor_biz_id ,b.contributor_name,b.identity_card
+        from of_peer as a LEFT JOIN of_contributor as b
+        on a.contributor_id = b.contributor_id
+        WHERE peer_id = #peerId#
+    </select>
+
+    <select id="PeerDAO.queryPeerByPageNo" resultMap="RM-PEER">
+        select a.* ,b.biz_id as contributor_biz_id ,b.contributor_name,b.identity_card
+        from of_peer as a LEFT JOIN of_contributor as b
+        on a.contributor_id = b.contributor_id
+        <dynamic prepend="WHERE">
+            <isNotEmpty property="keyWord">
+                a.biz_id LIKE concat('%',#keyWord#,'%')
+                or a.aided_name LIKE concat('%',#keyWord#,'%')
+                or a.identify LIKE concat('%',#keyWord#,'%')
+                or a.status LIKE concat('%',#keyWord#,'%')
+                or b.biz_id LIKE concat('%',#keyWord#,'%')
+                or b.contributor_name LIKE concat('%',#keyWord#,'%')
+                or b.identity_card LIKE concat('%',#keyWord#,'%')
+            </isNotEmpty>
+        </dynamic>
+        limit #pageNo#,#size#
+    </select>
+
+</sqlMap>

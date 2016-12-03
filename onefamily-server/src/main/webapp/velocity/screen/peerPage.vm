@@ -1,0 +1,80 @@
+<div class="btn btn-sm btn-warning" data-toggle="modal"
+     data-target="#createModal" style="float: left;margin-right: 30px;">新增结对关系
+</div>
+#parse("/control/newContri.vm")
+
+<div class="input-group" style="width: 300px;display: inline-flex;">
+    <input class="form-control" placeholder="编号/姓名/身份证" value="$!{keyWord}">
+    <span class="input-group-btn">
+        <button class="btn btn-default J_search" type="button"">查找</button>
+    </span>
+</div>
+
+##翻页器
+<ul class="pagination" style="margin: 0px;float: right;font-size: 12px;">
+    <li>
+        <a href="/onefamily/peerPage.html?pageNo=$!{prev}&keyWord=$!{keyWord}" aria-label="Previous">
+            <span aria-hidden="true">上一页</span>
+        </a>
+    </li>
+    <li>
+        <a href="/onefamily/peerPage.html?pageNo=$!{curr}&keyWord=$!{keyWord}">$!{curr}</a>
+    </li>
+    <li>
+        <a href="/onefamily/peerPage.html?pageNo=$!{next}&keyWord=$!{keyWord}" aria-label="Next">
+            <span aria-hidden="true">下一页</span>
+        </a>
+    </li>
+</ul>
+
+
+<table class="table table-hover" style="font-size: 14px;">
+    <thead>
+    <tr>
+        <td>受助人编号</td>
+        <td>受助人姓名</td>
+        <td>受助人身份证</td>
+        <td>捐助人编号</td>
+        <td>捐助人姓名</td>
+        <td>捐助人身份证</td>
+        <td>累计受助金额</td>
+        <td>当前状态</td>
+        <td>操作</td>
+    </tr>
+    </thead>
+    <tbody>
+        #foreach($result in $resultList)
+        <tr>
+            <td id="td_padding">$!{result.bizId}</td>
+            <td id="td_padding">$!{result.aidedName}</td>
+            <td id="td_padding">$!{result.identify}</td>
+            <td id="td_padding">$!{result.contributorBizId}</td>
+            <td id="td_padding">$!{result.contributorName}</td>
+            <td id="td_padding">$!{result.contributorCard}</td>
+            <td id="td_padding">$!{result.totalAidedAmount}</td>
+            <td id="td_padding">$!{result.status}</td>
+            <td>
+                <div class="btn btn-sm btn-primary" data-toggle="modal"
+                     data-target="#detailModal_$!{result.peerId}">详情
+                </div>
+            ## login model
+                #parse("/control/peerModel.vm")
+            </td>
+        </tr>
+        #end
+    </tbody>
+</table>
+
+<script type="text/javascript">
+
+    $(function () {
+        $(".J_save").click(function () {
+            $(this).parent().parent().find("form").submit();
+        });
+
+        $(".J_search").click(function () {
+            redirectUrl('?keyWord=' + $(this).parent().parent().find('input').val());
+        });
+    })
+
+</script>

@@ -17,6 +17,6 @@ public interface ContributorDAO {
 
     public ContributorDO queryContributorById(long contributorId);
 
-    public List<ContributorDO> queryContributorByPageNo(int pageNo, int size);
+    public List<ContributorDO> queryContributorByPageNo(int pageNo, int size, String keyWord);
 
 }

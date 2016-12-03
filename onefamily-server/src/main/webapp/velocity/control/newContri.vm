@@ -1,0 +1,256 @@
+<!-- Modal -->
+<div class="modal fade in" id="newContriModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">×</span></button>
+                <h4 class="modal-title" id="myModalLabel">新增捐助人 -- 基本信息</h4>
+            </div>
+
+            <div class="modal-body" style="height: 2300px;">
+                <form class="form-horizontal" action="/onefamily/newContri.from" accept-charset="GBK">
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">编号</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="bizId" class="form-control" value="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">姓名</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="contributorName" class="form-control" value="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">原始编号</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="originalBizId" class="form-control" value="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">人员类型</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="type" class="form-control" value="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">身份证</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="identityCard" class="form-control" value="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">性别</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="sex" class="form-control" value="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">年龄</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="age" class="form-control" value="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">名族</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="nationality" class="form-control" value="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">状态</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="status" class="form-control" value="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">星级</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="level" class="form-control" value="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">备注</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="remark" class="form-control" value="">
+                        </div>
+                    </div>
+
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myModalLabel">联系方式</h4>
+                    </div>
+                    <div class="form-group" style="margin-top: 20px;">
+                        <label class="col-sm-2 control-label">邮箱</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="contactMap" class="form-control" value="">
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-top: 20px;">
+                        <label class="col-sm-2 control-label">微信号</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="contactMap" class="form-control" value="">
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-top: 20px;">
+                        <label class="col-sm-2 control-label">电话</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="contactMap" class="form-control" value="">
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-top: 20px;">
+                        <label class="col-sm-2 control-label">QQ号</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="contactMap" class="form-control" value="">
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-top: 20px;">
+                        <label class="col-sm-2 control-label">家庭地址</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="contactMap" class="form-control" value="">
+                        </div>
+                    </div>
+
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myModalLabel">其他扩展信息</h4>
+                    </div>
+                    <div class="form-group" style="margin-top: 20px;">
+                        <label class="col-sm-2 control-label">参加益家活动项目</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="extraMap" class="form-control" value="">
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-top: 20px;">
+                        <label class="col-sm-2 control-label">参加活动时间</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="extraMap" class="form-control" value="">
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-top: 20px;">
+                        <label class="col-sm-2 control-label">学校名称</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="extraMap" class="form-control" value="">
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-top: 20px;">
+                        <label class="col-sm-2 control-label">加入约上群时间</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="extraMap" class="form-control" value="">
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-top: 20px;">
+                        <label class="col-sm-2 control-label">公益经历时间</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="extraMap" class="form-control" value="">
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-top: 20px;">
+                        <label class="col-sm-2 control-label">特长</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="extraMap" class="form-control" value="">
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-top: 20px;">
+                        <label class="col-sm-2 control-label">实际安排志愿岗位</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="extraMap" class="form-control" value="">
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-top: 20px;">
+                        <label class="col-sm-2 control-label">公益经历组织</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="extraMap" class="form-control" value="">
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-top: 20px;">
+                        <label class="col-sm-2 control-label">是否是注册志愿者</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="extraMap" class="form-control" value="">
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-top: 20px;">
+                        <label class="col-sm-2 control-label">加入益家志愿者时间</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="extraMap" class="form-control" value="">
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-top: 20px;">
+                        <label class="col-sm-2 control-label">注册志愿者时间</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="extraMap" class="form-control" value="">
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-top: 20px;">
+                        <label class="col-sm-2 control-label">单位</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="extraMap" class="form-control" value="">
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-top: 20px;">
+                        <label class="col-sm-2 control-label">是否有公益经历</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="extraMap" class="form-control" value="">
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-top: 20px;">
+                        <label class="col-sm-2 control-label">是否服从分配岗位</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="extraMap" class="form-control" value="">
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-top: 20px;">
+                        <label class="col-sm-2 control-label">活动评定星级</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="extraMap" class="form-control" value="">
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-top: 20px;">
+                        <label class="col-sm-2 control-label">志愿岗位</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="extraMap" class="form-control" value="">
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-top: 20px;">
+                        <label class="col-sm-2 control-label">职务</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="extraMap" class="form-control" value="">
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-top: 20px;">
+                        <label class="col-sm-2 control-label">参加活动内容</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="extraMap" class="form-control" value="">
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-top: 20px;">
+                        <label class="col-sm-2 control-label">公益经历内容</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="extraMap" class="form-control" value="">
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-top: 20px;">
+                        <label class="col-sm-2 control-label">在校年级</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="extraMap" class="form-control" value="">
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-top: 20px;">
+                        <label class="col-sm-2 control-label">行业</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="extraMap" class="form-control" value="">
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary J_save">新建</button>
+            </div>
+
+        </div>
+    </div>
+</div>

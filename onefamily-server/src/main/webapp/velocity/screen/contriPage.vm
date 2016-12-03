@@ -1,17 +1,27 @@
-<div class="btn btn-sm btn-success">新增捐助人</div>
+<div class="btn btn-sm btn-success" data-toggle="modal"
+     data-target="#newContriModal" style="float: left;margin-right: 30px;">新增捐助人
+</div>
+#parse("/control/newContri.vm")
+
+<div class="input-group" style="width: 300px;display: inline-flex;">
+    <input class="form-control" placeholder="编号/姓名/状态/类型/身份证" value="$!{keyWord}">
+    <span class="input-group-btn">
+        <button class="btn btn-default J_search" type="button"">查找</button>
+    </span>
+</div>
 
 ##翻页器
 <ul class="pagination" style="margin: 0px;float: right;font-size: 12px;">
     <li>
-        <a href="/onefamily/contriPage.html?pageNo=$!{prev}" aria-label="Previous">
+        <a href="/onefamily/contriPage.html?pageNo=$!{prev}&keyWord=$!{keyWord}" aria-label="Previous">
             <span aria-hidden="true">上一页</span>
         </a>
     </li>
     <li>
-        <a href="/onefamily/contriPage.html?pageNo=$!{curr}">$!{curr}</a>
+        <a href="/onefamily/contriPage.html?pageNo=$!{curr}&keyWord=$!{keyWord}">$!{curr}</a>
     </li>
     <li>
-        <a href="/onefamily/contriPage.html?pageNo=$!{next}" aria-label="Next">
+        <a href="/onefamily/contriPage.html?pageNo=$!{next}&keyWord=$!{keyWord}" aria-label="Next">
             <span aria-hidden="true">下一页</span>
         </a>
     </li>
@@ -33,7 +43,7 @@
     </tr>
     </thead>
     <tbody>
-        #foreach($contri in $contriList)
+        #foreach($contri in $resultList)
         <tr>
             <td id="td_padding">$!{contri.bizId}</td>
             <td id="td_padding">$!{contri.contributorName}</td>
@@ -56,9 +66,15 @@
 </table>
 
 <script type="text/javascript">
+
     $(function () {
         $(".J_save").click(function () {
             $(this).parent().parent().find("form").submit();
         });
+
+        $(".J_search").click(function () {
+            redirectUrl('?keyWord=' + $(this).parent().parent().find('input').val());
+        });
     })
+
 </script>

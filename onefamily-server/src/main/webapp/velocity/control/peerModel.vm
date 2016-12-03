@@ -1,0 +1,143 @@
+<!-- Modal -->
+<div class="modal fade" id="detailModal_$!{result.peerId}" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+        ##            基本信息
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">结对管理详情 -- 基本信息</h4>
+            </div>
+
+            <div class="modal-body" style="height: 1725px;">
+                <form class="form-horizontal" action="/onefamily/savePeer.from" accept-charset="GBK">
+                    <input type="hidden" name="peerId" class="form-control" value="$!{result.peerId}">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">编号</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="bizId" class="form-control" value="$!{result.bizId}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">受助人姓名</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="aidedName" class="form-control"
+                                   value="$!{result.aidedName}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">受助人身份证</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="identify" class="form-control" value="$!{result.identify}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">头像</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="pic" class="form-control" value="$!{result.pic}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">生日</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="birthday" class="form-control" value="$!{result.birthday}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">性别</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="sex" class="form-control" value="$!{result.sex}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">年龄</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="age" class="form-control" value="$!{result.age}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">民族</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="nationality" class="form-control" value="$!{result.nationality}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">结对状态</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="status" class="form-control" value="$!{result.status}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">助学方式</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="aidedType" class="form-control" value="$!{result.aidedType}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">备注</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="remark" class="form-control" value="$!{result.remark}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">收款银行</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="bank" class="form-control" value="$!{result.bank}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">收款账号</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="account" class="form-control" value="$!{result.account}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">收款人姓名</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="payee" class="form-control" value="$!{result.payee}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">结对时间</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="peerTime" class="form-control" value="$!{result.peerTime}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">预计捐款周期</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="payPeriod" class="form-control" value="$!{result.payPeriod}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">捐助人</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="contributorId" class="form-control"
+                                   value="$!{result.contributorId}">
+                        </div>
+                    </div>
+
+                ## 联系方式大字段
+                    #foreach($entry in $result.contactMapObj.entrySet())
+                        <div class="form-group" style="margin-top: 20px;">
+                            <label class="col-sm-2 control-label">$entry.key</label>
+                            <div class="col-sm-10">
+                                <input type="text" name="contactMap" class="form-control"
+                                       value="$entry.value">
+                            </div>
+                        </div>
+                    #end
+
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary J_save">保存</button>
+            </div>
+
+        </div>
+    </div>
+</div>

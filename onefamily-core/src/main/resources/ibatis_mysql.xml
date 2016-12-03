@@ -8,5 +8,6 @@
 
     <sqlMap resource="sqlmap/of_system_user_sql_map.xml"/>
     <sqlMap resource="sqlmap/of_contributor_sql_map.xml"/>
+    <sqlMap resource="sqlmap/of_peer_sql_map.xml"/>
 
 </sqlMapConfig>

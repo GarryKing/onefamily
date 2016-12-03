@@ -18,11 +18,15 @@ public class ContributorServiceImpl implements ContributorService {
     @Autowired
     private ContributorDAO contributorDAO;
 
+    public void insertContributor(ContributorDO contributorDO) {
+        contributorDAO.insertContributor(contributorDO);
+    }
+
     public void updateContributor(ContributorDO contributorDO) {
         contributorDAO.updateContributor(contributorDO);
     }
 
-    public List<ContributorDO> queryContributorByPageNo(int pageNo, int size) {
-        return contributorDAO.queryContributorByPageNo(pageNo, size);
+    public List<ContributorDO> queryContributorByPageNo(int pageNo, int size, String keyWord) {
+        return contributorDAO.queryContributorByPageNo(pageNo, size, keyWord);
     }
 }
