@@ -42,9 +42,9 @@ public class PeerAction extends BaseScreen {
         if (!isLogin(request)) return new ModelAndView("redirect:/onefamily/index.html");
         try {
             peerService.updatePeer(assemblePeerDO(request, response));
-            request.getSession().setAttribute("message", "信息已经保存成功！");
+            request.getSession().setAttribute("message", request.getParameter("aidedName") + " 的信息已经保存成功！");
         } catch (Exception e) {
-            request.getSession().setAttribute("message", "的信息保存失败，请检查输入内容！！！");
+            request.getSession().setAttribute("message", request.getParameter("aidedName") + " 的信息保存失败，请检查输入内容！！！");
         }
         return new ModelAndView("redirect:/onefamily/peerPage.html");
     }
@@ -54,9 +54,9 @@ public class PeerAction extends BaseScreen {
         if (!isLogin(request)) return new ModelAndView("redirect:/onefamily/index.html");
         try {
             peerService.insertPeer(assemblePeerDO(request, response));
-            request.getSession().setAttribute("message", "信息已经创建成功！");
+            request.getSession().setAttribute("message", request.getParameter("aidedName") + " 的信息已经创建成功！");
         } catch (Exception e) {
-            request.getSession().setAttribute("message", "信息创建失败，请检查输入内容！！！");
+            request.getSession().setAttribute("message", request.getParameter("aidedName") + " 的信息创建失败，请检查输入内容！！！");
         }
         return new ModelAndView("redirect:/onefamily/peerPage.html");
     }

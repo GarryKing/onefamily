@@ -1,10 +1,10 @@
-<div class="btn btn-sm btn-warning" data-toggle="modal"
-     data-target="#newModal" style="float: left;margin-right: 30px;">新增结对关系
+<div class="btn btn-sm btn-info" data-toggle="modal"
+     data-target="#newModal" style="float: left;margin-right: 30px;">新增捐助流水
 </div>
-#parse("/control/newPeer.vm")
+#parse("/control/newDonate.vm")
 
 <div class="input-group" style="width: 300px;display: inline-flex;">
-    <input class="form-control" placeholder="编号/姓名/身份证/结对状态" value="$!{keyWord}">
+    <input class="form-control" placeholder="捐助人/受助人/跟踪人/编号/捐助类型" value="$!{keyWord}">
     <span class="input-group-btn">
         <button class="btn btn-default J_search" type="button"">查找</button>
     </span>
@@ -13,15 +13,15 @@
 ##翻页器
 <ul class="pagination" style="margin: 0px;float: right;font-size: 12px;">
     <li>
-        <a href="/onefamily/peerPage.html?pageNo=$!{prev}&keyWord=$!{keyWord}" aria-label="Previous">
+        <a href="/onefamily/donatePage.html?pageNo=$!{prev}&keyWord=$!{keyWord}" aria-label="Previous">
             <span aria-hidden="true">上一页</span>
         </a>
     </li>
     <li>
-        <a href="/onefamily/peerPage.html?pageNo=$!{curr}&keyWord=$!{keyWord}">$!{curr}</a>
+        <a href="/onefamily/donatePage.html?pageNo=$!{curr}&keyWord=$!{keyWord}">$!{curr}</a>
     </li>
     <li>
-        <a href="/onefamily/peerPage.html?pageNo=$!{next}&keyWord=$!{keyWord}" aria-label="Next">
+        <a href="/onefamily/donatePage.html?pageNo=$!{next}&keyWord=$!{keyWord}" aria-label="Next">
             <span aria-hidden="true">下一页</span>
         </a>
     </li>
@@ -31,34 +31,38 @@
 <table class="table table-hover" style="font-size: 14px;">
     <thead>
     <tr>
-        <td>受助人编号</td>
-        <td>受助人姓名</td>
-        <td>受助人身份证</td>
+        <td>捐助流水</td>
         <td>捐助人编号</td>
         <td>捐助人姓名</td>
-        <td>捐助人身份证</td>
-        <td>累计受助金额</td>
-        <td>当前状态</td>
+        <td>受助人编号</td>
+        <td>受助人姓名</td>
+        <td>捐助类型</td>
+        <td>汇款金额</td>
+        <td>汇款日期</td>
+        <td>到账情况</td>
+        <td>跟踪人</td>
         <td>操作</td>
     </tr>
     </thead>
     <tbody>
         #foreach($result in $resultList)
         <tr>
-            <td id="td_padding">$!{result.bizId}</td>
-            <td id="td_padding">$!{result.aidedName}</td>
-            <td id="td_padding">$!{result.identify}</td>
+            <td id="td_padding">$!{result.serialId}</td>
             <td id="td_padding">$!{result.contributorBizId}</td>
             <td id="td_padding">$!{result.contributorName}</td>
-            <td id="td_padding">$!{result.contributorCard}</td>
-            <td id="td_padding">$!{result.totalAidedAmount}</td>
-            <td id="td_padding">$!{result.status}</td>
+            <td id="td_padding">$!{result.aidedBizId}</td>
+            <td id="td_padding">$!{result.aidedName}</td>
+            <td id="td_padding">$!{result.type}</td>
+            <td id="td_padding">$!{result.payAmount}</td>
+            <td id="td_padding">$!{result.payTime}</td>
+            <td id="td_padding">$!{result.accountStatus}</td>
+            <td id="td_padding">$!{result.feedbacker}</td>
             <td>
                 <div class="btn btn-sm btn-primary" data-toggle="modal"
-                     data-target="#detailModal_$!{result.peerId}">详情
+                     data-target="#detailModal_$!{result.donateId}">详情
                 </div>
             ## login model
-                #parse("/control/peerModel.vm")
+                #parse("/control/donateModel.vm")
             </td>
         </tr>
         #end

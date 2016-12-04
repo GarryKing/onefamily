@@ -1,0 +1,90 @@
+<div class="btn btn-sm btn-primary" data-toggle="modal"
+     data-target="#newModal" style="float: left;margin-right: 30px;">新增捐助流水
+</div>
+#parse("/control/newAct.vm")
+
+<div class="input-group" style="width: 300px;display: inline-flex;">
+    <input class="form-control" placeholder="编号/名称/参与人" value="$!{keyWord}">
+    <span class="input-group-btn">
+        <button class="btn btn-default J_search" type="button"">查找</button>
+    </span>
+</div>
+
+##翻页器
+<ul class="pagination" style="margin: 0px;float: right;font-size: 12px;">
+    <li>
+        <a href="/onefamily/actPage.html.html?pageNo=$!{prev}&keyWord=$!{keyWord}" aria-label="Previous">
+            <span aria-hidden="true">上一页</span>
+        </a>
+    </li>
+    <li>
+        <a href="/onefamily/actPage.html?pageNo=$!{curr}&keyWord=$!{keyWord}">$!{curr}</a>
+    </li>
+    <li>
+        <a href="/onefamily/actPage.html?pageNo=$!{next}&keyWord=$!{keyWord}" aria-label="Next">
+            <span aria-hidden="true">下一页</span>
+        </a>
+    </li>
+</ul>
+
+
+<table class="table table-hover" style="font-size: 14px;">
+    <thead>
+    <tr>
+        <td>活动编号</td>
+        <td>活动名称</td>
+        <td>开始时间</td>
+        <td>结束时间</td>
+        <td>参与人编号</td>
+        <td>参与人姓名</td>
+        <td>参与角色</td>
+        <td>操作</td>
+    </tr>
+    </thead>
+    <tbody>
+        #foreach($result in $resultList)
+        <tr>
+            #if( !$result.participantList || $result.participantList.size() ==0)
+                <td id="td_padding">$!{result.actBizId}</td>
+                <td id="td_padding">$!{result.actName}</td>
+                <td id="td_padding">$!{result.startTime}</td>
+                <td id="td_padding">$!{result.endTime}</td>
+                <td id="td_padding"></td>
+                <td id="td_padding"></td>
+                <td id="td_padding"></td>
+            #else
+                #foreach($part in $result.participantList)
+                    <td id="td_padding">$!{result.actBizId}</td>
+                    <td id="td_padding">$!{result.actName}</td>
+                    <td id="td_padding">$!{result.startTime}</td>
+                    <td id="td_padding">$!{result.endTime}</td>
+                    <td id="td_padding">$!{part.contributorBizId}</td>
+                    <td id="td_padding">$!{part.contributorName}</td>
+                    <td id="td_padding">$!{part.role}</td>
+                #end
+            #end
+            <td>
+                <div class="btn btn-sm btn-primary" data-toggle="modal"
+                     data-target="#detailModal_$!{result.actId}">详情
+                </div>
+            ## login model
+                #parse("/control/actModel.vm")
+            </td>
+        </tr>
+        #end
+    </tbody>
+</table>
+
+<script type="text/javascript">
+
+    $(function () {
+        $(".J_save").click(function () {
+            $(this).parent().parent().find("form").submit();
+        });
+
+        $(".J_search").click(function () {
+            redirectUrl('?keyWord=' + $(this).parent().parent().find('input').val());
+        });
+    })
+
+</script>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="onefamily">
+
+    <resultMap id="RM-ACT" class="name.elegant.onefamily.client.dataobject.onefamily.ActDO">
+        <result property="actId" column="actId" javaType="long" jdbcType="bigint" nullValue="0"/>
+        <result property="actBizId" column="actBizId" javaType="java.lang.String" jdbcType="varchar"/>
+        <result property="actName" column="actName" javaType="java.lang.String" jdbcType="varchar"/>
+        <result property="participantListStr" column="participantListStr" javaType="java.lang.String"
+                jdbcType="varchar"/>
+        <result property="startTime" column="startTime" javaType="java.util.Date" jdbcType="datetime"/>
+        <result property="endTime" column="endTime" javaType="java.util.Date" jdbcType="datetime"/>
+        <result property="createTime" column="createTime" javaType="java.util.Date" jdbcType="datetime"/>
+        <result property="modifyTime" column="modifyTime" javaType="java.util.Date" jdbcType="datetime"/>
+    </resultMap>
+
+    <!--===================================-->
+    <!-- Insert语句 -->
+    <!--===================================-->
+    <insert id="ActDAO.insertAct">
+        <![CDATA[
+            insert into of_act(
+            actBizId,actName,participantListStr,startTime,endTime,createTime,modifyTime
+            ) values (
+            #actBizId#,#actName#,#participantListStr#,#startTime#,#endTime#,now(),now()
+            )
+        ]]>
+
+        <selectKey resultClass="long" keyProperty="actId">
+            select LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+
+    <update id="ActDAO.updateAct">
+        UPDATE of_act
+        SET
+        actBizId=#actBizId#,
+        actName=#actName#,
+        participantListStr=#participantListStr#,
+        startTime=#startTime#,
+        endTime=#endTime#,
+        modifyTime = now()
+        WHERE
+        actId = #actId#
+    </update>
+
+    <!--===================================-->
+    <!-- Select语句 -->
+    <!--===================================-->
+    <select id="ActDAO.queryActById" parameterClass="Map" resultMap="RM-ACT">
+        select *
+        from of_act
+        WHERE actId = #actId#
+    </select>
+
+    <select id="ActDAO.queryActByPageNo" resultMap="RM-ACT">
+        select *
+        from of_act
+        <dynamic prepend="WHERE">
+            <isNotEmpty property="keyWord">
+                actBizId  LIKE concat('%',#keyWord#,'%')
+                or actName LIKE concat('%',#keyWord#,'%')
+                or participantListStr LIKE concat('%',#keyWord#,'%')
+            </isNotEmpty>
+        </dynamic>
+        limit #pageNo#,#size#
+    </select>
+
+</sqlMap>

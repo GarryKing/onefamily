@@ -1,0 +1,110 @@
+<!-- Modal -->
+<div class="modal fade" id="newModal" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document" style="width: 630px;">
+        <div class="modal-content">
+
+        ##            基本信息
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">新增捐助流水详情</h4>
+            </div>
+
+            <div class="modal-body" style="height: 650px;">
+                <form class="form-horizontal" action="/onefamily/newDonate.from" accept-charset="GBK">
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">流水号</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="serialId" class="form-control" value="$!{result.serialId}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">捐助人编号</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="contributorBizId" class="form-control"
+                                   value="$!{result.contributorBizId}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">捐助人姓名</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="contributorName" class="form-control"
+                                   value="$!{result.contributorName}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">受助人编号</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="aidedBizId" class="form-control" value="$!{result.aidedBizId}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">受助人姓名</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="aidedName" class="form-control" value="$!{result.aidedName}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">捐助类型</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="type" class="form-control" value="$!{result.type}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">汇款金额</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="payAmount" class="form-control" value="$!{result.payAmount}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">汇款时间</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="payTime" class="form-control" value="$!{result.payTime}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">到账情况</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="accountStatus" class="form-control"
+                                   value="$!{result.accountStatus}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">跟踪人</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="feedbacker" class="form-control" value="$!{result.feedbacker}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">跟踪时间</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="feedbackTime" class="form-control" value="$!{result.feedbackTime}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">跟踪内容</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="feedbackContent" class="form-control"
+                                   value="$!{result.feedbackContent}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">备注</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="remark" class="form-control" value="$!{result.remark}">
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary J_save">新增</button>
+            </div>
+
+        </div>
+    </div>
+</div>

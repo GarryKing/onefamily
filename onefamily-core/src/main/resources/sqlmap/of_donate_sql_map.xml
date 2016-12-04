@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="onefamily">
+
+    <resultMap id="RM-DONATE" class="name.elegant.onefamily.client.dataobject.onefamily.DonateDO">
+        <result property="donateId" column="donateId" javaType="long" jdbcType="bigint" nullValue="0"/>
+        <result property="serialId" column="serialId" javaType="java.lang.String" jdbcType="varchar"/>
+        <result property="contributorId" column="contributorId" javaType="long" jdbcType="varchar"/>
+        <result property="peerId" column="peerId" javaType="long" jdbcType="varchar"/>
+        <result property="type" column="type" javaType="java.lang.String" jdbcType="varchar"/>
+        <result property="payAmount" column="payAmount" javaType="java.lang.String" jdbcType="varchar"/>
+        <result property="payTime" column="payTime" javaType="java.util.Date" jdbcType="datetime"/>
+        <result property="accountStatus" column="accountStatus" javaType="java.lang.String" jdbcType="varchar"/>
+        <result property="feedbackContent" column="feedbackContent" javaType="java.lang.String" jdbcType="varchar"/>
+        <result property="feedbackTime" column="feedbackTime" javaType="java.util.Date" jdbcType="datetime"/>
+        <result property="feedbacker" column="feedbacker" javaType="java.lang.String" jdbcType="varchar"/>
+        <result property="remark" column="remark" javaType="java.lang.String" jdbcType="varchar"/>
+        <result property="createTime" column="createTime" javaType="java.util.Date" jdbcType="datetime"/>
+        <result property="modifyTime" column="modifyTime" javaType="java.util.Date" jdbcType="datetime"/>
+
+        <result property="contributorBizId" column="contributorBizId" javaType="java.lang.String" jdbcType="varchar"/>
+        <result property="contributorName" column="contributorName" javaType="java.lang.String" jdbcType="varchar"/>
+        <result property="contributorCard" column="contributorCard" javaType="java.lang.String" jdbcType="varchar"/>
+        <result property="aidedBizId" column="aidedBizId" javaType="java.lang.String" jdbcType="varchar"/>
+        <result property="aidedName" column="aidedName" javaType="java.lang.String" jdbcType="varchar"/>
+    </resultMap>
+
+
+    <!--===================================-->
+    <!-- Insert语句 -->
+    <!--===================================-->
+    <insert id="DonateDAO.insertDonate">
+        <![CDATA[
+            insert into of_donate(
+            serialId,contributorId,peerId,type,payAmount,payTime,accountStatus,feedbackContent,feedbackTime,
+            feedbacker,remark,createTime,modifyTime
+            ) values (
+            #serialId#,#contributorId#,#peerId#,#type#,#payAmount#,#payTime#,#accountStatus#,#feedbackContent#,#feedbackTime#,
+            #feedbacker#,#remark#,now(),now()
+            )
+        ]]>
+
+        <selectKey resultClass="long" keyProperty="donateId">
+            select LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+
+    <update id="DonateDAO.updateDonate">
+        UPDATE of_donate
+        SET
+        serialId=#serialId#,
+        contributorId=#contributorId#,
+        peerId=#peerId#,
+        type=#type#,
+        payAmount=#payAmount#,
+        payTime=#payTime#,
+        accountStatus=#accountStatus#,
+        feedbackContent=#feedbackContent#,
+        feedbackTime=#feedbackTime#,
+        feedbacker=#feedbacker#,
+        remark=#remark#,
+        contributorId=#contributorId#,
+        modifyTime = now()
+        WHERE
+        donateId = #donateId#
+    </update>
+
+    <!--===================================-->
+    <!-- Select语句 -->
+    <!--===================================-->
+    <select id="DonateDAO.queryDonateById" parameterClass="Map" resultMap="RM-DONATE">
+        select
+        a.* ,
+        b.biz_id as contributorBizId, b.contributor_name as contributorName, b.identity_card as contributorCard,
+        c.biz_id as aidedBizId, c.aided_name as aidedName
+        from of_donate as a LEFT JOIN of_contributor as b
+        on a.contributorId = b.contributor_id
+        LEFT JOIN of_peer as c
+        on a.peerId = c.peer_id
+        WHERE donateId = #donateId#
+    </select>
+
+    <select id="DonateDAO.queryDonateByPageNo" resultMap="RM-DONATE">
+        select
+        a.* ,
+        b.biz_id as contributorBizId, b.contributor_name as contributorName, b.identity_card as contributorCard,
+        c.biz_id as aidedBizId, c.aided_name as aidedName
+        from of_donate as a LEFT JOIN of_contributor as b
+        on a.contributorId = b.contributor_id
+        LEFT JOIN of_peer as c
+        on a.peerId = c.peer_id
+        <dynamic prepend="WHERE">
+            <isNotEmpty property="keyWord">
+                b.contributor_name LIKE concat('%',#keyWord#,'%')
+                or b.biz_id LIKE concat('%',#keyWord#,'%')
+                or a.feedbacker LIKE concat('%',#keyWord#,'%')
+                or a.type LIKE concat('%',#keyWord#,'%')
+                or c.biz_id LIKE concat('%',#keyWord#,'%')
+                or c.aided_name LIKE concat('%',#keyWord#,'%')
+            </isNotEmpty>
+        </dynamic>
+        limit #pageNo#,#size#
+    </select>
+
+</sqlMap>

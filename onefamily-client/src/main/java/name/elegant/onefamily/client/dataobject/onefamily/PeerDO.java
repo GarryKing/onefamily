@@ -65,6 +65,8 @@ public class PeerDO {
 
     private String contributorCard;
 
+    private long totalAidedAmount;
+
     public long getPeerId() {
         return peerId;
     }
@@ -191,7 +193,7 @@ public class PeerDO {
 
     public Map<String, String> getContactMapObj() {
         JSONObject contactJSON = JSON.parseObject(contactMap);
-        Map<String, String> result = new HashMap<String, String>();
+        Map<String, String> result = new LinkedHashMap<String, String>();
         for (String contactKey : CONTACT_KEY_MAP) {
             String value = (contactJSON == null || contactJSON.get(contactKey) == null) ? "" : contactJSON.get(contactKey) + "";
             result.put(contactKey, value);
@@ -274,4 +276,13 @@ public class PeerDO {
     public void setContributorCard(String contributorCard) {
         this.contributorCard = contributorCard;
     }
+
+    public long getTotalAidedAmount() {
+        return totalAidedAmount;
+    }
+
+    public void setTotalAidedAmount(long totalAidedAmount) {
+        this.totalAidedAmount = totalAidedAmount;
+    }
+
 }

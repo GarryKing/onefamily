@@ -15,7 +15,7 @@
                     <li class="#if(${donatePage})active#end"><a href="/onefamily/donatePage.html">捐助管理</a></li>
                     <li class="#if(${actPage})active#end"><a href="/onefamily/actPage.html">活动管理</a></li>
                     <li class="#if(${operatePage})active#end"><a href="/onefamily/operatePage.html">操作记录</a></li>
-                    <li class="#if(${systemPage})active#end"><a href="/onefamily/systemPage.html">系统管理</a></li>
+##                    <li class="#if(${systemPage})active#end"><a href="/onefamily/systemPage.html">系统管理</a></li>
                 </ul>
             #end
 
