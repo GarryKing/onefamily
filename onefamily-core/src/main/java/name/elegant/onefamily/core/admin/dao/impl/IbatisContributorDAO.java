@@ -28,6 +28,10 @@ public class IbatisContributorDAO extends BaseDao implements ContributorDAO {
         return (ContributorDO) this.getSqlMapClientTemplate().queryForObject("ContributorDAO.queryContributorById", contributorId);
     }
 
+    public ContributorDO queryContributorByBizId(String bizId) {
+        return (ContributorDO) this.getSqlMapClientTemplate().queryForObject("ContributorDAO.queryContributorByBizId", bizId);
+    }
+
     @SuppressWarnings("unchecked")
     public List<ContributorDO> queryContributorByPageNo(int pageNo, int size, String keyWord) {
         Map<String, Object> param = new HashMap<String, Object>();

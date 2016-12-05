@@ -27,6 +27,10 @@ public class IbatisPeerDAO extends BaseDao implements PeerDAO {
         return (PeerDO) this.getSqlMapClientTemplate().queryForObject("PeerDAO.queryPeerById", peerId);
     }
 
+    public PeerDO queryPeerByBizId(String bizId) {
+        return (PeerDO) this.getSqlMapClientTemplate().queryForObject("PeerDAO.queryPeerByBizId", bizId);
+    }
+
     public List<PeerDO> queryPeerByPageNo(int pageNo, int size, String keyWord) {
         Map<String, Object> param = new HashMap<String, Object>();
         param.put("pageNo", (pageNo - 1) * size);

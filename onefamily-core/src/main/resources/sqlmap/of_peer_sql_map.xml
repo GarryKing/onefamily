@@ -88,6 +88,13 @@
         WHERE peer_id = #peerId#
     </select>
 
+    <select id="PeerDAO.queryPeerByBizId" parameterClass="Map" resultMap="RM-PEER">
+        select a.* ,b.biz_id as contributor_biz_id ,b.contributor_name,b.identity_card
+        from of_peer as a LEFT JOIN of_contributor as b
+        on a.contributor_id = b.contributor_id
+        WHERE biz_id = #bizId#
+    </select>
+
     <select id="PeerDAO.queryPeerByPageNo" resultMap="RM-PEER">
         select a.* ,b.biz_id as contributor_biz_id ,b.contributor_name,b.identity_card
         from of_peer as a LEFT JOIN of_contributor as b

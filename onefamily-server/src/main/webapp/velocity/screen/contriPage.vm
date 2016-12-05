@@ -6,7 +6,7 @@
 <div class="input-group" style="width: 300px;display: inline-flex;">
     <input class="form-control" placeholder="编号/姓名/状态/类型/身份证" value="$!{keyWord}">
     <span class="input-group-btn">
-        <button class="btn btn-default J_search" type="button"">查找</button>
+        <button class="btn btn-success J_search" type="button"">查找</button>
     </span>
 </div>
 
@@ -54,7 +54,7 @@
             <td id="td_padding">$!{contri.totalActTime}</td>
             <td id="td_padding">$!{contri.level}</td>
             <td>
-                <div class="btn btn-sm btn-primary" data-toggle="modal"
+                <div class="btn btn-sm btn-success" data-toggle="modal"
                      data-target="#contriModal_$!{contri.contributorId}">详情
                 </div>
             ## login model

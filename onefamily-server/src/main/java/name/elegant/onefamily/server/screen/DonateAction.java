@@ -41,8 +41,12 @@ public class DonateAction extends BaseScreen {
     public ModelAndView saveFrom(HttpServletRequest request, HttpServletResponse response) {
         if (!isLogin(request)) return new ModelAndView("redirect:/onefamily/index.html");
         try {
-            donateService.updateDonate(assembleDO(request, response));
-            request.getSession().setAttribute("message", request.getParameter("serialId") + " 的信息已经保存成功！");
+            String message = donateService.updateDonate(assembleDO(request, response));
+            if (StringUtil.isBlank(message)) {
+                request.getSession().setAttribute("message", request.getParameter("serialId") + " 的信息已经保存成功！");
+            } else {
+                request.getSession().setAttribute("message", message);
+            }
         } catch (Exception e) {
             request.getSession().setAttribute("message", request.getParameter("serialId") + " 的信息保存失败，请检查输入内容！！！");
         }
@@ -63,7 +67,8 @@ public class DonateAction extends BaseScreen {
 
     private DonateDO assembleDO(HttpServletRequest request, HttpServletResponse response) {
         String donateIdStr = request.getParameter("donateId");
-        String contributorIdStr = request.getParameter("contributorId");
+        String contributorBizId = request.getParameter("contributorBizId");
+        String aidedBizId = request.getParameter("aidedBizId");
         String serialId = request.getParameter("serialId");
         String type = request.getParameter("type");
         String payAmount = request.getParameter("payAmount");
@@ -76,7 +81,8 @@ public class DonateAction extends BaseScreen {
 
         DonateDO target = new DonateDO();
         target.setDonateId(StringUtil.isBlank(donateIdStr) ? 0 : Long.parseLong(donateIdStr));
-        if (!StringUtil.isBlank(contributorIdStr)) target.setContributorId(Long.parseLong(contributorIdStr));
+        target.setContributorBizId(contributorBizId);
+        target.setAidedBizId(aidedBizId);
         target.setSerialId(serialId);
         target.setType(type);
         target.setPayAmount(payAmount);

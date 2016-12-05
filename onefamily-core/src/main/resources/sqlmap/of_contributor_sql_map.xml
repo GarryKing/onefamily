@@ -73,6 +73,13 @@
         WHERE contributor_id=#contributorId#
     </select>
 
+    <select id="ContributorDAO.queryContributorByBizId" parameterClass="String" resultMap="RM-CONTRIBUTOR">
+        SELECT
+        *
+        FROM of_contributor
+        WHERE biz_id=#bizId#
+    </select>
+
     <select id="ContributorDAO.queryContributorByPageNo" resultMap="RM-CONTRIBUTOR">
         SELECT
         *

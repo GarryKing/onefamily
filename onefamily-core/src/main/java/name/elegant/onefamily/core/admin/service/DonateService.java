@@ -9,9 +9,9 @@ import java.util.List;
  */
 public interface DonateService {
 
-    public void insertDonate(DonateDO donateDO);
+    public String insertDonate(DonateDO donateDO);
 
-    public void updateDonate(DonateDO donateDO);
+    public String updateDonate(DonateDO donateDO);
 
     public DonateDO queryDonateById(long donateId);
 

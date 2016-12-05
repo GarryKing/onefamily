@@ -17,6 +17,8 @@ public interface PeerDAO {
 
     public PeerDO queryPeerById(long peerId);
 
+    public PeerDO queryPeerByBizId(String bizId);
+
     public List<PeerDO> queryPeerByPageNo(int pageNo, int size, String keyWord);
 
 }
