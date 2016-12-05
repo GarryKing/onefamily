@@ -6,14 +6,14 @@
 <div class="input-group" style="width: 300px;display: inline-flex;">
     <input class="form-control" placeholder="编号/名称/参与人" value="$!{keyWord}">
     <span class="input-group-btn">
-        <button class="btn btn-default J_search" type="button"">查找</button>
+        <button class="btn btn-primary J_search" type="button"">查找</button>
     </span>
 </div>
 
 ##翻页器
 <ul class="pagination" style="margin: 0px;float: right;font-size: 12px;">
     <li>
-        <a href="/onefamily/actPage.html.html?pageNo=$!{prev}&keyWord=$!{keyWord}" aria-label="Previous">
+        <a href="/onefamily/actPage.html?pageNo=$!{prev}&keyWord=$!{keyWord}" aria-label="Previous">
             <span aria-hidden="true">上一页</span>
         </a>
     </li>
@@ -36,40 +36,69 @@
         <td>开始时间</td>
         <td>结束时间</td>
         <td>参与人编号</td>
+        <td>历史星级</td>
         <td>参与人姓名</td>
         <td>参与角色</td>
+        <td>参与时长</td>
+        <td>本次星级</td>
         <td>操作</td>
     </tr>
     </thead>
     <tbody>
         #foreach($result in $resultList)
-        <tr>
+
             #if( !$result.participantList || $result.participantList.size() ==0)
+            <tr>
                 <td id="td_padding">$!{result.actBizId}</td>
                 <td id="td_padding">$!{result.actName}</td>
-                <td id="td_padding">$!{result.startTime}</td>
-                <td id="td_padding">$!{result.endTime}</td>
+                <td id="td_padding">$!dateTool.format("yyyy-MM-dd HH:mm:ss",$!{result.startTime})</td>
+                <td id="td_padding">$!dateTool.format("yyyy-MM-dd HH:mm:ss",$!{result.endTime})</td>
                 <td id="td_padding"></td>
                 <td id="td_padding"></td>
                 <td id="td_padding"></td>
+                <td id="td_padding"></td>
+                <td id="td_padding"></td>
+                <td id="td_padding"></td>
+                <td id="td_padding">
+                    <div class="btn btn-sm btn-primary" data-toggle="modal"
+                         data-target="#detailModal_$!{result.actId}">详情
+                    </div>
+                ## login model
+                    #parse("/control/actModel.vm")
+                </td>
+            <td>
             #else
                 #foreach($part in $result.participantList)
-                    <td id="td_padding">$!{result.actBizId}</td>
-                    <td id="td_padding">$!{result.actName}</td>
-                    <td id="td_padding">$!{result.startTime}</td>
-                    <td id="td_padding">$!{result.endTime}</td>
+                <tr>
+                    #if($velocityCount == 1)
+                        <td rowspan="$result.participantList.size()" id="td_padding"
+                            style="vertical-align: middle;">$!{result.actBizId}</td>
+                        <td rowspan="$result.participantList.size()" id="td_padding"
+                            style="vertical-align: middle;">$!{result.actName}</td>
+                        <td rowspan="$result.participantList.size()" id="td_padding"
+                            style="vertical-align: middle;">$!dateTool.format(
+                            "yyyy-MM-dd HH:mm:ss",$!{result.startTime})</td>
+                        <td rowspan="$result.participantList.size()" id="td_padding"
+                            style="vertical-align: middle;">$!dateTool.format(
+                            "yyyy-MM-dd HH:mm:ss",$!{result.endTime})</td>
+                    #end
                     <td id="td_padding">$!{part.contributorBizId}</td>
+                    <td id="td_padding">$!{part.starLevel}</td>
                     <td id="td_padding">$!{part.contributorName}</td>
                     <td id="td_padding">$!{part.role}</td>
+                    <td id="td_padding">$!{part.thisActDuration}</td>
+                    <td id="td_padding">$!{part.thisStarLevel}</td>
+                    <td id="td_padding">
+                        <div class="btn btn-sm btn-primary" data-toggle="modal"
+                             data-target="#detailModal_$!{result.actId}">详情
+                        </div>
+                    ## login model
+                        #parse("/control/actModel.vm")
+                    </td>
+                </tr>
                 #end
             #end
-            <td>
-                <div class="btn btn-sm btn-primary" data-toggle="modal"
-                     data-target="#detailModal_$!{result.actId}">详情
-                </div>
-            ## login model
-                #parse("/control/actModel.vm")
-            </td>
+        </td>
         </tr>
         #end
     </tbody>

@@ -45,17 +45,38 @@ public class DonateServiceImpl implements DonateService {
     }
 
     public DonateDO queryDonateById(long donateId) {
-        return donateDAO.queryDonateById(donateId);
+        return fillDonateDO(donateDAO.queryDonateById(donateId));
     }
 
     public List<DonateDO> queryDonateByPageNo(int pageNo, int size, String keyWord) {
-        return donateDAO.queryDonateByPageNo(pageNo, size, keyWord);
+        List<DonateDO> list = donateDAO.queryDonateByPageNo(pageNo, size, keyWord);
+        if (list != null) {
+            for (DonateDO donateDO : list) {
+                fillDonateDO(donateDO);
+            }
+        }
+        return list;
+    }
+
+    public DonateDO fillDonateDO(DonateDO donateDO) {
+        ContributorDO contributorDO = contributorDAO.queryContributorByBizId(donateDO.getContributorBizId());
+        PeerDO peerDO = peerDAO.queryPeerByBizId(donateDO.getAidedBizId());
+        if (contributorDO != null) {
+            donateDO.setContributorName(contributorDO.getContributorName());
+            donateDO.setContributorCard(contributorDO.getIdentityCard());
+        }
+        if (peerDO != null) {
+            donateDO.setAidedBizId(peerDO.getBizId());
+            donateDO.setAidedName(peerDO.getAidedName());
+        }
+        return donateDO;
     }
 
     private boolean checkContributor(DonateDO donateDO) {
         if (donateDO == null || StringUtil.isBlank(donateDO.getContributorBizId())) return false;
         ContributorDO contributorDO = contributorDAO.queryContributorByBizId(donateDO.getContributorBizId());
         if (contributorDO == null) return false;
+        donateDO.setContributorId(contributorDO.getContributorId());
         return true;
     }
 
@@ -63,18 +84,19 @@ public class DonateServiceImpl implements DonateService {
         if (donateDO == null || StringUtil.isBlank(donateDO.getAidedBizId())) return false;
         PeerDO peerDO = peerDAO.queryPeerByBizId(donateDO.getAidedBizId());
         if (peerDO == null) return false;
+        donateDO.setPeerId(peerDO.getPeerId());
         return true;
     }
 
     private String checkInput(DonateDO donateDO) {
         if (!checkContributor(donateDO)) {
-            return "没有找到\"捐助人编号\"，请检查！";
+            return "没有找到 捐助人编号，请检查！";
         }
         if (!checkPeer(donateDO)) {
-            return "没有找到\"受助人编号\"，请检查！";
+            return "没有找到 受助人编号，请检查！";
         }
         if (!MoneyUtil.isNumeric(donateDO.getPayAmount())) {
-            return "\"汇款金额\" 填写的不是数字，请检查";
+            return "汇款金额 填写的不是数字，请检查";
         }
         return null;
     }

@@ -11,6 +11,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -65,7 +67,7 @@ public class DonateAction extends BaseScreen {
         return new ModelAndView("redirect:/onefamily/donatePage.html");
     }
 
-    private DonateDO assembleDO(HttpServletRequest request, HttpServletResponse response) {
+    private DonateDO assembleDO(HttpServletRequest request, HttpServletResponse response) throws ParseException {
         String donateIdStr = request.getParameter("donateId");
         String contributorBizId = request.getParameter("contributorBizId");
         String aidedBizId = request.getParameter("aidedBizId");
@@ -80,16 +82,17 @@ public class DonateAction extends BaseScreen {
         String remark = request.getParameter("remark");
 
         DonateDO target = new DonateDO();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         target.setDonateId(StringUtil.isBlank(donateIdStr) ? 0 : Long.parseLong(donateIdStr));
         target.setContributorBizId(contributorBizId);
         target.setAidedBizId(aidedBizId);
         target.setSerialId(serialId);
         target.setType(type);
         target.setPayAmount(payAmount);
-        target.setPayTime(new Date());
+        target.setPayTime(sdf.parse(payTime));
         target.setAccountStatus(accountStatus);
         target.setFeedbackContent(feedbackContent);
-        target.setFeedbackTime(new Date());
+        target.setFeedbackTime(sdf.parse(feedbackTime));
         target.setFeedbacker(feedbacker);
         target.setRemark(remark);
 

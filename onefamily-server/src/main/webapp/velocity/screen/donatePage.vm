@@ -53,8 +53,8 @@
             <td id="td_padding">$!{result.aidedBizId}</td>
             <td id="td_padding">$!{result.aidedName}</td>
             <td id="td_padding">$!{result.type}</td>
-            <td id="td_padding">$!{result.payAmount}</td>
-            <td id="td_padding">$!{result.payTime}</td>
+            <td id="td_padding">$!numberTool.currency($!{result.payAmount})</td>
+            <td id="td_padding">$!dateTool.format($!{result.payTime})</td>
             <td id="td_padding">$!{result.accountStatus}</td>
             <td id="td_padding">$!{result.feedbacker}</td>
             <td>

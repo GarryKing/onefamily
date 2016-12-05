@@ -66,7 +66,7 @@
     <!--===================================-->
     <!-- SelectÓï¾ä -->
     <!--===================================-->
-    <select id="ContributorDAO.queryContributorById" parameterClass="Map" resultMap="RM-CONTRIBUTOR">
+    <select id="ContributorDAO.queryContributorById" parameterClass="Long" resultMap="RM-CONTRIBUTOR">
         SELECT
         *
         FROM of_contributor

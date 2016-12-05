@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<toolbox>
+    <tool>
+        <key>mathTool</key>
+        <scope>application</scope> <!--1-->
+        <class>org.apache.velocity.tools.generic.MathTool</class>
+    </tool>
+    <tool>
+        <key>numberTool</key>
+        <scope>application</scope>
+        <class>org.apache.velocity.tools.generic.NumberTool</class>
+        <parameter name="format" value="#0.00"/> <!--2-->
+        <parameter name="locale" value="zh_CN"/> <!--3-->
+    </tool>
+    <tool>
+        <key>dateTool</key>
+        <scope>application</scope>
+        <class>org.apache.velocity.tools.generic.DateTool</class>
+        <parameter name="format" value="yyyy-MM-dd"/> <!--2-->
+        <parameter name="locale" value="zh_CN"/> <!--3-->
+        <parameter name="timezone" value="Asia/Shanghai"/> <!--4-->
+    </tool>
+    <tool>
+        <key>listTool</key>
+        <scope>application</scope>
+        <class>org.apache.velocity.tools.generic.ListTool</class>
+    </tool>
+</toolbox>
