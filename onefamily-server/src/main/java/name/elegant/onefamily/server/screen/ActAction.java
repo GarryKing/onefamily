@@ -12,6 +12,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -39,10 +41,22 @@ public class ActAction extends BaseScreen {
     public ModelAndView saveFrom(HttpServletRequest request, HttpServletResponse response) {
         if (!isLogin(request)) return new ModelAndView("redirect:/onefamily/index.html");
         try {
-            actService.updateAct(assembleDO(request, response));
+            actService.updateAct(assembleActDO(request, response));
             request.getSession().setAttribute("message", request.getParameter("actName") + " 的信息已经保存成功！");
         } catch (Exception e) {
             request.getSession().setAttribute("message", request.getParameter("actName") + " 的信息保存失败，请检查输入内容！！！");
+        }
+        return new ModelAndView("redirect:/onefamily/actPage.html");
+    }
+
+    @RequestMapping(value = "/saveActParticipant.from", produces = {"application/json;charset=GBK"})
+    public ModelAndView saveParticipantFrom(HttpServletRequest request, HttpServletResponse response) {
+        if (!isLogin(request)) return new ModelAndView("redirect:/onefamily/index.html");
+        try {
+            actService.updateParticipant(assembleParticipantDO(request));
+            request.getSession().setAttribute("message", request.getParameter("contributorBizId") + " 的信息已经保存成功！");
+        } catch (Exception e) {
+            request.getSession().setAttribute("message", request.getParameter("contributorBizId") + " 的信息保存失败，请检查输入内容！！！");
         }
         return new ModelAndView("redirect:/onefamily/actPage.html");
     }
@@ -51,7 +65,7 @@ public class ActAction extends BaseScreen {
     public ModelAndView newFrom(HttpServletRequest request, HttpServletResponse response) {
         if (!isLogin(request)) return new ModelAndView("redirect:/onefamily/index.html");
         try {
-            actService.insertAct(assembleDO(request, response));
+            actService.insertAct(assembleActDO(request, response));
             request.getSession().setAttribute("message", request.getParameter("actName") + " 的信息已经创建成功！");
         } catch (Exception e) {
             request.getSession().setAttribute("message", request.getParameter("actName") + " 的信息创建失败，请检查输入内容！！！");
@@ -59,45 +73,38 @@ public class ActAction extends BaseScreen {
         return new ModelAndView("redirect:/onefamily/actPage.html");
     }
 
-    private ActDO assembleDO(HttpServletRequest request, HttpServletResponse response) {
+    private ActDO assembleActDO(HttpServletRequest request, HttpServletResponse response) throws ParseException {
         String actIdStr = request.getParameter("actId");
         String actBizId = request.getParameter("actBizId");
         String actName = request.getParameter("actName");
+        String startTime = request.getParameter("startTime");
+        String endTime = request.getParameter("endTime");
 
         ActDO target = new ActDO();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         target.setActId(StringUtil.isBlank(actIdStr) ? 0 : Long.parseLong(actIdStr));
         target.setActBizId(actBizId);
         target.setActName(actName);
-        target.setStartTime(new Date());
-        target.setEndTime(new Date());
-        target.setParticipantList(assembleParticipantList(request));
+        target.setStartTime(sdf.parse(startTime));
+        target.setEndTime(sdf.parse(endTime));
 
         return target;
     }
 
-    private List<ParticipantDO> assembleParticipantList(HttpServletRequest request) {
-        List<ParticipantDO> list = new ArrayList<ParticipantDO>();
-        String[] bizIdArray = request.getParameterValues("contributorBizId");
-        String[] durationArray = request.getParameterValues("thisActDuration");
-        String[] levelArray = request.getParameterValues("thisStarLevel");
-        String[] roleArray = request.getParameterValues("role");
-        if (CollectionUtils.isEmpty(Arrays.asList(bizIdArray)) ||
-                CollectionUtils.isEmpty(Arrays.asList(bizIdArray)) ||
-                CollectionUtils.isEmpty(Arrays.asList(bizIdArray)) ||
-                CollectionUtils.isEmpty(Arrays.asList(bizIdArray)) ||
-                CollectionUtils.isEmpty(Arrays.asList(bizIdArray))
-                ) {
-            throw new RuntimeException("资料未填写完整");
-        }
-        for (int i = 0; i < bizIdArray.length; i++) {
-            ParticipantDO participantDO = new ParticipantDO();
-            participantDO.setContributorBizId(bizIdArray[i]);
-            participantDO.setThisActDuration(durationArray[i]);
-            participantDO.setThisStarLevel(levelArray[i]);
-            participantDO.setRole(roleArray[i]);
-            list.add(participantDO);
-        }
-        return list;
+    private ParticipantDO assembleParticipantDO(HttpServletRequest request) {
+        ParticipantDO participantDO = new ParticipantDO();
+        String actIdStr = request.getParameter("actId");
+        String bizId = request.getParameter("contributorBizId");
+        String duration = request.getParameter("thisActDuration");
+        String level = request.getParameter("thisStarLevel");
+        String role = request.getParameter("role");
+
+        participantDO.setActId(StringUtil.isBlank(actIdStr) ? 0 : Long.parseLong(actIdStr));
+        participantDO.setContributorBizId(bizId);
+        participantDO.setThisActDuration(duration);
+        participantDO.setThisStarLevel(level);
+        participantDO.setRole(role);
+        return participantDO;
     }
 
 }

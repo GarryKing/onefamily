@@ -5,6 +5,8 @@ package name.elegant.onefamily.client.dataobject.onefamily;
  */
 public class ParticipantDO {
 
+    private long actId;
+
     private long contributorId;
 
     private String contributorBizId;
@@ -18,6 +20,14 @@ public class ParticipantDO {
     private String thisStarLevel;
 
     private String role;
+
+    public long getActId() {
+        return actId;
+    }
+
+    public void setActId(long actId) {
+        this.actId = actId;
+    }
 
     public long getContributorId() {
         return contributorId;

@@ -47,7 +47,7 @@
     <!--===================================-->
     <!-- SelectÓï¾ä -->
     <!--===================================-->
-    <select id="ActDAO.queryActById" parameterClass="Map" resultMap="RM-ACT">
+    <select id="ActDAO.queryActById" parameterClass="Long" resultMap="RM-ACT">
         select *
         from of_act
         WHERE actId = #actId#
