@@ -66,4 +66,14 @@
         limit #pageNo#,#size#
     </select>
 
+    <select id="ActDAO.queryActByKeyWord" resultMap="RM-ACT">
+        select *
+        from of_act
+        <dynamic prepend="WHERE">
+            <isNotEmpty property="keyWord">
+                participantListStr LIKE concat('%',#keyWord#,'%')
+            </isNotEmpty>
+        </dynamic>
+    </select>
+
 </sqlMap>

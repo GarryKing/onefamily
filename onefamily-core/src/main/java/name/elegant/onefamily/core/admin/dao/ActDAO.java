@@ -19,4 +19,6 @@ public interface ActDAO {
 
     public List<ActDO> queryActByPageNo(int pageNo, int size, String keyWord);
 
+    public List<ActDO> queryActByKeyWord(String keyWord);
+
 }

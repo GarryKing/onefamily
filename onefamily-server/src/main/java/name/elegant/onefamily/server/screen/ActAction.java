@@ -53,6 +53,12 @@ public class ActAction extends BaseScreen {
     public ModelAndView saveParticipantFrom(HttpServletRequest request, HttpServletResponse response) {
         if (!isLogin(request)) return new ModelAndView("redirect:/onefamily/index.html");
         try {
+            try {
+                Integer.parseInt(request.getParameter("thisActDuration"));
+            } catch (Exception e) {
+                request.getSession().setAttribute("message", request.getParameter("contributorBizId") + " 的参与时长请输入整数，单位为小时！");
+                return new ModelAndView("redirect:/onefamily/actPage.html");
+            }
             actService.updateParticipant(assembleParticipantDO(request));
             request.getSession().setAttribute("message", request.getParameter("contributorBizId") + " 的信息已经保存成功！");
         } catch (Exception e) {
@@ -101,9 +107,9 @@ public class ActAction extends BaseScreen {
 
         participantDO.setActId(StringUtil.isBlank(actIdStr) ? 0 : Long.parseLong(actIdStr));
         participantDO.setContributorBizId(bizId);
-        participantDO.setThisActDuration(duration);
         participantDO.setThisStarLevel(level);
         participantDO.setRole(role);
+        participantDO.setThisActDuration(Integer.parseInt(duration) + "");
         return participantDO;
     }
 

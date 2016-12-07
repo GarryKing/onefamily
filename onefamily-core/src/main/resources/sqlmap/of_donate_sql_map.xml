@@ -80,6 +80,30 @@
         WHERE donateId = #donateId#
     </select>
 
+    <select id="DonateDAO.queryDonateByPeerId" parameterClass="Long" resultMap="RM-DONATE">
+        select
+        a.* ,
+        b.biz_id as contributorBizId, b.contributor_name as contributorName, b.identity_card as contributorCard,
+        c.biz_id as aidedBizId, c.aided_name as aidedName
+        from of_donate as a LEFT JOIN of_contributor as b
+        on a.contributorId = b.contributor_id
+        LEFT JOIN of_peer as c
+        on a.peerId = c.peer_id
+        WHERE a.peerId = #peerId#
+    </select>
+
+    <select id="DonateDAO.queryDonateByContriId" parameterClass="Long" resultMap="RM-DONATE">
+        select
+        a.* ,
+        b.biz_id as contributorBizId, b.contributor_name as contributorName, b.identity_card as contributorCard,
+        c.biz_id as aidedBizId, c.aided_name as aidedName
+        from of_donate as a LEFT JOIN of_contributor as b
+        on a.contributorId = b.contributor_id
+        LEFT JOIN of_peer as c
+        on a.peerId = c.peer_id
+        WHERE a.contributorId = #contributorId#
+    </select>
+
     <select id="DonateDAO.queryDonateByPageNo" resultMap="RM-DONATE">
         select
         a.* ,

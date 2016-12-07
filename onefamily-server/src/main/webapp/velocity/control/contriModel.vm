@@ -1,7 +1,7 @@
 <!-- Modal -->
 <div class="modal fade" id="contriModal_$!{contri.contributorId}" tabindex="-1" role="dialog"
      aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog" role="document" style="width: 750px;">
         <div class="modal-content">
 
         ##            基本信息
@@ -105,7 +105,10 @@
                             <label class="col-sm-2 control-label">$entry.key</label>
                             <div class="col-sm-10">
                                 <input type="text" name="extraMap" class="form-control"
-                                       value="$entry.value">
+                                       value="$entry.value"
+                                       onclick="#if($velocityCount == 7 || $velocityCount == 9 || $velocityCount == 18)
+                                               laydate()
+                                       #end">
                             </div>
                         </div>
                     #end

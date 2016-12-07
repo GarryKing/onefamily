@@ -6,7 +6,7 @@
 <div class="input-group" style="width: 300px;display: inline-flex;">
     <input class="form-control" placeholder="编号/姓名/身份证/结对状态" value="$!{keyWord}">
     <span class="input-group-btn">
-        <button class="btn btn-default J_search" type="button"">查找</button>
+        <button class="btn btn-warning J_search" type="button"">查找</button>
     </span>
 </div>
 
@@ -51,10 +51,10 @@
             <td id="td_padding">$!{result.contributorBizId}</td>
             <td id="td_padding">$!{result.contributorName}</td>
             <td id="td_padding">$!{result.contributorCard}</td>
-            <td id="td_padding">$!{result.totalAidedAmount}</td>
+            <td id="td_padding">$!numberTool.currency($!{result.totalAidedAmount})</td>
             <td id="td_padding">$!{result.status}</td>
             <td>
-                <div class="btn btn-sm btn-primary" data-toggle="modal"
+                <div class="btn btn-sm btn-warning" data-toggle="modal"
                      data-target="#detailModal_$!{result.peerId}">详情
                 </div>
             ## login model

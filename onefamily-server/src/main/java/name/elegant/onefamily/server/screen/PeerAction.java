@@ -11,6 +11,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -61,7 +63,7 @@ public class PeerAction extends BaseScreen {
         return new ModelAndView("redirect:/onefamily/peerPage.html");
     }
 
-    private PeerDO assemblePeerDO(HttpServletRequest request, HttpServletResponse response) {
+    private PeerDO assemblePeerDO(HttpServletRequest request, HttpServletResponse response) throws ParseException {
         String peerIdStr = request.getParameter("peerId");
         String contributorIdStr = request.getParameter("contributorId");
         String bizId = request.getParameter("bizId");
@@ -84,13 +86,14 @@ public class PeerAction extends BaseScreen {
         String payPeriod = request.getParameter("payPeriod");
 
         PeerDO target = new PeerDO();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         target.setPeerId(StringUtil.isBlank(peerIdStr) ? 0 : Long.parseLong(peerIdStr));
         if (!StringUtil.isBlank(contributorIdStr)) target.setContributorId(Long.parseLong(contributorIdStr));
         target.setBizId(bizId);
         target.setAidedName(aidedName);
         target.setIdentify(identify);
         target.setPic(pic);
-        target.setBirthday(new Date());
+        target.setBirthday(sdf.parse(birthday));
         target.setSex(sex);
         target.setAge(StringUtil.isBlank(age) ? 0 : Integer.parseInt(age));
         target.setNationality(nationality);
@@ -101,7 +104,7 @@ public class PeerAction extends BaseScreen {
         target.setBank(bank);
         target.setAccount(account);
         target.setPayee(payee);
-        target.setPeerTime(new Date());
+        target.setPeerTime(sdf.parse(peerTime));
         target.setPayPeriod(payPeriod);
 
         return target;

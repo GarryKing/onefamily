@@ -82,7 +82,10 @@ public class ActServiceImpl implements ActService {
                 participantDO.setStarLevel(contributorDO.getLevel());
             }
         }
-        actDO.setParticipantList(list);
+        List<ParticipantDO> newList = new ArrayList<ParticipantDO>();
+        newList.add(new ParticipantDO());
+        newList.addAll(list);
+        actDO.setParticipantList(newList);
         return actDO;
     }
 }

@@ -17,4 +17,8 @@ public class MoneyUtil {
         }
     }
 
+    public static BigDecimal stringToMoney(String money) {
+        return new BigDecimal(money);
+    }
+
 }

@@ -50,8 +50,8 @@
             <td id="td_padding">$!{contri.originalBizId}</td>
             <td id="td_padding">$!{contri.type}</td>
             <td id="td_padding">$!{contri.status}</td>
-            <td id="td_padding">$!{contri.totalMoney}</td>
-            <td id="td_padding">$!{contri.totalActTime}</td>
+            <td id="td_padding">$!numberTool.currency($!{contri.totalMoney})</td>
+            <td id="td_padding">$!{contri.totalActTime} Сʱ</td>
             <td id="td_padding">$!{contri.level}</td>
             <td>
                 <div class="btn btn-sm btn-success" data-toggle="modal"

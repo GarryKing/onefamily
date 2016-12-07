@@ -64,7 +64,7 @@
                          data-target="#detailModal_$!{result.actId}">活动管理
                     </div>
                     <div class="btn btn-sm btn-info" data-toggle="modal"
-                         data-target="#detail2Modal_$!{part.contributorBizId}">人员管理
+                         data-target="#detail2Modal_$!{result.actId}aaa$!{part.contributorBizId}">人员管理
                     </div>
                 ## login model
                     #parse("/control/actModel.vm")
@@ -97,7 +97,7 @@
                              data-target="#detailModal_$!{result.actId}">活动管理
                         </div>
                         <div class="btn btn-sm btn-info" data-toggle="modal"
-                             data-target="#detail2Modal_$!{part.contributorBizId}">人员管理
+                             data-target="#detail2Modal_$!{result.actId}aaa$!{part.contributorBizId}">人员管理
                         </div>
                     ## login model
                         #parse("/control/actModel.vm")

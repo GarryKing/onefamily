@@ -35,4 +35,10 @@ public class IbatisActDAO extends BaseDao implements ActDAO {
         return (List<ActDO>) this.getSqlMapClientTemplate().queryForList("ActDAO.queryActByPageNo", param);
     }
 
+    public List<ActDO> queryActByKeyWord(String keyWord) {
+        Map<String, Object> param = new HashMap<String, Object>();
+        param.put("keyWord", keyWord);
+        return (List<ActDO>) this.getSqlMapClientTemplate().queryForList("ActDAO.queryActByKeyWord", param);
+    }
+
 }

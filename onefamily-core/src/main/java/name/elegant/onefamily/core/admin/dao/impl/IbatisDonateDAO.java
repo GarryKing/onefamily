@@ -23,8 +23,16 @@ public class IbatisDonateDAO extends BaseDao implements DonateDAO {
         this.getSqlMapClientTemplate().update("DonateDAO.updateDonate", donateDO);
     }
 
-    public DonateDO queryDonateById(long peerId) {
-        return (DonateDO) this.getSqlMapClientTemplate().queryForObject("DonateDAO.queryDonateById", peerId);
+    public DonateDO queryDonateById(long donateId) {
+        return (DonateDO) this.getSqlMapClientTemplate().queryForObject("DonateDAO.queryDonateById", donateId);
+    }
+
+    public List<DonateDO> queryDonateByPeerId(long peerId) {
+        return (List<DonateDO>) this.getSqlMapClientTemplate().queryForList("DonateDAO.queryDonateByPeerId", peerId);
+    }
+
+    public List<DonateDO> queryDonateByContriId(long contriId) {
+        return (List<DonateDO>) this.getSqlMapClientTemplate().queryForList("DonateDAO.queryDonateByContriId", contriId);
     }
 
     public List<DonateDO> queryDonateByPageNo(int pageNo, int size, String keyWord) {

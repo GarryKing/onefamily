@@ -15,7 +15,11 @@ public interface DonateDAO {
 
     public void updateDonate(DonateDO donateDO);
 
-    public DonateDO queryDonateById(long peerId);
+    public DonateDO queryDonateById(long donateId);
+
+    public List<DonateDO> queryDonateByPeerId(long peerId);
+
+    public List<DonateDO> queryDonateByContriId(long contriId);
 
     public List<DonateDO> queryDonateByPageNo(int pageNo, int size, String keyWord);
 

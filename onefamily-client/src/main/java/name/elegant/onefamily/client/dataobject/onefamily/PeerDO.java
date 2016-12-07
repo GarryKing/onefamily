@@ -3,6 +3,7 @@ package name.elegant.onefamily.client.dataobject.onefamily;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 
+import java.math.BigDecimal;
 import java.util.*;
 
 /**
@@ -65,7 +66,7 @@ public class PeerDO {
 
     private String contributorCard;
 
-    private long totalAidedAmount;
+    private double totalAidedAmount;
 
     public long getPeerId() {
         return peerId;
@@ -277,11 +278,11 @@ public class PeerDO {
         this.contributorCard = contributorCard;
     }
 
-    public long getTotalAidedAmount() {
+    public double getTotalAidedAmount() {
         return totalAidedAmount;
     }
 
-    public void setTotalAidedAmount(long totalAidedAmount) {
+    public void setTotalAidedAmount(double totalAidedAmount) {
         this.totalAidedAmount = totalAidedAmount;
     }
 

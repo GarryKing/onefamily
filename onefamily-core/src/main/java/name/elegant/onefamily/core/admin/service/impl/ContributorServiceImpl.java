@@ -1,8 +1,14 @@
 package name.elegant.onefamily.core.admin.service.impl;
 
+import name.elegant.onefamily.client.dataobject.onefamily.ActDO;
 import name.elegant.onefamily.client.dataobject.onefamily.ContributorDO;
+import name.elegant.onefamily.client.dataobject.onefamily.DonateDO;
+import name.elegant.onefamily.client.dataobject.onefamily.ParticipantDO;
+import name.elegant.onefamily.core.admin.dao.ActDAO;
 import name.elegant.onefamily.core.admin.dao.ContributorDAO;
+import name.elegant.onefamily.core.admin.dao.DonateDAO;
 import name.elegant.onefamily.core.admin.service.ContributorService;
+import name.elegant.onefamily.core.util.text.MoneyUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +24,12 @@ public class ContributorServiceImpl implements ContributorService {
     @Autowired
     private ContributorDAO contributorDAO;
 
+    @Autowired
+    private DonateDAO donateDAO;
+
+    @Autowired
+    private ActDAO actDAO;
+
     public void insertContributor(ContributorDO contributorDO) {
         contributorDAO.insertContributor(contributorDO);
     }
@@ -27,6 +39,39 @@ public class ContributorServiceImpl implements ContributorService {
     }
 
     public List<ContributorDO> queryContributorByPageNo(int pageNo, int size, String keyWord) {
-        return contributorDAO.queryContributorByPageNo(pageNo, size, keyWord);
+        List<ContributorDO> list = contributorDAO.queryContributorByPageNo(pageNo, size, keyWord);
+        return fillList(list);
+    }
+
+    private List<ContributorDO> fillList(List<ContributorDO> list) {
+        if (list != null) {
+            for (ContributorDO contributorDO : list) {
+                List<DonateDO> donateDOList = donateDAO.queryDonateByContriId(contributorDO.getContributorId());
+                double amount = 0.00D;
+                if (donateDOList != null) {
+                    for (DonateDO donateDO : donateDOList) {
+                        try {
+                            amount += MoneyUtil.stringToMoney(donateDO.getPayAmount()).doubleValue();
+                        } catch (Exception e) {
+                        }
+                    }
+                }
+                contributorDO.setTotalMoney(amount);
+
+                List<ActDO> actDOList = actDAO.queryActByKeyWord("" + contributorDO.getContributorId());
+                long hours = 0;
+                if (actDOList != null) {
+                    for (ActDO actDO : actDOList) {
+                        for (ParticipantDO participantDO : actDO.getParticipantList()) {
+                            if (participantDO.getContributorId() == contributorDO.getContributorId()) {
+                                hours += Long.parseLong(participantDO.getThisActDuration());
+                            }
+                        }
+                    }
+                }
+                contributorDO.setTotalActTime(hours);
+            }
+        }
+        return list;
     }
 }

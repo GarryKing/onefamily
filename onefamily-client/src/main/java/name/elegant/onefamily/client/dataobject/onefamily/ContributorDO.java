@@ -102,7 +102,7 @@ public class ContributorDO {
      * =================================================
      */
     //累计捐款金额，单位：分
-    private long totalMoney;
+    private double totalMoney;
 
     //累计参加活动时间，单位：毫秒
     private long totalActTime;
@@ -260,11 +260,11 @@ public class ContributorDO {
         this.modifyTime = modifyTime;
     }
 
-    public long getTotalMoney() {
+    public double getTotalMoney() {
         return totalMoney;
     }
 
-    public void setTotalMoney(long totalMoney) {
+    public void setTotalMoney(double totalMoney) {
         this.totalMoney = totalMoney;
     }
 
