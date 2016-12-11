@@ -8,7 +8,7 @@
         <result property="bizId" column="biz_id" javaType="java.lang.String" jdbcType="varchar"/>
         <result property="originalBizId" column="original_biz_id" javaType="java.lang.String" jdbcType="varchar"/>
         <result property="contributorName" column="contributor_name" javaType="java.lang.String" jdbcType="varchar"/>
-        <result property="type" column="type" javaType="java.lang.String" jdbcType="varchar"/>
+        <result property="type" column="type" javaType="java.lang.Integer" jdbcType="tinyint"/>
         <result property="identityCard" column="identity_card" javaType="java.lang.String" jdbcType="varchar"/>
         <result property="sex" column="sex" javaType="java.lang.String" jdbcType="varchar"/>
         <result property="age" column="age" javaType="int" jdbcType="int"/>

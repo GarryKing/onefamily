@@ -75,6 +75,29 @@
         $(".J_search").click(function () {
             redirectUrl('?keyWord=' + $(this).parent().parent().find('input').val());
         });
+
+        $(".J_type").change(function () {
+            var selector = $(this);
+            selector.parent().parent().parent().find(".1020").hide();
+            selector.parent().parent().parent().find(".30").hide();
+            selector.parent().parent().parent().find(".40").hide();
+            if (selector.val() == "10" || selector.val() == "20")
+                selector.parent().parent().parent().find(".1020").show();
+            if (selector.val() == "30")
+                selector.parent().parent().parent().find(".30").show();
+            if (selector.val() == "40")
+                selector.parent().parent().parent().find(".40").show();
+        });
+
+        $(".J_school").change(function () {
+            var selector = $(this);
+            selector.parent().parent().parent().find(".showSchool").hide();
+            selector.parent().parent().parent().find(".showWork").hide();
+            if (selector.val() == "true")
+                selector.parent().parent().parent().find(".showSchool").show();
+            if (selector.val() == "false")
+                selector.parent().parent().parent().find(".showWork").show();
+        });
     })
 
 </script>

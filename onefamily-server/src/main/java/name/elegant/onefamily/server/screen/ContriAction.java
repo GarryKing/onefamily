@@ -61,7 +61,6 @@ public class ContriAction extends BaseScreen {
     private ContributorDO assembleContributorDO(HttpServletRequest request, HttpServletResponse response) {
         String contributorIdStr = request.getParameter("contributorId");
         long contributorId = StringUtil.isBlank(contributorIdStr) ? 0 : Long.parseLong(contributorIdStr);
-        String bizId = request.getParameter("bizId");
         String contributorName = request.getParameter("contributorName");
         String originalBizId = request.getParameter("originalBizId");
         String type = request.getParameter("type");
@@ -77,10 +76,9 @@ public class ContriAction extends BaseScreen {
 
         ContributorDO contributorDO = new ContributorDO();
         contributorDO.setContributorId(contributorId);
-        contributorDO.setBizId(bizId);
         contributorDO.setContributorName(contributorName);
         contributorDO.setOriginalBizId(originalBizId);
-        contributorDO.setType(type);
+        contributorDO.setType(Integer.parseInt(type));
         contributorDO.setIdentityCard(identityCard);
         contributorDO.setSex(sex);
         contributorDO.setAge(StringUtil.isBlank(age) ? 0 : Integer.parseInt(age));
@@ -105,5 +103,6 @@ public class ContriAction extends BaseScreen {
         }
         return map;
     }
+
 
 }

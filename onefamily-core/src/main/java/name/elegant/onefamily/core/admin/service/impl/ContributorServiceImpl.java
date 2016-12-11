@@ -31,10 +31,14 @@ public class ContributorServiceImpl implements ContributorService {
     private ActDAO actDAO;
 
     public void insertContributor(ContributorDO contributorDO) {
-        contributorDAO.insertContributor(contributorDO);
+        long currId = contributorDAO.insertContributor(contributorDO);
+        ContributorDO currDO = contributorDAO.queryContributorById(currId);
+        currDO.setBizId(buildContributorBizId(currDO.getType(), currId));
+        contributorDAO.updateContributor(currDO);
     }
 
     public void updateContributor(ContributorDO contributorDO) {
+        contributorDO.setBizId(buildContributorBizId(contributorDO.getType(), contributorDO.getContributorId()));
         contributorDAO.updateContributor(contributorDO);
     }
 
@@ -73,5 +77,13 @@ public class ContributorServiceImpl implements ContributorService {
             }
         }
         return list;
+    }
+
+    private String buildContributorBizId(int type, long id) {
+        String result = "P";
+        result += ((1000 + type) + "").substring(1);
+        result += "-";
+        result += ((1000000 + id) + "").substring(1);
+        return result;
     }
 }

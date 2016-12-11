@@ -40,7 +40,7 @@ public class ContributorDO {
      * <p>
      * 40用户群体：
      */
-    public static final List<String> EXTRA_00 = Arrays.asList("学校名称", "在校年级", "行业", "单位", "职务", "特长");
+    public static final List<String> EXTRA_00 = Arrays.asList("是否在校", "学校名称", "在校年级", "行业", "单位", "职务", "特长");
     public static final List<String> EXTRA_10_20 = Arrays.asList("加入约上群时间", "参加益家活动项目");
     public static final List<String> EXTRA_30 = Arrays.asList("加入益家志愿者时间", "是否有公益经历", "公益经历时间", "公益经历组织",
             "公益经历内容", "志愿岗位", "是否服从分配岗位", "实际安排志愿岗位", "是否是注册志愿者", "注册志愿者时间");
@@ -70,7 +70,7 @@ public class ContributorDO {
 
     private String contributorName;
 
-    private String type;
+    private int type;
 
     private String identityCard;
 
@@ -144,11 +144,11 @@ public class ContributorDO {
         this.contributorName = contributorName;
     }
 
-    public String getType() {
+    public int getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(int type) {
         this.type = type;
     }
 
@@ -230,12 +230,33 @@ public class ContributorDO {
         return extraMap;
     }
 
-    public Map<String, String> getExtraMapObj() {
+    public Map<String, ContriExtraDO> getExtraMapObj00() {
         JSONObject contactJSON = JSON.parseObject(extraMap);
-        Map<String, String> result = new LinkedHashMap<String, String>();
-        for (String contactKey : ALL_EXTRA_KEY) {
-            String value = (contactJSON == null || contactJSON.get(contactKey) == null) ? "" : contactJSON.get(contactKey) + "";
-            result.put(contactKey, value);
+        Map<String, ContriExtraDO> result = new LinkedHashMap<String, ContriExtraDO>();
+        for (String key : EXTRA_00) {
+            String value = (contactJSON == null || contactJSON.get(key) == null) ? "" : contactJSON.get(key) + "";
+            if (key.equals("是否在校") && (value == null || value.equals(""))) {
+                value = "true";
+            }
+            result.put(key, new ContriExtraDO(key, "", value, false));
+        }
+        return result;
+    }
+
+    public Map<String, ContriExtraDO> getExtraMapObj() {
+        JSONObject contactJSON = JSON.parseObject(extraMap);
+        Map<String, ContriExtraDO> result = new LinkedHashMap<String, ContriExtraDO>();
+        for (String key : EXTRA_10_20) {
+            String value = (contactJSON == null || contactJSON.get(key) == null) ? "" : contactJSON.get(key) + "";
+            result.put(key, new ContriExtraDO(key, "1020", value, key.contains("时间")));
+        }
+        for (String key : EXTRA_30) {
+            String value = (contactJSON == null || contactJSON.get(key) == null) ? "" : contactJSON.get(key) + "";
+            result.put(key, new ContriExtraDO(key, "30", value, key.contains("时间")));
+        }
+        for (String key : EXTRA_40) {
+            String value = (contactJSON == null || contactJSON.get(key) == null) ? "" : contactJSON.get(key) + "";
+            result.put(key, new ContriExtraDO(key, "40", value, key.contains("时间")));
         }
         return result;
     }

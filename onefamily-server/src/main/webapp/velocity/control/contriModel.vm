@@ -11,15 +11,11 @@
                 <h4 class="modal-title" id="myModalLabel">捐助人详情 -- 基本信息</h4>
             </div>
 
-            <div class="modal-body" style="height: 2300px;">
+            <div class="modal-body" style="">
                 <form class="form-horizontal" action="/onefamily/saveContri.from" accept-charset="GBK">
+
                     <input type="hidden" name="contributorId" class="form-control" value="$!{contri.contributorId}">
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">编号</label>
-                        <div class="col-sm-10">
-                            <input type="text" name="bizId" class="form-control" value="$!{contri.bizId}">
-                        </div>
-                    </div>
+
                     <div class="form-group">
                         <label class="col-sm-2 control-label">姓名</label>
                         <div class="col-sm-10">
@@ -30,13 +26,19 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">原始编号</label>
                         <div class="col-sm-10">
-                            <input type="text" name="originalBizId" class="form-control" value="$!{contri.bizId}">
+                            <input type="text" name="originalBizId" class="form-control"
+                                   value="$!{contri.originalBizId}">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">人员类型</label>
                         <div class="col-sm-10">
-                            <input type="text" name="type" class="form-control" value="$!{contri.type}">
+                            <select name="type" class="form-control J_type">
+                                <option value="10" #if($!{contri.type} == 10) selected #end>10 - 组织人</option>
+                                <option value="20" #if($!{contri.type} == 20) selected #end>20 - 普通成员</option>
+                                <option value="30" #if($!{contri.type} == 30) selected #end>30 - 益家志者</option>
+                                <option value="40" #if($!{contri.type} == 40) selected #end>40 - 参加活动群外人员</option>
+                            </select>
                         </div>
                     </div>
                     <div class="form-group">
@@ -96,17 +98,63 @@
                         </div>
                     #end
 
+                ## 在校/工作情况
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myModalLabel">在校/工作情况</h4>
+                    </div>
+                    #foreach($entry in $contri.extraMapObj00.entrySet())
+                        #if($velocityCount == 1)
+                            #set($isSchool = $entry.value.value)
+                        #end
+
+                        #if($velocityCount == 2 || $velocityCount == 3)
+                            #set($showClass = "showSchool")
+                        #elseif($velocityCount == 4 || $velocityCount == 5)
+                            #set($showClass = "showWork")
+                        #else
+                            #set($showClass = "")
+                        #end
+
+                        <div class="form-group $!showClass"
+                             style="margin-top: 20px;display:
+                                 #if($isSchool == "true")
+                                     #if($velocityCount <= 3 || $velocityCount >= 6 ) #else none #end
+                                 #else
+                                     #if($velocityCount <= 1 || $velocityCount >= 4 )  #else none #end
+                                 #end">
+                            <label class="col-sm-2 control-label">$entry.key</label>
+                            <div class="col-sm-10">
+                                #if($velocityCount == 1)
+                                    <select name="extraMap" class="form-control J_school">
+                                        <option value="true" #if($entry.value.value == "true") selected #end>是</option>
+                                        <option value="false" #if($entry.value.value == "true") #else selected #end>否
+                                        </option>
+                                    </select>
+                                #else
+                                    <input type="text" name="extraMap" class="form-control" value="$entry.value.value">
+                                #end
+                            </div>
+                        </div>
+                    #end
+
                 ## 扩展信息大字段
                     <div class="modal-header">
                         <h4 class="modal-title" id="myModalLabel">其他扩展信息</h4>
                     </div>
                     #foreach($entry in $contri.extraMapObj.entrySet())
-                        <div class="form-group" style="margin-top: 20px;">
+                        #if($!{contri.type} == 10 || $!{contri.type} == 20)
+                            #set($currType = "1020")
+                        #else
+                            #set($currType = ${contri.type})
+                        #end
+
+                        <div class="form-group $entry.value.type"
+                             style="margin-top: 20px;display: #if($currType != $entry.value.type) none #end ">
                             <label class="col-sm-2 control-label">$entry.key</label>
                             <div class="col-sm-10">
                                 <input type="text" name="extraMap" class="form-control"
-                                       value="$entry.value"
-                                       onclick="#if($velocityCount == 7 || $velocityCount == 9 || $velocityCount == 18)
+                                       value="$entry.value.value"
+                                       onclick="#if($entry.value.time)
                                                laydate()
                                        #end">
                             </div>
