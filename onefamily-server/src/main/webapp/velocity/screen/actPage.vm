@@ -1,5 +1,5 @@
 <div class="btn btn-sm btn-primary" data-toggle="modal"
-     data-target="#newModal" style="float: left;margin-right: 30px;">新增捐助流水
+     data-target="#newModal" style="float: left;margin-right: 30px;">新增活动
 </div>
 #parse("/control/newAct.vm")
 

@@ -69,7 +69,13 @@
 
     $(function () {
         $(".J_save").click(function () {
-            $(this).parent().parent().find("form").submit();
+            var form = $(this).parent().parent().find("form");
+            var id = form.find("[name='identityCard']").val();
+            if (id == undefined || id == null || id.length < 15 || id.length > 20) {
+                alert("身份证填写不正确，请检查！！！");
+                return;
+            }
+            form.submit();
         });
 
         $(".J_search").click(function () {

@@ -43,14 +43,18 @@
                         <label class="col-sm-2 control-label">生日</label>
                         <div class="col-sm-10">
                             <input type="text" name="birthday" class="form-control" value="$!dateTool.format(
-                                "yyyy-MM-dd HH:mm:ss",$!{result.birthday})"
+                                "yyyy-MM-dd",$!{result.birthday})"
                                    onclick="laydate()">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">性别</label>
                         <div class="col-sm-10">
-                            <input type="text" name="sex" class="form-control" value="$!{result.sex}">
+                            <select name="sex" class="form-control">
+                                <option value="1" #if($!{result.sex} == "1") selected #end>1 - 男</option>
+                                <option value="2" #if($!{result.sex} == "2") selected #end>2 - 女</option>
+                                <option value="3" #if($!{result.sex} == "3") selected #end>3 - 其他</option>
+                            </select>
                         </div>
                     </div>
                     <div class="form-group">
@@ -68,13 +72,38 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">结对状态</label>
                         <div class="col-sm-10">
-                            <input type="text" name="status" class="form-control" value="$!{result.status}">
+                            <select name="status" class="form-control">
+                                <option value="已结对" #if($!{result.status} == "已结对") selected #end>1 - 已结对</option>
+                                <option value="未结对" #if($!{result.status} == "未结对") selected #end>2 - 未结对</option>
+                                <option value="即将到期" #if($!{result.status} == "即将到期") selected #end>3 - 即将到期</option>
+                                <option value="等待结对" #if($!{result.status} == "等待结对") selected #end>5 - 等待结对</option>
+                                <option value="等待确认" #if($!{result.status} == "等待确认") selected #end>6 - 等待确认</option>
+                            </select>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">助学方式</label>
                         <div class="col-sm-10">
-                            <input type="text" name="aidedType" class="form-control" value="$!{result.aidedType}">
+                            #foreach($checkbox in $!{result.aidedType})
+                            #end
+                            <input type="checkbox" name="aidedType" value="1" #foreach($checkbox in $!{result.aidedTypeArr})
+                                   #if($checkbox == "1")
+                                       checked="checked"
+                                   #end
+                                   #end>
+                            <label>月月捐</label>
+                            <input type="checkbox" name="aidedType" value="2" #foreach($checkbox in $!{result.aidedTypeArr})
+                                #if($checkbox == "2")
+                                   checked="checked"
+                                #end
+                            #end>
+                            <label>每校捐</label>
+                            <input type="checkbox" name="aidedType" value="3" #foreach($checkbox in $!{result.aidedTypeArr})
+                                #if($checkbox == "3")
+                                   checked="checked"
+                                #end
+                            #end>
+                            <label>一次捐</label>
                         </div>
                     </div>
                     <div class="form-group">
@@ -105,7 +134,7 @@
                         <label class="col-sm-2 control-label">结对时间</label>
                         <div class="col-sm-10">
                             <input type="text" name="peerTime" class="form-control" value="$!dateTool.format(
-                                "yyyy-MM-dd HH:mm:ss",$!{result.peerTime})"
+                                "yyyy-MM-dd",$!{result.peerTime})"
                                    onclick="laydate()">
                         </div>
                     </div>

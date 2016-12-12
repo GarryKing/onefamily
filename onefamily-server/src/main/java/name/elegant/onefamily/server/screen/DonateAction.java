@@ -89,10 +89,10 @@ public class DonateAction extends BaseScreen {
         target.setSerialId(serialId);
         target.setType(type);
         target.setPayAmount(payAmount);
-        target.setPayTime(sdf.parse(payTime));
+        target.setPayTime((payTime == null || "".equals(payTime)) ? null : sdf.parse(payTime));
         target.setAccountStatus(accountStatus);
         target.setFeedbackContent(feedbackContent);
-        target.setFeedbackTime(sdf.parse(feedbackTime));
+        target.setFeedbackTime((feedbackTime == null || "".equals(feedbackTime)) ? null : sdf.parse(feedbackTime));
         target.setFeedbacker(feedbacker);
         target.setRemark(remark);
 

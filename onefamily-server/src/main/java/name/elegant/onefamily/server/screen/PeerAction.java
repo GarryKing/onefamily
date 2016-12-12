@@ -75,7 +75,7 @@ public class PeerAction extends BaseScreen {
         String age = request.getParameter("age");
         String nationality = request.getParameter("nationality");
         String status = request.getParameter("status");
-        String aidedType = request.getParameter("aidedType");
+        String[] aidedType = request.getParameterValues("aidedType");
         String remark = request.getParameter("remark");
         String[] contactMap = request.getParameterValues("contactMap");
 //        String[] extraMap = request.getParameterValues("extraMap");
@@ -93,18 +93,18 @@ public class PeerAction extends BaseScreen {
         target.setAidedName(aidedName);
         target.setIdentify(identify);
         target.setPic(pic);
-        target.setBirthday(sdf.parse(birthday));
+        target.setBirthday((birthday == null || "".equals(birthday)) ? null : sdf.parse(birthday));
         target.setSex(sex);
         target.setAge(StringUtil.isBlank(age) ? 0 : Integer.parseInt(age));
         target.setNationality(nationality);
         target.setStatus(status);
-        target.setAidedType(aidedType);
+        target.setAidedType(JSON.toJSONString(aidedType));
         target.setRemark(remark);
         target.setContactMap(JSON.toJSONString(turnBizArrayToMap(contactMap)));
         target.setBank(bank);
         target.setAccount(account);
         target.setPayee(payee);
-        target.setPeerTime(sdf.parse(peerTime));
+        target.setPeerTime((peerTime == null || "".equals(peerTime)) ? null : sdf.parse(peerTime));
         target.setPayPeriod(payPeriod);
 
         return target;

@@ -9,7 +9,7 @@
                 <h4 class="modal-title" id="myModalLabel">新增结对明细</h4>
             </div>
 
-            <div class="modal-body" style="height: 1550px;">
+            <div class="modal-body">
                 <form class="form-horizontal" action="/onefamily/newPeer.from" accept-charset="GBK">
 
                     <div class="form-group">
@@ -39,13 +39,17 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">生日</label>
                         <div class="col-sm-10">
-                            <input type="text" name="birthday" class="form-control" value="">
+                            <input type="text" name="birthday" class="form-control" value="" onclick="laydate()">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">性别</label>
                         <div class="col-sm-10">
-                            <input type="text" name="sex" class="form-control" value="">
+                            <select name="sex" class="form-control">
+                                <option value="1" selected>1 - 男</option>
+                                <option value="2">2 - 女</option>
+                                <option value="3">3 - 其他</option>
+                            </select>
                         </div>
                     </div>
                     <div class="form-group">
@@ -63,13 +67,25 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">结对状态</label>
                         <div class="col-sm-10">
-                            <input type="text" name="status" class="form-control" value="">
+                            <select name="status" class="form-control">
+                                <option value="已结对" selected>1 - 已结对</option>
+                                <option value="未结对">2 - 未结对</option>
+                                <option value="即将到期">3 - 即将到期</option>
+                                <option value="即将到期">4 - 即将到期</option>
+                                <option value="等待结对">5 - 等待结对</option>
+                                <option value="等待确认">6 - 等待确认</option>
+                            </select>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">助学方式</label>
                         <div class="col-sm-10">
-                            <input type="text" name="aidedType" class="form-control" value="">
+                            <input type="checkbox" name="aidedType" value="1">
+                            <label>月月捐</label>
+                            <input type="checkbox" name="aidedType" value="2">
+                            <label>每校捐</label>
+                            <input type="checkbox" name="aidedType" value="3">
+                            <label>一次捐</label>
                         </div>
                     </div>
                     <div class="form-group">
@@ -99,7 +115,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">结对时间</label>
                         <div class="col-sm-10">
-                            <input type="text" name="peerTime" class="form-control" value="">
+                            <input type="text" name="peerTime" class="form-control" value="" onclick="laydate()">
                         </div>
                     </div>
                     <div class="form-group">

@@ -91,8 +91,8 @@ public class ActAction extends BaseScreen {
         target.setActId(StringUtil.isBlank(actIdStr) ? 0 : Long.parseLong(actIdStr));
         target.setActBizId(actBizId);
         target.setActName(actName);
-        target.setStartTime(sdf.parse(startTime));
-        target.setEndTime(sdf.parse(endTime));
+        target.setStartTime((startTime == null || "".equals(startTime)) ? null : sdf.parse(startTime));
+        target.setEndTime((endTime == null || "".equals(endTime)) ? null : sdf.parse(endTime));
 
         return target;
     }

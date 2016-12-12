@@ -3,7 +3,6 @@ package name.elegant.onefamily.client.dataobject.onefamily;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 
-import java.math.BigDecimal;
 import java.util.*;
 
 /**
@@ -142,6 +141,11 @@ public class PeerDO {
 
     public String getAidedType() {
         return aidedType;
+    }
+
+    public List<String> getAidedTypeArr() {
+        if (aidedType == null || "".equals(aidedType)) return new ArrayList<String>();
+        return JSON.parseArray(aidedType, String.class);
     }
 
     public void setAidedType(String aidedType) {
