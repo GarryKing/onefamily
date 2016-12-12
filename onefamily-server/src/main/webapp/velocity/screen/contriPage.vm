@@ -34,6 +34,7 @@
         <td>编号</td>
         <td>姓名</td>
         <td>历史编号</td>
+        <td>身份证</td>
         <td>人员类型</td>
         <td>当前状态</td>
         <td>累计捐款金额</td>
@@ -48,11 +49,12 @@
             <td id="td_padding">$!{contri.bizId}</td>
             <td id="td_padding">$!{contri.contributorName}</td>
             <td id="td_padding">$!{contri.originalBizId}</td>
+            <td id="td_padding">$!{contri.identityCard}</td>
             <td id="td_padding">$!{contri.type}</td>
             <td id="td_padding">$!{contri.status}</td>
             <td id="td_padding">$!numberTool.currency($!{contri.totalMoney})</td>
             <td id="td_padding">$!{contri.totalActTime} 小时</td>
-            <td id="td_padding">$!{contri.level}</td>
+            <td id="td_padding">$!{contri.level} 星</td>
             <td>
                 <div class="btn btn-sm btn-success" data-toggle="modal"
                      data-target="#contriModal_$!{contri.contributorId}">详情

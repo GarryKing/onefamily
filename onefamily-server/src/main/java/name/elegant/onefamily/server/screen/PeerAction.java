@@ -93,7 +93,7 @@ public class PeerAction extends BaseScreen {
         target.setAidedName(aidedName);
         target.setIdentify(identify);
         target.setPic(pic);
-        target.setBirthday((birthday == null || "".equals(birthday)) ? null : sdf.parse(birthday));
+        target.setBirthday(StringUtil.isBlank(birthday) ? null : sdf.parse(birthday));
         target.setSex(sex);
         target.setAge(StringUtil.isBlank(age) ? 0 : Integer.parseInt(age));
         target.setNationality(nationality);
