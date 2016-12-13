@@ -73,8 +73,8 @@
         $(".J_save").click(function () {
             var form = $(this).parent().parent().find("form");
             var id = form.find("[name='identityCard']").val();
-            if (id == undefined || id == null || id.length < 15 || id.length > 20) {
-                alert("身份证填写不正确，请检查！！！");
+            if (id == undefined || id == null || id.length != 18) {
+                alert("身份证填写不正确，请检查（身份证为18位）！！！");
                 return;
             }
             form.submit();

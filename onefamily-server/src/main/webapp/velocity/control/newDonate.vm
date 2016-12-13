@@ -15,12 +15,6 @@
                 <form class="form-horizontal" action="/onefamily/newDonate.from" accept-charset="GBK">
 
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">流水号</label>
-                        <div class="col-sm-10">
-                            <input type="text" name="serialId" class="form-control" value="$!{result.serialId}">
-                        </div>
-                    </div>
-                    <div class="form-group">
                         <label class="col-sm-2 control-label">捐助人编号</label>
                         <div class="col-sm-10">
                             <input type="text" name="contributorBizId" class="form-control"
@@ -31,7 +25,7 @@
                         <label class="col-sm-2 control-label">捐助人姓名</label>
                         <div class="col-sm-10">
                             <input type="text" name="contributorName" class="form-control"
-                                   value="$!{result.contributorName}">
+                                   value="$!{result.contributorName}" readonly="readonly">
                         </div>
                     </div>
                     <div class="form-group">
@@ -43,7 +37,8 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">受助人姓名</label>
                         <div class="col-sm-10">
-                            <input type="text" name="aidedName" class="form-control" value="$!{result.aidedName}">
+                            <input type="text" name="aidedName" class="form-control" value="$!{result.aidedName}"
+                                   readonly="readonly">
                         </div>
                     </div>
                     <div class="form-group">
@@ -67,8 +62,11 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">到账情况</label>
                         <div class="col-sm-10">
-                            <input type="text" name="accountStatus" class="form-control"
-                                   value="$!{result.accountStatus}">
+                            <select name="accountStatus" class="form-control">
+                                <option value="1">1 - 已到账</option>
+                                <option value="2" selected>2 - 未到账</option>
+                                <option value="3">3 - 确认中</option>
+                            </select>
                         </div>
                     </div>
                     <div class="form-group">

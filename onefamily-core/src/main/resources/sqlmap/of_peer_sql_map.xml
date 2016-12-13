@@ -21,6 +21,7 @@
         <result property="contactMap" column="contact_map" javaType="java.lang.String" jdbcType="varchar"/>
         <result property="extraMap" column="extra_map" javaType="java.lang.String" jdbcType="varchar"/>
         <result property="peerTime" column="peer_time" javaType="java.util.Date" jdbcType="datetime"/>
+        <result property="peerEndTime" column="peer_end_time" javaType="java.util.Date" jdbcType="datetime"/>
         <result property="payPeriod" column="pay_period" javaType="java.lang.String" jdbcType="varchar"/>
         <result property="contributorId" column="contributor_id" javaType="long" jdbcType="bigint" nullValue="0"/>
         <result property="createTime" column="create_time" javaType="java.util.Date" jdbcType="datetime"/>
@@ -39,10 +40,10 @@
         <![CDATA[
             insert into of_peer(
             biz_id,aided_name,identify,pic,birthday,sex,age,nationality,status,aided_type,
-            remark,bank,account,payee,contact_map,extra_map,peer_time,pay_period,contributor_id,create_time,modify_time
+            remark,bank,account,payee,contact_map,extra_map,peer_time,peer_end_time,pay_period,contributor_id,create_time,modify_time
             ) values (
             #bizId#,#aidedName#,#identify#,#pic#,#birthday#,#sex#,#age#,#nationality#,#status#,#aidedType#,#remark#,#bank#,
-            #account#,#payee#,#contactMap#,#extraMap#,#peerTime#,#payPeriod#,#contributorId#,now(),now()
+            #account#,#payee#,#contactMap#,#extraMap#,#peerTime#,#peerEndTime#,#payPeriod#,#contributorId#,now(),now()
             )
         ]]>
 
@@ -71,6 +72,7 @@
         contact_map=#contactMap#,
         extra_map=#extraMap#,
         peer_time=#peerTime#,
+        peer_end_time=#peerEndTime#,
         pay_period=#payPeriod#,
         contributor_id=#contributorId#,
         modify_time = now()

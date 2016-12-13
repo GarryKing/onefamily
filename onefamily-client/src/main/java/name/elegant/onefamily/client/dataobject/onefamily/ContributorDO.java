@@ -2,6 +2,7 @@ package name.elegant.onefamily.client.dataobject.onefamily;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import name.elegant.onefamily.client.dataobject.util.text.StringUtil;
 
 import java.util.*;
 
@@ -169,7 +170,7 @@ public class ContributorDO {
     }
 
     public int getAge() {
-        return age;
+        return StringUtil.getAgeFromId(identityCard);
     }
 
     public void setAge(int age) {

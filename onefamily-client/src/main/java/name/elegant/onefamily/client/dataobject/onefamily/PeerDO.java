@@ -2,7 +2,10 @@ package name.elegant.onefamily.client.dataobject.onefamily;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import name.elegant.onefamily.client.dataobject.util.text.StringUtil;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -51,6 +54,8 @@ public class PeerDO {
 
     private Date peerTime;
 
+    private Date peerEndTime;
+
     private String payPeriod;
 
     private long contributorId;
@@ -66,6 +71,10 @@ public class PeerDO {
     private String contributorCard;
 
     private double totalAidedAmount;
+
+    private Date lastPayTime;
+
+    private double lastPayAmount;
 
     public long getPeerId() {
         return peerId;
@@ -108,7 +117,13 @@ public class PeerDO {
     }
 
     public Date getBirthday() {
-        return birthday;
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = null;
+        try {
+            date = sdf.parse(StringUtil.getBirthdayFromID(identify));
+        } catch (ParseException e) {
+        }
+        return date;
     }
 
     public void setBirthday(Date birthday) {
@@ -124,7 +139,7 @@ public class PeerDO {
     }
 
     public int getAge() {
-        return age;
+        return StringUtil.getAgeFromId(identify);
     }
 
     public void setAge(int age) {
@@ -226,6 +241,14 @@ public class PeerDO {
         this.peerTime = peerTime;
     }
 
+    public Date getPeerEndTime() {
+        return peerEndTime;
+    }
+
+    public void setPeerEndTime(Date peerEndTime) {
+        this.peerEndTime = peerEndTime;
+    }
+
     public String getPayPeriod() {
         return payPeriod;
     }
@@ -290,4 +313,19 @@ public class PeerDO {
         this.totalAidedAmount = totalAidedAmount;
     }
 
+    public Date getLastPayTime() {
+        return lastPayTime;
+    }
+
+    public void setLastPayTime(Date lastPayTime) {
+        this.lastPayTime = lastPayTime;
+    }
+
+    public double getLastPayAmount() {
+        return lastPayAmount;
+    }
+
+    public void setLastPayAmount(double lastPayAmount) {
+        this.lastPayAmount = lastPayAmount;
+    }
 }

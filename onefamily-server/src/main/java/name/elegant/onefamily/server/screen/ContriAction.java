@@ -3,7 +3,7 @@ package name.elegant.onefamily.server.screen;
 import com.alibaba.fastjson.JSON;
 import name.elegant.onefamily.client.dataobject.onefamily.ContributorDO;
 import name.elegant.onefamily.core.admin.service.ContributorService;
-import name.elegant.onefamily.core.util.text.StringUtil;
+import name.elegant.onefamily.client.dataobject.util.text.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -66,7 +66,6 @@ public class ContriAction extends BaseScreen {
         String type = request.getParameter("type");
         String identityCard = request.getParameter("identityCard");
         String sex = request.getParameter("sex");
-        String age = request.getParameter("age");
         String nationality = request.getParameter("nationality");
         String status = request.getParameter("status");
         String level = request.getParameter("level");
@@ -81,7 +80,6 @@ public class ContriAction extends BaseScreen {
         contributorDO.setType(Integer.parseInt(type));
         contributorDO.setIdentityCard(identityCard);
         contributorDO.setSex(sex);
-        contributorDO.setAge(StringUtil.isBlank(age) ? 0 : Integer.parseInt(age));
         contributorDO.setNationality(nationality);
         contributorDO.setStatus(status);
         contributorDO.setLevel(level);

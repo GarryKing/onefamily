@@ -55,7 +55,12 @@
             <td id="td_padding">$!{result.type}</td>
             <td id="td_padding">$!numberTool.currency($!{result.payAmount})</td>
             <td id="td_padding">$!dateTool.format($!{result.payTime})</td>
-            <td id="td_padding">$!{result.accountStatus}</td>
+            <td id="td_padding">
+                #if($!{result.accountStatus} == 1)已到账
+                #elseif($!{result.accountStatus} ==2)未到账
+                #elseif($!{result.accountStatus} ==3)确认中
+                #end
+            </td>
             <td id="td_padding">$!{result.feedbacker}</td>
             <td>
                 <div class="btn btn-sm btn-info" data-toggle="modal"

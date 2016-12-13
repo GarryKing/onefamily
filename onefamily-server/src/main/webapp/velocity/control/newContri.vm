@@ -52,12 +52,6 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">ÄêÁä</label>
-                        <div class="col-sm-10">
-                            <input type="text" name="age" class="form-control" value="">
-                        </div>
-                    </div>
-                    <div class="form-group">
                         <label class="col-sm-2 control-label">Ãñ×å</label>
                         <div class="col-sm-10">
                             <input type="text" name="nationality" class="form-control" value="">

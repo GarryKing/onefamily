@@ -1,4 +1,4 @@
-package name.elegant.onefamily.core.util.console;
+package name.elegant.onefamily.client.dataobject.util.console;
 
 /**
  * Created with IntelliJ IDEA.

@@ -1,7 +1,7 @@
 package name.elegant.onefamily.server.screen;
 
 import name.elegant.onefamily.core.admin.service.AdminService;
-import name.elegant.onefamily.core.util.text.StringUtil;
+import name.elegant.onefamily.client.dataobject.util.text.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

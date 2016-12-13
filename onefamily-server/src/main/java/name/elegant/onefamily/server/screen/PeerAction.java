@@ -3,7 +3,7 @@ package name.elegant.onefamily.server.screen;
 import com.alibaba.fastjson.JSON;
 import name.elegant.onefamily.client.dataobject.onefamily.PeerDO;
 import name.elegant.onefamily.core.admin.service.PeerService;
-import name.elegant.onefamily.core.util.text.StringUtil;
+import name.elegant.onefamily.client.dataobject.util.text.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -65,14 +64,12 @@ public class PeerAction extends BaseScreen {
 
     private PeerDO assemblePeerDO(HttpServletRequest request, HttpServletResponse response) throws ParseException {
         String peerIdStr = request.getParameter("peerId");
-        String contributorIdStr = request.getParameter("contributorId");
+        String contributorBizId = request.getParameter("contributorBizId");
         String bizId = request.getParameter("bizId");
         String aidedName = request.getParameter("aidedName");
         String identify = request.getParameter("identify");
         String pic = request.getParameter("pic");
-        String birthday = request.getParameter("birthday");
         String sex = request.getParameter("sex");
-        String age = request.getParameter("age");
         String nationality = request.getParameter("nationality");
         String status = request.getParameter("status");
         String[] aidedType = request.getParameterValues("aidedType");
@@ -83,19 +80,18 @@ public class PeerAction extends BaseScreen {
         String account = request.getParameter("account");
         String payee = request.getParameter("payee");
         String peerTime = request.getParameter("peerTime");
+        String peerEndTime = request.getParameter("peerEndTime");
         String payPeriod = request.getParameter("payPeriod");
 
         PeerDO target = new PeerDO();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         target.setPeerId(StringUtil.isBlank(peerIdStr) ? 0 : Long.parseLong(peerIdStr));
-        if (!StringUtil.isBlank(contributorIdStr)) target.setContributorId(Long.parseLong(contributorIdStr));
+        target.setContributorBizId(contributorBizId);
         target.setBizId(bizId);
         target.setAidedName(aidedName);
         target.setIdentify(identify);
         target.setPic(pic);
-        target.setBirthday(StringUtil.isBlank(birthday) ? null : sdf.parse(birthday));
         target.setSex(sex);
-        target.setAge(StringUtil.isBlank(age) ? 0 : Integer.parseInt(age));
         target.setNationality(nationality);
         target.setStatus(status);
         target.setAidedType(JSON.toJSONString(aidedType));
@@ -104,7 +100,8 @@ public class PeerAction extends BaseScreen {
         target.setBank(bank);
         target.setAccount(account);
         target.setPayee(payee);
-        target.setPeerTime((peerTime == null || "".equals(peerTime)) ? null : sdf.parse(peerTime));
+        target.setPeerTime(StringUtil.isBlank(peerTime) ? null : sdf.parse(peerTime));
+        target.setPeerEndTime(StringUtil.isBlank(peerEndTime) ? null : sdf.parse(peerEndTime));
         target.setPayPeriod(payPeriod);
 
         return target;

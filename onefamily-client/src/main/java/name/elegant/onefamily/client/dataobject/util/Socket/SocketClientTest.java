@@ -1,4 +1,4 @@
-package name.elegant.onefamily.core.util.Socket;
+package name.elegant.onefamily.client.dataobject.util.Socket;
 
 import java.io.*;
 import java.net.*;

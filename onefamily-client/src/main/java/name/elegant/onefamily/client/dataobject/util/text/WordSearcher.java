@@ -1,7 +1,7 @@
-package name.elegant.onefamily.core.util.text;
+package name.elegant.onefamily.client.dataobject.util.text;
 
-import name.elegant.onefamily.core.util.console.ConsoleDebuger;
-import name.elegant.onefamily.core.util.array.ArrayUtil;
+import name.elegant.onefamily.client.dataobject.util.console.ConsoleDebuger;
+import name.elegant.onefamily.client.dataobject.util.array.ArrayUtil;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

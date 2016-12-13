@@ -15,8 +15,8 @@ import java.util.Map;
 @Repository
 public class IbatisDonateDAO extends BaseDao implements DonateDAO {
 
-    public void insertDonate(DonateDO donateDO) {
-        this.getSqlMapClientTemplate().insert("DonateDAO.insertDonate", donateDO);
+    public Long insertDonate(DonateDO donateDO) {
+        return (Long) this.getSqlMapClientTemplate().insert("DonateDAO.insertDonate", donateDO);
     }
 
     public void updateDonate(DonateDO donateDO) {

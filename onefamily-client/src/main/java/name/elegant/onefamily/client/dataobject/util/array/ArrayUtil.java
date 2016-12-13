@@ -1,4 +1,4 @@
-package name.elegant.onefamily.core.util.array;
+package name.elegant.onefamily.client.dataobject.util.array;
 
 /**
  * Company:tmall.com

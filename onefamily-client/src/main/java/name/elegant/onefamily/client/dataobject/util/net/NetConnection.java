@@ -1,6 +1,6 @@
-package name.elegant.onefamily.core.util.net;
+package name.elegant.onefamily.client.dataobject.util.net;
 
-import name.elegant.onefamily.core.util.console.ConsoleDebuger;
+import name.elegant.onefamily.client.dataobject.util.console.ConsoleDebuger;
 
 import java.io.BufferedReader;
 import java.io.InputStream;

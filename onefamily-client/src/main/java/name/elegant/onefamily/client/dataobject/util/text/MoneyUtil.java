@@ -1,4 +1,4 @@
-package name.elegant.onefamily.core.util.text;
+package name.elegant.onefamily.client.dataobject.util.text;
 
 import java.math.BigDecimal;
 

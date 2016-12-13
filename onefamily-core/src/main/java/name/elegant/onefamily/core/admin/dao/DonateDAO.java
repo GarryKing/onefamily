@@ -11,7 +11,7 @@ import java.util.List;
  */
 public interface DonateDAO {
 
-    public void insertDonate(DonateDO donateDO);
+    public Long insertDonate(DonateDO donateDO);
 
     public void updateDonate(DonateDO donateDO);
 

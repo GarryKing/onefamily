@@ -70,9 +70,19 @@
     $(function () {
         $(".J_save").click(function () {
             var form = $(this).parent().parent().find("form");
-            var id = form.find("[name='identify']").val();
-            if (id == undefined || id == null || id.length < 15 || id.length > 20) {
-                alert("身份证填写不正确，请检查！！！");
+            var check = form.find("[name='bizId']").val();
+            if (check == undefined || check == null || check.length < 1) {
+                alert("受助人编号，未填写！！！");
+                return;
+            }
+            check = form.find("[name='aidedName']").val();
+            if (check == undefined || check == null || check.length < 1) {
+                alert("受助人姓名，未填写！！！");
+                return;
+            }
+            check = form.find("[name='identify']").val();
+            if (check == undefined || check == null || check.length != 18) {
+                alert("身份证填写不正确，请检查（身份证为18位）！！！");
                 return;
             }
             form.submit();

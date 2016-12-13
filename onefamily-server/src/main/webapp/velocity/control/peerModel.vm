@@ -11,7 +11,7 @@
                 <h4 class="modal-title" id="myModalLabel">结对管理详情</h4>
             </div>
 
-            <div class="modal-body" style="height: 1550px;">
+            <div class="modal-body">
                 <form class="form-horizontal" action="/onefamily/savePeer.from" accept-charset="GBK">
                     <input type="hidden" name="peerId" class="form-control" value="$!{result.peerId}">
                     <div class="form-group">
@@ -43,8 +43,7 @@
                         <label class="col-sm-2 control-label">生日</label>
                         <div class="col-sm-10">
                             <input type="text" name="birthday" class="form-control" value="$!dateTool.format(
-                                "yyyy-MM-dd",$!{result.birthday})"
-                                   onclick="laydate()">
+                                "yyyy-MM-dd",$!{result.birthday})" readonly="readonly">
                         </div>
                     </div>
                     <div class="form-group">
@@ -60,7 +59,8 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">年龄</label>
                         <div class="col-sm-10">
-                            <input type="text" name="age" class="form-control" value="$!{result.age}">
+                            <input type="text" name="age" class="form-control" value="$!{result.age}"
+                                   readonly="readonly">
                         </div>
                     </div>
                     <div class="form-group">
@@ -82,28 +82,51 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label class="col-sm-2 control-label">捐助人编号</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="contributorBizId" class="form-control"
+                                   value="$!{result.contributorBizId}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">捐助人</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="contributorName" class="form-control"
+                                   value="$!{result.contributorName}" readonly="readonly">
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label class="col-sm-2 control-label">助学方式</label>
                         <div class="col-sm-10">
                             #foreach($checkbox in $!{result.aidedType})
                             #end
-                            <input type="checkbox" name="aidedType" value="1" #foreach($checkbox in $!{result.aidedTypeArr})
-                                   #if($checkbox == "1")
-                                       checked="checked"
-                                   #end
-                                   #end>
+                            <input type="checkbox" name="aidedType"
+                                   value="1" #foreach($checkbox in $!{result.aidedTypeArr})
+                                #if($checkbox == "1")
+                                   checked="checked"
+                                #end
+                            #end>
                             <label>月月捐</label>
-                            <input type="checkbox" name="aidedType" value="2" #foreach($checkbox in $!{result.aidedTypeArr})
+                            <input type="checkbox" name="aidedType"
+                                   value="2" #foreach($checkbox in $!{result.aidedTypeArr})
                                 #if($checkbox == "2")
                                    checked="checked"
                                 #end
                             #end>
                             <label>每校捐</label>
-                            <input type="checkbox" name="aidedType" value="3" #foreach($checkbox in $!{result.aidedTypeArr})
+                            <input type="checkbox" name="aidedType"
+                                   value="3" #foreach($checkbox in $!{result.aidedTypeArr})
                                 #if($checkbox == "3")
                                    checked="checked"
                                 #end
                             #end>
                             <label>一次捐</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">捐款计划(周期、金额)</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="payPeriod" class="form-control" value="$!{result.payPeriod}">
                         </div>
                     </div>
                     <div class="form-group">
@@ -131,7 +154,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">结对时间</label>
+                        <label class="col-sm-2 control-label">结对开始时间</label>
                         <div class="col-sm-10">
                             <input type="text" name="peerTime" class="form-control" value="$!dateTool.format(
                                 "yyyy-MM-dd",$!{result.peerTime})"
@@ -139,16 +162,27 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">预计捐款周期</label>
+                        <label class="col-sm-2 control-label">结对结束时间</label>
                         <div class="col-sm-10">
-                            <input type="text" name="payPeriod" class="form-control" value="$!{result.payPeriod}">
+                            <input type="text" name="peerEndTime" class="form-control" value="$!dateTool.format(
+                                "yyyy-MM-dd",$!{result.peerEndTime})"
+                                   onclick="laydate()">
                         </div>
                     </div>
+
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">捐助人</label>
+                        <label class="col-sm-2 control-label">最后一次汇款日期</label>
                         <div class="col-sm-10">
-                            <input type="text" name="contributorId" class="form-control"
-                                   value="$!{result.contributorName}" readonly="readonly">
+                            <input type="text" name="lastPayTime" class="form-control" value="$!dateTool.format(
+                                "yyyy-MM-dd",$!{result.lastPayTime})" readonly="readonly">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">最后一次汇款金额</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="lastPayAmount" class="form-control"
+                                   value="$!numberTool.currency($!{result.lastPayAmount})" readonly="readonly">
                         </div>
                     </div>
 

@@ -1,7 +1,6 @@
 package name.elegant.onefamily.server.screen;
 
-import name.elegant.onefamily.client.dataobject.onefamily.ContributorDO;
-import name.elegant.onefamily.core.util.text.StringUtil;
+import name.elegant.onefamily.client.dataobject.util.text.StringUtil;
 import org.springframework.util.CollectionUtils;
 
 import javax.servlet.http.HttpServletRequest;

@@ -3,10 +3,9 @@ package name.elegant.onefamily.server.screen;
 import name.elegant.onefamily.client.dataobject.onefamily.ActDO;
 import name.elegant.onefamily.client.dataobject.onefamily.ParticipantDO;
 import name.elegant.onefamily.core.admin.service.ActService;
-import name.elegant.onefamily.core.util.text.StringUtil;
+import name.elegant.onefamily.client.dataobject.util.text.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 

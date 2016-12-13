@@ -8,7 +8,7 @@ import name.elegant.onefamily.core.admin.dao.ActDAO;
 import name.elegant.onefamily.core.admin.dao.ContributorDAO;
 import name.elegant.onefamily.core.admin.dao.DonateDAO;
 import name.elegant.onefamily.core.admin.service.ContributorService;
-import name.elegant.onefamily.core.util.text.MoneyUtil;
+import name.elegant.onefamily.client.dataobject.util.text.MoneyUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

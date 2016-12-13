@@ -68,7 +68,7 @@
     <!--===================================-->
     <!-- SelectÓï¾ä -->
     <!--===================================-->
-    <select id="DonateDAO.queryDonateById" parameterClass="Map" resultMap="RM-DONATE">
+    <select id="DonateDAO.queryDonateById" parameterClass="Long" resultMap="RM-DONATE">
         select
         a.* ,
         b.biz_id as contributorBizId, b.contributor_name as contributorName, b.identity_card as contributorCard,

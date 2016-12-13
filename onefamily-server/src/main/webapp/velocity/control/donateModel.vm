@@ -19,7 +19,8 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">流水号</label>
                         <div class="col-sm-10">
-                            <input type="text" name="serialId" class="form-control" value="$!{result.serialId}">
+                            <input type="text" name="serialId" class="form-control" value="$!{result.serialId}"
+                                   readonly="readonly">
                         </div>
                     </div>
                     <div class="form-group">
@@ -64,15 +65,19 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">汇款时间</label>
                         <div class="col-sm-10">
-                            <input type="text" name="payTime" class="form-control" value="$!dateTool.format($!{result.payTime})"
+                            <input type="text" name="payTime" class="form-control"
+                                   value="$!dateTool.format($!{result.payTime})"
                                    onclick="laydate()">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">到账情况</label>
                         <div class="col-sm-10">
-                            <input type="text" name="accountStatus" class="form-control"
-                                   value="$!{result.accountStatus}">
+                            <select name="accountStatus" class="form-control">
+                                <option value="1" #if($!{result.accountStatus} == "1") selected #end>1 - 已到账</option>
+                                <option value="2" #if($!{result.accountStatus} == "2") selected #end>2 - 未到账</option>
+                                <option value="3" #if($!{result.accountStatus} == "3") selected #end>3 - 确认中</option>
+                            </select>
                         </div>
                     </div>
                     <div class="form-group">
@@ -84,7 +89,8 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">跟踪时间</label>
                         <div class="col-sm-10">
-                            <input type="text" name="feedbackTime" class="form-control" value="$!dateTool.format($!{result.feedbackTime})"
+                            <input type="text" name="feedbackTime" class="form-control"
+                                   value="$!dateTool.format($!{result.feedbackTime})"
                                    onclick="laydate()">
                         </div>
                     </div>

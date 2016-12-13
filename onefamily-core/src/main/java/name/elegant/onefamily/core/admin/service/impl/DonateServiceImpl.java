@@ -7,11 +7,13 @@ import name.elegant.onefamily.core.admin.dao.ContributorDAO;
 import name.elegant.onefamily.core.admin.dao.DonateDAO;
 import name.elegant.onefamily.core.admin.dao.PeerDAO;
 import name.elegant.onefamily.core.admin.service.DonateService;
-import name.elegant.onefamily.core.util.text.MoneyUtil;
-import name.elegant.onefamily.core.util.text.StringUtil;
+import name.elegant.onefamily.client.dataobject.util.text.MoneyUtil;
+import name.elegant.onefamily.client.dataobject.util.text.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -32,8 +34,18 @@ public class DonateServiceImpl implements DonateService {
     public String insertDonate(DonateDO donateDO) {
         String message = checkInput(donateDO);
         if (message != null) return message;
-        donateDAO.insertDonate(donateDO);
+        Long id = donateDAO.insertDonate(donateDO);
+        donateDO = donateDAO.queryDonateById(id);
+        donateDO.setSerialId(buildSerialId(donateDO, id));
         return null;
+    }
+
+    private String buildSerialId(DonateDO donateDO, Long id) {
+        String result = "JZ";
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+        result += sdf.format(new Date()) + "-";
+        result += ((1000000 + id) + "").substring(1);
+        return result;
     }
 
 
