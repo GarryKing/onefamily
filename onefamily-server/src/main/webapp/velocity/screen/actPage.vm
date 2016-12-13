@@ -90,8 +90,8 @@
                     <td id="td_padding">$!{part.starLevel}</td>
                     <td id="td_padding">$!{part.contributorName}</td>
                     <td id="td_padding">$!{part.role}</td>
-                    <td id="td_padding">$!{part.thisActDuration}</td>
-                    <td id="td_padding">$!{part.thisStarLevel}</td>
+                    <td id="td_padding">#if($!{part.thisActDuration})$!{part.thisActDuration} 小时#end</td>
+                    <td id="td_padding">#if($!{part.thisStarLevel})$!{part.thisStarLevel} 星#end</td>
                     <td id="td_padding">
                         <div class="btn btn-sm btn-primary" data-toggle="modal"
                              data-target="#detailModal_$!{result.actId}">活动管理

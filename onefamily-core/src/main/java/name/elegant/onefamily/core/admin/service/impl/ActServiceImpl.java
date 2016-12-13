@@ -47,8 +47,13 @@ public class ActServiceImpl implements ActService {
             oldMap.put(old.getContributorId(), old);
         }
         ContributorDO contri = contributorDAO.queryContributorByBizId(newDO.getContributorBizId());
-        oldMap.put(contri.getContributorId(), newDO);
-        newDO.setContributorId(contri.getContributorId());
+        if (contri != null) {
+            oldMap.put(contri.getContributorId(), newDO);
+            newDO.setContributorId(contri.getContributorId());
+        } else {
+            oldMap.put(0L, newDO);
+            newDO.setContributorId(0L);
+        }
         List<ParticipantDO> newList = new ArrayList<ParticipantDO>();
         for (Long key : oldMap.keySet()) {
             newList.add(oldMap.get(key));

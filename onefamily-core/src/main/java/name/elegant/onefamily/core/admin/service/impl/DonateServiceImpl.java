@@ -37,6 +37,7 @@ public class DonateServiceImpl implements DonateService {
         Long id = donateDAO.insertDonate(donateDO);
         donateDO = donateDAO.queryDonateById(id);
         donateDO.setSerialId(buildSerialId(donateDO, id));
+        donateDAO.updateDonate(donateDO);
         return null;
     }
 

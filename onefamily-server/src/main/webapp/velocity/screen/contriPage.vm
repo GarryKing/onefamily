@@ -39,6 +39,7 @@
         <td>当前状态</td>
         <td>累计捐款金额</td>
         <td>累计活动小数</td>
+        <td>活动平均星级</td>
         <td>人员星级</td>
         <td>操作</td>
     </tr>
@@ -54,6 +55,7 @@
             <td id="td_padding">$!{contri.status}</td>
             <td id="td_padding">$!numberTool.currency($!{contri.totalMoney})</td>
             <td id="td_padding">$!{contri.totalActTime} 小时</td>
+            <td id="td_padding">#if($!{contri.averageLevel})$!{contri.averageLevel} 星#end</td>
             <td id="td_padding">$!{contri.level} 星</td>
             <td>
                 <div class="btn btn-sm btn-success" data-toggle="modal"

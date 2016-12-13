@@ -64,16 +64,29 @@ public class ContributorServiceImpl implements ContributorService {
 
                 List<ActDO> actDOList = actDAO.queryActByKeyWord("" + contributorDO.getContributorId());
                 long hours = 0;
+                double totalLevel = 0;
+                double actCount = 0;
                 if (actDOList != null) {
                     for (ActDO actDO : actDOList) {
                         for (ParticipantDO participantDO : actDO.getParticipantList()) {
                             if (participantDO.getContributorId() == contributorDO.getContributorId()) {
+                                //计算小时数
                                 hours += Long.parseLong(participantDO.getThisActDuration());
+                                //计算平均星级
+                                try {
+                                    totalLevel += Integer.parseInt(participantDO.getThisStarLevel());
+                                    actCount = actCount + 1;
+                                } catch (Exception e) {
+                                }
                             }
                         }
                     }
+
+
                 }
                 contributorDO.setTotalActTime(hours);
+                double a = totalLevel / (actCount == 0 ? 1 : actCount);
+                contributorDO.setAverageLevel(Math.round(Math.ceil(a)) + "");
             }
         }
         return list;
@@ -86,4 +99,5 @@ public class ContributorServiceImpl implements ContributorService {
         result += ((1000000 + id) + "").substring(1);
         return result;
     }
+
 }

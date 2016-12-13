@@ -83,6 +83,8 @@ public class ContributorDO {
 
     private String status;
 
+    private String averageLevel;
+
     private String level;
 
     private String remark;
@@ -191,6 +193,14 @@ public class ContributorDO {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getAverageLevel() {
+        return averageLevel;
+    }
+
+    public void setAverageLevel(String averageLevel) {
+        this.averageLevel = averageLevel;
     }
 
     public String getLevel() {
