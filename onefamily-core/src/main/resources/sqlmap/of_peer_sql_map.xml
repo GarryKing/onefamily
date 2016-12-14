@@ -83,7 +83,7 @@
     <!--===================================-->
     <!-- SelectÓï¾ä -->
     <!--===================================-->
-    <select id="PeerDAO.queryPeerById" parameterClass="Map" resultMap="RM-PEER">
+    <select id="PeerDAO.queryPeerById" parameterClass="Long" resultMap="RM-PEER">
         select a.* ,b.biz_id as contributor_biz_id ,b.contributor_name,b.identity_card
         from of_peer as a LEFT JOIN of_contributor as b
         on a.contributor_id = b.contributor_id

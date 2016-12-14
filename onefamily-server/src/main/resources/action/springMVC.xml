@@ -32,7 +32,7 @@
         <property name="allowSessionOverride" value="true"/>
     </bean>
     <bean id="velocityConfig" class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
-        <property name="resourceLoaderPath" value="/velocity/"/>
+            <property name="resourceLoaderPath" value="/velocity/"/>
         <property name="velocityProperties">
             <props>
                 <prop key="input.encoding">gbk</prop>

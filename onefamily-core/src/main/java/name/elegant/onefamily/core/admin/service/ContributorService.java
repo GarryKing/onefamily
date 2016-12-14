@@ -16,4 +16,6 @@ public interface ContributorService {
 
     public List<ContributorDO> queryContributorByPageNo(int pageNo, int size, String keyWord);
 
+    public ContributorDO queryContributorByBizId(String bizId);
+
 }

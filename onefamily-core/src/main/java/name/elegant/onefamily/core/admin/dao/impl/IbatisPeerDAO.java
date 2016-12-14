@@ -15,8 +15,8 @@ import java.util.Map;
 @Repository
 public class IbatisPeerDAO extends BaseDao implements PeerDAO {
 
-    public void insertPeer(PeerDO peerDO) {
-        this.getSqlMapClientTemplate().insert("PeerDAO.insertPeer", peerDO);
+    public long insertPeer(PeerDO peerDO) {
+        return (Long) this.getSqlMapClientTemplate().insert("PeerDAO.insertPeer", peerDO);
     }
 
     public void updatePeer(PeerDO peerDO) {

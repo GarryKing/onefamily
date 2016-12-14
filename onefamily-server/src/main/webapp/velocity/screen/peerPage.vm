@@ -70,12 +70,7 @@
     $(function () {
         $(".J_save").click(function () {
             var form = $(this).parent().parent().find("form");
-            var check = form.find("[name='bizId']").val();
-            if (check == undefined || check == null || check.length < 1) {
-                alert("ÊÜÖúÈË±àºÅ£¬Î´ÌîÐ´£¡£¡£¡");
-                return;
-            }
-            check = form.find("[name='aidedName']").val();
+            var check = form.find("[name='aidedName']").val();
             if (check == undefined || check == null || check.length < 1) {
                 alert("ÊÜÖúÈËÐÕÃû£¬Î´ÌîÐ´£¡£¡£¡");
                 return;

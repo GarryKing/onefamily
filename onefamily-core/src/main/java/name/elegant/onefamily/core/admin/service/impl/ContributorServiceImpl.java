@@ -47,6 +47,10 @@ public class ContributorServiceImpl implements ContributorService {
         return fillList(list);
     }
 
+    public ContributorDO queryContributorByBizId(String bizId) {
+        return contributorDAO.queryContributorByBizId(bizId);
+    }
+
     private List<ContributorDO> fillList(List<ContributorDO> list) {
         if (list != null) {
             for (ContributorDO contributorDO : list) {

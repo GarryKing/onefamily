@@ -7,6 +7,8 @@ import name.elegant.onefamily.client.dataobject.util.text.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -32,6 +34,14 @@ public class ContriAction extends BaseScreen {
         if (!isLogin(request)) return new ModelAndView("redirect:/onefamily/index.html");
         List<ContributorDO> contributorList = contributorService.queryContributorByPageNo(getPageNo(request), PAGE_SIZE, request.getParameter("keyWord"));
         return new ModelAndView("screen/contriPage", getListPageResult(request, "contriPage", contributorList));
+    }
+
+    @RequestMapping(value = "/contributorExist.do", method = RequestMethod.GET, produces = {"application/json;charset=GBK"})
+    @ResponseBody
+    public Object exist(HttpServletRequest request, HttpServletResponse response) {
+        if (!isLogin(request)) return null;
+        ContributorDO contributorDO = contributorService.queryContributorByBizId(request.getParameter("bizId"));
+        return (contributorDO != null) + "";
     }
 
     @RequestMapping(value = "/saveContri.from", produces = {"application/json;charset=GBK"})

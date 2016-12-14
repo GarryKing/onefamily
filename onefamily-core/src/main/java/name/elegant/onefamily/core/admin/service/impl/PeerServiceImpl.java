@@ -3,12 +3,11 @@ package name.elegant.onefamily.core.admin.service.impl;
 import name.elegant.onefamily.client.dataobject.onefamily.ContributorDO;
 import name.elegant.onefamily.client.dataobject.onefamily.DonateDO;
 import name.elegant.onefamily.client.dataobject.onefamily.PeerDO;
+import name.elegant.onefamily.client.dataobject.util.text.MoneyUtil;
 import name.elegant.onefamily.core.admin.dao.ContributorDAO;
 import name.elegant.onefamily.core.admin.dao.DonateDAO;
 import name.elegant.onefamily.core.admin.dao.PeerDAO;
-import name.elegant.onefamily.core.admin.service.ContributorService;
 import name.elegant.onefamily.core.admin.service.PeerService;
-import name.elegant.onefamily.client.dataobject.util.text.MoneyUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,12 +32,17 @@ public class PeerServiceImpl implements PeerService {
     public void insertPeer(PeerDO peerDO) {
         ContributorDO contributorDO = contributorDAO.queryContributorByBizId(peerDO.getContributorBizId());
         if (contributorDO != null) peerDO.setContributorId(contributorDO.getContributorId());
-        peerDAO.insertPeer(peerDO);
+        long id = peerDAO.insertPeer(peerDO);
+        peerDO = peerDAO.queryPeerById(id);
+        peerDO.setBizId(buildBizId(id));
+        peerDAO.updatePeer(peerDO);
     }
 
     public void updatePeer(PeerDO peerDO) {
         ContributorDO contributorDO = contributorDAO.queryContributorByBizId(peerDO.getContributorBizId());
         if (contributorDO != null) peerDO.setContributorId(contributorDO.getContributorId());
+        PeerDO oldPeerDO = peerDAO.queryPeerById(peerDO.getPeerId());
+        peerDO.setBizId(oldPeerDO.getBizId());
         peerDAO.updatePeer(peerDO);
     }
 
@@ -50,6 +54,12 @@ public class PeerServiceImpl implements PeerService {
         List<PeerDO> list = peerDAO.queryPeerByPageNo(pageNo, size, keyWord);
         fillList(list);
         return list;
+    }
+
+    private String buildBizId(long id) {
+        String result = "S";
+        result += ((1000000 + id) + "").substring(1);
+        return result;
     }
 
     private void fillList(List<PeerDO> list) {

@@ -64,7 +64,7 @@ public class PeerAction extends BaseScreen {
 
     private PeerDO assemblePeerDO(HttpServletRequest request, HttpServletResponse response) throws ParseException {
         String peerIdStr = request.getParameter("peerId");
-        String bizId = request.getParameter("bizId");
+        String contributorBizId = request.getParameter("contributorBizId");
         String aidedName = request.getParameter("aidedName");
         String identify = request.getParameter("identify");
         String pic = request.getParameter("pic");
@@ -85,7 +85,7 @@ public class PeerAction extends BaseScreen {
         PeerDO target = new PeerDO();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         target.setPeerId(StringUtil.isBlank(peerIdStr) ? 0 : Long.parseLong(peerIdStr));
-        target.setBizId(bizId);
+        target.setContributorBizId(contributorBizId);
         target.setAidedName(aidedName);
         target.setIdentify(identify);
         target.setPic(pic);
