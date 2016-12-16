@@ -32,7 +32,7 @@
         <property name="allowSessionOverride" value="true"/>
     </bean>
     <bean id="velocityConfig" class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
-            <property name="resourceLoaderPath" value="/velocity/"/>
+        <property name="resourceLoaderPath" value="/velocity/"/>
         <property name="velocityProperties">
             <props>
                 <prop key="input.encoding">gbk</prop>
@@ -56,5 +56,9 @@
                 <value>text/html;charset=gbk</value>
             </list>
         </property>
+    </bean>
+
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize" value="20485760"/> <!-- 10M -->
     </bean>
 </beans>

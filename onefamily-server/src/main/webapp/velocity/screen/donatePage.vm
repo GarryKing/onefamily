@@ -78,7 +78,26 @@
 
     $(function () {
         $(".J_save").click(function () {
-            $(this).parent().parent().find("form").submit();
+            var form = $(this).parent().parent().find("form");
+            var check = form.find("[name='contributorBizId']").val();
+            var param = {bizId: check};
+            commAjaxByGET("/onefamily/contributorExist.do", param, function (data1) {
+                check = form.find("[name='aidedBizId']").val();
+                param = {bizId: check};
+                commAjaxByGET("/onefamily/peerExist.do", param, function (data2) {
+                    if (data1 != true) {
+                        alert("捐助人不存在，请检查捐助人编号！！！");
+                        return;
+                    }
+
+                    if (data2 != true) {
+                        alert("受助人不存在，请检查受助人编号！！！");
+                        return;
+                    }
+
+                    form.submit();
+                })
+            })
         });
 
         $(".J_search").click(function () {

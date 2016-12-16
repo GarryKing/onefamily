@@ -70,22 +70,32 @@
     $(function () {
         $(".J_save").click(function () {
             var form = $(this).parent().parent().find("form");
-            var check = form.find("[name='aidedName']").val();
-            if (check == undefined || check == null || check.length < 1) {
-                alert("受助人姓名，未填写！！！");
-                return;
-            }
-            check = form.find("[name='identify']").val();
-            if (check == undefined || check == null || check.length != 18) {
-                alert("身份证填写不正确，请检查（身份证为18位）！！！");
-                return;
-            }
-            form.submit();
+            var check = form.find("[name='contributorBizId']").val();
+            var param = {bizId: check};
+            commAjaxByGET("/onefamily/contributorExist.do", param, function (data) {
+                check = form.find("[name='aidedName']").val();
+                if (check == undefined || check == null || check.length < 1) {
+                    alert("受助人姓名，未填写！！！");
+                    return;
+                }
+                check = form.find("[name='identify']").val();
+                if (check == undefined || check == null || check.length != 18) {
+                    alert("身份证填写不正确，请检查（身份证为18位）！！！");
+                    return;
+                }
+                check = form.find("[name='contributorBizId']").val();
+                if (data != true) {
+                    alert("捐助人不存在，请检查捐助人编号！！！");
+                    return;
+                }
+                form.submit();
+            })
         });
 
         $(".J_search").click(function () {
             redirectUrl('?keyWord=' + $(this).parent().parent().find('input').val());
         });
+
     })
 
 </script>

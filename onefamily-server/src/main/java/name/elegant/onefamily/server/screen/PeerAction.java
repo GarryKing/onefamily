@@ -2,15 +2,21 @@ package name.elegant.onefamily.server.screen;
 
 import com.alibaba.fastjson.JSON;
 import name.elegant.onefamily.client.dataobject.onefamily.PeerDO;
+import name.elegant.onefamily.core.admin.dao.PeerDAO;
 import name.elegant.onefamily.core.admin.service.PeerService;
 import name.elegant.onefamily.client.dataobject.util.text.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
@@ -29,6 +35,9 @@ public class PeerAction extends BaseScreen {
     @Autowired
     private PeerService peerService;
 
+    @Autowired
+    private PeerDAO peerDAO;
+
     private static final int PAGE_SIZE = 15;
 
     @RequestMapping("/peerPage.html")
@@ -38,11 +47,19 @@ public class PeerAction extends BaseScreen {
         return new ModelAndView("screen/peerPage", getListPageResult(request, "peerPage", resultList));
     }
 
+    @RequestMapping(value = "/peerExist.do", method = RequestMethod.GET, produces = {"application/json;charset=GBK"})
+    @ResponseBody
+    public Object exist(HttpServletRequest request, HttpServletResponse response) {
+        if (!isLogin(request)) return null;
+        PeerDO peerDO = peerDAO.queryPeerByBizId(request.getParameter("bizId"));
+        return (peerDO != null) + "";
+    }
+
     @RequestMapping(value = "/savePeer.from", produces = {"application/json;charset=GBK"})
-    public ModelAndView saveFrom(HttpServletRequest request, HttpServletResponse response) {
+    public ModelAndView saveFrom(@RequestParam("pic") MultipartFile file, HttpServletRequest request, HttpServletResponse response) {
         if (!isLogin(request)) return new ModelAndView("redirect:/onefamily/index.html");
         try {
-            peerService.updatePeer(assemblePeerDO(request, response));
+            peerService.updatePeer(assemblePeerDO(request, response, file));
             request.getSession().setAttribute("message", request.getParameter("aidedName") + " 的信息已经保存成功！");
         } catch (Exception e) {
             request.getSession().setAttribute("message", request.getParameter("aidedName") + " 的信息保存失败，请检查输入内容！！！");
@@ -51,10 +68,10 @@ public class PeerAction extends BaseScreen {
     }
 
     @RequestMapping(value = "/newPeer.from", produces = {"application/json;charset=GBK"})
-    public ModelAndView newFrom(HttpServletRequest request, HttpServletResponse response) {
+    public ModelAndView newFrom(@RequestParam("pic") MultipartFile file, HttpServletRequest request, HttpServletResponse response) throws IOException {
         if (!isLogin(request)) return new ModelAndView("redirect:/onefamily/index.html");
         try {
-            peerService.insertPeer(assemblePeerDO(request, response));
+            peerService.insertPeer(assemblePeerDO(request, response, file));
             request.getSession().setAttribute("message", request.getParameter("aidedName") + " 的信息已经创建成功！");
         } catch (Exception e) {
             request.getSession().setAttribute("message", request.getParameter("aidedName") + " 的信息创建失败，请检查输入内容！！！");
@@ -62,12 +79,11 @@ public class PeerAction extends BaseScreen {
         return new ModelAndView("redirect:/onefamily/peerPage.html");
     }
 
-    private PeerDO assemblePeerDO(HttpServletRequest request, HttpServletResponse response) throws ParseException {
+    private PeerDO assemblePeerDO(HttpServletRequest request, HttpServletResponse response, MultipartFile file) throws ParseException {
         String peerIdStr = request.getParameter("peerId");
         String contributorBizId = request.getParameter("contributorBizId");
         String aidedName = request.getParameter("aidedName");
         String identify = request.getParameter("identify");
-        String pic = request.getParameter("pic");
         String sex = request.getParameter("sex");
         String nationality = request.getParameter("nationality");
         String status = request.getParameter("status");
@@ -88,7 +104,7 @@ public class PeerAction extends BaseScreen {
         target.setContributorBizId(contributorBizId);
         target.setAidedName(aidedName);
         target.setIdentify(identify);
-        target.setPic(pic);
+        target.setFile(file);
         target.setSex(sex);
         target.setNationality(nationality);
         target.setStatus(status);
@@ -116,5 +132,4 @@ public class PeerAction extends BaseScreen {
         }
         return map;
     }
-
 }

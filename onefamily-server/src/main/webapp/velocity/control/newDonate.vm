@@ -21,26 +21,26 @@
                                    value="$!{result.contributorBizId}">
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">捐助人姓名</label>
-                        <div class="col-sm-10">
-                            <input type="text" name="contributorName" class="form-control"
-                                   value="$!{result.contributorName}" readonly="readonly">
-                        </div>
-                    </div>
+                ##                    <div class="form-group">
+                ##                        <label class="col-sm-2 control-label">捐助人姓名</label>
+                ##                        <div class="col-sm-10">
+                ##                            <input type="text" name="contributorName" class="form-control"
+                ##                                   value="$!{result.contributorName}" readonly="readonly">
+                ##                        </div>
+                ##                    </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">受助人编号</label>
                         <div class="col-sm-10">
                             <input type="text" name="aidedBizId" class="form-control" value="$!{result.aidedBizId}">
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">受助人姓名</label>
-                        <div class="col-sm-10">
-                            <input type="text" name="aidedName" class="form-control" value="$!{result.aidedName}"
-                                   readonly="readonly">
-                        </div>
-                    </div>
+                ##                    <div class="form-group">
+                ##                        <label class="col-sm-2 control-label">受助人姓名</label>
+                ##                        <div class="col-sm-10">
+                ##                            <input type="text" name="aidedName" class="form-control" value="$!{result.aidedName}"
+                ##                                   readonly="readonly">
+                ##                        </div>
+                ##                    </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">捐助类型</label>
                         <div class="col-sm-10">
@@ -56,7 +56,8 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">汇款时间</label>
                         <div class="col-sm-10">
-                            <input type="text" name="payTime" class="form-control" value="$!{result.payTime}">
+                            <input type="text" name="payTime" class="form-control" value="$!{result.payTime}"
+                                   onclick="laydate()">
                         </div>
                     </div>
                     <div class="form-group">
@@ -78,7 +79,8 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">跟踪时间</label>
                         <div class="col-sm-10">
-                            <input type="text" name="feedbackTime" class="form-control" value="$!{result.feedbackTime}">
+                            <input type="text" name="feedbackTime" class="form-control" value="$!{result.feedbackTime}"
+                                   onclick="laydate()">
                         </div>
                     </div>
                     <div class="form-group">

@@ -2,6 +2,7 @@ package name.elegant.onefamily.core.admin.service;
 
 import name.elegant.onefamily.client.dataobject.onefamily.PeerDO;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -10,9 +11,9 @@ import java.util.List;
  */
 public interface PeerService {
 
-    public void insertPeer(PeerDO peerDO);
+    public void insertPeer(PeerDO peerDO) throws IOException;
 
-    public void updatePeer(PeerDO peerDO);
+    public void updatePeer(PeerDO peerDO) throws IOException;
 
     public PeerDO queryPeerById(long peerId);
 

@@ -12,6 +12,7 @@ import name.elegant.onefamily.client.dataobject.util.text.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -31,13 +32,14 @@ public class DonateServiceImpl implements DonateService {
     @Autowired
     private PeerDAO peerDAO;
 
-    public String insertDonate(DonateDO donateDO) {
+    public String insertDonate(HttpServletRequest request, DonateDO donateDO) {
         String message = checkInput(donateDO);
         if (message != null) return message;
         Long id = donateDAO.insertDonate(donateDO);
         donateDO = donateDAO.queryDonateById(id);
         donateDO.setSerialId(buildSerialId(donateDO, id));
         donateDAO.updateDonate(donateDO);
+        request.setAttribute("serialId", donateDO.getSerialId());
         return null;
     }
 
@@ -53,6 +55,8 @@ public class DonateServiceImpl implements DonateService {
     public String updateDonate(DonateDO donateDO) {
         String message = checkInput(donateDO);
         if (message != null) return message;
+        DonateDO old = queryDonateById(donateDO.getDonateId());
+        donateDO.setSerialId(old.getSerialId());
         donateDAO.updateDonate(donateDO);
         return null;
     }

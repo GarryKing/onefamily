@@ -55,9 +55,9 @@ public class DonateAction extends BaseScreen {
     public ModelAndView newFrom(HttpServletRequest request, HttpServletResponse response) {
         if (!isLogin(request)) return new ModelAndView("redirect:/onefamily/index.html");
         try {
-            String message = donateService.insertDonate(assembleDO(request, response));
+            String message = donateService.insertDonate(request, assembleDO(request, response));
             if (StringUtil.isBlank(message))
-                message = request.getParameter("serialId") + " 的信息已经创建成功！";
+                message = request.getAttribute("serialId") + " 的信息已经创建成功！";
             request.getSession().setAttribute("message", message);
         } catch (Exception e) {
             request.getSession().setAttribute("message", request.getParameter("serialId") + " 的信息创建失败，请检查输入内容！！！");

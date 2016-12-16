@@ -2,6 +2,7 @@ package name.elegant.onefamily.core.admin.service;
 
 import name.elegant.onefamily.client.dataobject.onefamily.DonateDO;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -9,7 +10,7 @@ import java.util.List;
  */
 public interface DonateService {
 
-    public String insertDonate(DonateDO donateDO);
+    public String insertDonate(HttpServletRequest request, DonateDO donateDO);
 
     public String updateDonate(DonateDO donateDO);
 

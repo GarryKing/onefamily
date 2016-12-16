@@ -4,13 +4,17 @@ import name.elegant.onefamily.client.dataobject.onefamily.ContributorDO;
 import name.elegant.onefamily.client.dataobject.onefamily.DonateDO;
 import name.elegant.onefamily.client.dataobject.onefamily.PeerDO;
 import name.elegant.onefamily.client.dataobject.util.text.MoneyUtil;
+import name.elegant.onefamily.client.dataobject.util.text.StringUtil;
 import name.elegant.onefamily.core.admin.dao.ContributorDAO;
 import name.elegant.onefamily.core.admin.dao.DonateDAO;
 import name.elegant.onefamily.core.admin.dao.PeerDAO;
 import name.elegant.onefamily.core.admin.service.PeerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
@@ -29,20 +33,28 @@ public class PeerServiceImpl implements PeerService {
     @Autowired
     private ContributorDAO contributorDAO;
 
-    public void insertPeer(PeerDO peerDO) {
+    public static final String FILE_PATH = "E:/ ‹÷˙»ÀÕ∑œÒ/";
+
+    public void insertPeer(PeerDO peerDO) throws IOException {
         ContributorDO contributorDO = contributorDAO.queryContributorByBizId(peerDO.getContributorBizId());
         if (contributorDO != null) peerDO.setContributorId(contributorDO.getContributorId());
         long id = peerDAO.insertPeer(peerDO);
-        peerDO = peerDAO.queryPeerById(id);
         peerDO.setBizId(buildBizId(id));
+        peerDO.setPic(uploadFile(peerDO.getFile(), peerDO));
         peerDAO.updatePeer(peerDO);
     }
 
-    public void updatePeer(PeerDO peerDO) {
+    public void updatePeer(PeerDO peerDO) throws IOException {
         ContributorDO contributorDO = contributorDAO.queryContributorByBizId(peerDO.getContributorBizId());
         if (contributorDO != null) peerDO.setContributorId(contributorDO.getContributorId());
         PeerDO oldPeerDO = peerDAO.queryPeerById(peerDO.getPeerId());
         peerDO.setBizId(oldPeerDO.getBizId());
+        if (peerDO.getFile() != null && !StringUtil.isBlank(peerDO.getFile().getOriginalFilename())) {
+            peerDO.setPic(uploadFile(peerDO.getFile(), peerDO));
+        } else {
+            PeerDO old = peerDAO.queryPeerById(peerDO.getPeerId());
+            peerDO.setPic(old.getPic());
+        }
         peerDAO.updatePeer(peerDO);
     }
 
@@ -86,6 +98,26 @@ public class PeerServiceImpl implements PeerService {
                 peerDO.setTotalAidedAmount(payAmount);
             }
         }
+    }
+
+    public String uploadFile(MultipartFile file, PeerDO peerDO) throws IOException {
+        String fileName = file.getOriginalFilename();
+        File tempFile = new File(FILE_PATH, peerDO.getBizId() + "-" + peerDO.getAidedName() + "." + fileName.substring(fileName.lastIndexOf(".") + 1));
+        if (!tempFile.getParentFile().exists()) {
+            tempFile.getParentFile().mkdir();
+        }
+        if (!tempFile.exists()) {
+            tempFile.createNewFile();
+        } else {
+            tempFile.delete();
+            tempFile.createNewFile();
+        }
+        file.transferTo(tempFile);
+        return FILE_PATH + tempFile.getName();
+    }
+
+    public File getFile(String fileName) {
+        return new File(FILE_PATH, fileName);
     }
 
 }

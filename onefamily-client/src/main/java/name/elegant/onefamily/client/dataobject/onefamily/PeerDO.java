@@ -3,7 +3,9 @@ package name.elegant.onefamily.client.dataobject.onefamily;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import name.elegant.onefamily.client.dataobject.util.text.StringUtil;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -27,6 +29,8 @@ public class PeerDO {
     private String identify;
 
     private String pic;
+
+    private MultipartFile file;
 
     private Date birthday;
 
@@ -114,6 +118,14 @@ public class PeerDO {
 
     public void setPic(String pic) {
         this.pic = pic;
+    }
+
+    public MultipartFile getFile() {
+        return file;
+    }
+
+    public void setFile(MultipartFile file) {
+        this.file = file;
     }
 
     public Date getBirthday() {
