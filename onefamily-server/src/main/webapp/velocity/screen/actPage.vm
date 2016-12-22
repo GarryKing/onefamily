@@ -93,15 +93,22 @@
                     <td id="td_padding">#if($!{part.thisActDuration})$!{part.thisActDuration} 小时#end</td>
                     <td id="td_padding">#if($!{part.thisStarLevel})$!{part.thisStarLevel} 星#end</td>
                     <td id="td_padding">
-                        <div class="btn btn-sm btn-primary" data-toggle="modal"
-                             data-target="#detailModal_$!{result.actId}">活动管理
-                        </div>
-                        <div class="btn btn-sm btn-info" data-toggle="modal"
-                             data-target="#detail2Modal_$!{result.actId}aaa$!{part.contributorBizId}">人员管理
-                        </div>
-                    ## login model
-                        #parse("/control/actModel.vm")
-                        #parse("/control/participantModel.vm")
+                        #if($velocityCount == 1)
+                            <div class="btn btn-sm btn-primary" data-toggle="modal"
+                                 data-target="#detailModal_$!{result.actId}">活动管理
+                            </div>
+                            <div class="btn btn-sm btn-warning" data-toggle="modal"
+                                 data-target="#detail2Modal_$!{result.actId}aaa$!{part.contributorBizId}">新增人员
+                            </div>
+                        ## login model
+                            #parse("/control/actModel.vm")
+                            #parse("/control/participantModel.vm")
+                        #else
+                            <div class="btn btn-sm btn-info" data-toggle="modal"
+                                 data-target="#detail2Modal_$!{result.actId}aaa$!{part.contributorBizId}">人员管理
+                            </div>
+                            #parse("/control/participantModel.vm")
+                        #end
                     </td>
                 </tr>
                 #end
