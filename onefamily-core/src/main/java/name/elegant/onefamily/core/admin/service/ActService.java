@@ -20,4 +20,5 @@ public interface ActService {
 
     public List<ActDO> queryActByPageNo(int pageNo, int size, String keyWord);
 
+    public void deleteParticipant(String actId, String bizId);
 }

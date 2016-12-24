@@ -1,12 +1,15 @@
 package name.elegant.onefamily.server.screen;
 
 import name.elegant.onefamily.client.dataobject.onefamily.ActDO;
+import name.elegant.onefamily.client.dataobject.onefamily.ContributorDO;
 import name.elegant.onefamily.client.dataobject.onefamily.ParticipantDO;
 import name.elegant.onefamily.core.admin.service.ActService;
 import name.elegant.onefamily.client.dataobject.util.text.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -34,6 +37,18 @@ public class ActAction extends BaseScreen {
         if (!isLogin(request)) return new ModelAndView("redirect:/onefamily/index.html");
         List<ActDO> resultList = actService.queryActByPageNo(getPageNo(request), PAGE_SIZE, request.getParameter("keyWord"));
         return new ModelAndView("screen/actPage", getListPageResult(request, "actPage", resultList));
+    }
+
+    @RequestMapping(value = "/deleteParticipant.do", method = RequestMethod.GET, produces = {"application/json;charset=GBK"})
+    @ResponseBody
+    public Object exist(HttpServletRequest request, HttpServletResponse response) {
+        if (!isLogin(request)) return null;
+        try {
+            actService.deleteParticipant(request.getParameter("actId"), request.getParameter("contributorBizId"));
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
     }
 
     @RequestMapping(value = "/saveAct.from", produces = {"application/json;charset=GBK"})

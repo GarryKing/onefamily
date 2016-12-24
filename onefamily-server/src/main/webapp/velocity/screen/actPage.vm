@@ -73,7 +73,7 @@
             <td>
             #else
                 #foreach($part in $result.participantList)
-                <tr>
+                <tr class="part_$!{result.actId}_$!{part.contributorBizId}">
                     #if($velocityCount == 1)
                         <td rowspan="$result.participantList.size()" id="td_padding"
                             style="vertical-align: middle;">$!{result.actBizId}</td>
@@ -123,11 +123,36 @@
 
     $(function () {
         $(".J_save").click(function () {
-            $(this).parent().parent().find("form").submit();
+            var form = $(this).parent().parent().find("form");
+            var check = form.find("[name='contributorBizId']").val();
+            var param = {bizId: check};
+            commAjaxByGET("/onefamily/contributorExist.do", param, function (data) {
+                if (data != true) {
+                    alert("人员不存在，请检查编号！！！");
+                    return;
+                }
+                form.submit();
+            })
         });
 
         $(".J_search").click(function () {
             redirectUrl('?keyWord=' + $(this).parent().parent().find('input').val());
+        });
+
+        $(".J_delete").click(function () {
+            if (confirm("确认要删除吗？")) {
+                var form = $(this).parent().parent().find("form");
+                var actId = form.find("[name='actId']").val();
+                var contributorBizId = form.find("[name='contributorBizId']").val();
+                var param = {actId: actId, contributorBizId: contributorBizId};
+                commAjaxByGET("/onefamily/deleteParticipant.do", param, function (data) {
+                    if (data != true) {
+                        alert("删除失败");
+                    } else {
+                        location.reload();
+                    }
+                })
+            }
         });
     })
 

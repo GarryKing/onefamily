@@ -3,6 +3,7 @@ package name.elegant.onefamily.core.admin.service.impl;
 import name.elegant.onefamily.client.dataobject.onefamily.ActDO;
 import name.elegant.onefamily.client.dataobject.onefamily.ContributorDO;
 import name.elegant.onefamily.client.dataobject.onefamily.ParticipantDO;
+import name.elegant.onefamily.client.dataobject.util.text.StringUtil;
 import name.elegant.onefamily.core.admin.dao.ActDAO;
 import name.elegant.onefamily.core.admin.dao.ContributorDAO;
 import name.elegant.onefamily.core.admin.service.ActService;
@@ -74,6 +75,20 @@ public class ActServiceImpl implements ActService {
             }
         }
         return list;
+    }
+
+    public void deleteParticipant(String actId, String bizId) {
+        ActDO act = actDAO.queryActById(new Long(actId));
+        List<ParticipantDO> tmp = new ArrayList<ParticipantDO>();
+        if (act != null && act.getParticipantList() != null) {
+            for (ParticipantDO participantDO : act.getParticipantList()) {
+                if (!participantDO.getContributorBizId().equals(bizId)) {
+                    tmp.add(participantDO);
+                }
+            }
+        }
+        act.setParticipantList(tmp);
+        actDAO.updateAct(act);
     }
 
     private ActDO fillActDO(ActDO actDO) {
