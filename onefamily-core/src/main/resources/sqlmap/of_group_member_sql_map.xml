@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="onefamily">
+
+    <resultMap id="RM-GROUP-MEMBER" class="name.elegant.onefamily.client.dataobject.onefamily.MemberDO">
+        <result property="memberId" column="memberId" javaType="long" jdbcType="bigint" nullValue="0"/>
+        <result property="donateId" column="donateId" javaType="long" jdbcType="bigint" nullValue="0"/>
+        <result property="contributorId" column="contributorId" javaType="long" jdbcType="bigint" nullValue="0"/>
+        <result property="payAmount" column="payAmount" javaType="java.lang.String" jdbcType="varchar"/>
+        <result property="createTime" column="createTime" javaType="java.util.Date" jdbcType="datetime"/>
+        <result property="modifyTime" column="modifyTime" javaType="java.util.Date" jdbcType="datetime"/>
+    </resultMap>
+
+    <!--===================================-->
+    <!-- Insert语句 -->
+    <!--===================================-->
+    <insert id="GroupMemberDAO.insertMember">
+        <![CDATA[
+            insert into of_group_member(
+            donateId,contributorId,payAmount,createTime,modifyTime
+            ) values (
+            #donateId#,#contributorId#,#payAmount#,now(),now()
+            )
+        ]]>
+
+        <selectKey resultClass="long" keyProperty="memberId">
+            select LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+
+    <update id="GroupMemberDAO.updateMember">
+        UPDATE of_group_member
+        SET
+        payAmount=#payAmount#,
+        modifyTime = now()
+        WHERE
+        memberId = #memberId#
+    </update>
+
+    <delete id="GroupMemberDAO.deleteMember" parameterClass="Long">
+        DELETE FROM of_group_member
+        WHERE memberId = #memberId#
+    </delete>
+
+    <!--===================================-->
+    <!-- Select语句 -->
+    <!--===================================-->
+    <select id="GroupMemberDAO.queryMemberById" parameterClass="Long" resultMap="RM-GROUP-MEMBER">
+        select *
+        from of_group_member
+        WHERE memberId = #memberId#
+    </select>
+
+    <select id="GroupDAO.queryMemberByDonateId" resultMap="RM-GROUP-MEMBER">
+        select *
+        from of_group_member
+        WHERE donateId = #donateId#
+    </select>
+
+</sqlMap>

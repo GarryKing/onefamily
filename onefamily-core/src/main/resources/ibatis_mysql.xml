@@ -11,5 +11,7 @@
     <sqlMap resource="sqlmap/of_peer_sql_map.xml"/>
     <sqlMap resource="sqlmap/of_donate_sql_map.xml"/>
     <sqlMap resource="sqlmap/of_act_sql_map.xml"/>
+    <sqlMap resource="sqlmap/of_group_donate_sql_map.xml"/>
+    <sqlMap resource="sqlmap/of_group_member_sql_map.xml"/>
 
 </sqlMapConfig>

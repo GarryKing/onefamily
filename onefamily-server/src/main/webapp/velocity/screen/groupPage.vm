@@ -1,0 +1,159 @@
+<div class="btn btn-sm btn-primary" data-toggle="modal"
+     data-target="#newModal" style="float: left;margin-right: 30px;">新增活动
+</div>
+###parse("/control/newGroup.vm")
+
+<div class="input-group" style="width: 300px;display: inline-flex;">
+    <input class="form-control" placeholder="编号/名称/参与人" value="$!{keyWord}">
+    <span class="input-group-btn">
+        <button class="btn btn-primary J_search" type="button"">查找</button>
+    </span>
+</div>
+
+##翻页器
+<ul class="pagination" style="margin: 0px;float: right;font-size: 12px;">
+    <li>
+        <a href="/onefamily/actPage.html?pageNo=$!{prev}&keyWord=$!{keyWord}" aria-label="Previous">
+            <span aria-hidden="true">上一页</span>
+        </a>
+    </li>
+    <li>
+        <a href="/onefamily/actPage.html?pageNo=$!{curr}&keyWord=$!{keyWord}">$!{curr}</a>
+    </li>
+    <li>
+        <a href="/onefamily/actPage.html?pageNo=$!{next}&keyWord=$!{keyWord}" aria-label="Next">
+            <span aria-hidden="true">下一页</span>
+        </a>
+    </li>
+</ul>
+
+
+<table class="table table-hover" style="font-size: 14px;">
+    <thead>
+    <tr>
+        <td>活动编号</td>
+        <td>活动名称</td>
+        <td>开始时间</td>
+        <td>结束时间</td>
+        <td>参与人编号</td>
+        <td>历史星级</td>
+        <td>参与人姓名</td>
+        <td>参与角色</td>
+        <td>参与时长</td>
+        <td>本次星级</td>
+        <td>操作</td>
+    </tr>
+    </thead>
+    <tbody>
+        #foreach($result in $resultList)
+
+            #if( !$result.participantList || $result.participantList.size() ==0)
+            <tr>
+                <td id="td_padding">$!{result.actBizId}</td>
+                <td id="td_padding">$!{result.actName}</td>
+                <td id="td_padding">$!dateTool.format("yyyy-MM-dd HH:mm:ss",$!{result.startTime})</td>
+                <td id="td_padding">$!dateTool.format("yyyy-MM-dd HH:mm:ss",$!{result.endTime})</td>
+                <td id="td_padding"></td>
+                <td id="td_padding"></td>
+                <td id="td_padding"></td>
+                <td id="td_padding"></td>
+                <td id="td_padding"></td>
+                <td id="td_padding"></td>
+                <td id="td_padding">
+                    <div class="btn btn-sm btn-primary" data-toggle="modal"
+                         data-target="#detailModal_$!{result.actId}">活动管理
+                    </div>
+                    <div class="btn btn-sm btn-info" data-toggle="modal"
+                         data-target="#detail2Modal_$!{result.actId}aaa$!{part.contributorBizId}">人员管理
+                    </div>
+                ## login model
+##                    #parse("/control/groupModel.vm")
+                    #parse("/control/participantModel.vm")
+                </td>
+            <td>
+            #else
+                #foreach($part in $result.participantList)
+                <tr class="part_$!{result.actId}_$!{part.contributorBizId}">
+                    #if($velocityCount == 1)
+                        <td rowspan="$result.participantList.size()" id="td_padding"
+                            style="vertical-align: middle;">$!{result.actBizId}</td>
+                        <td rowspan="$result.participantList.size()" id="td_padding"
+                            style="vertical-align: middle;">$!{result.actName}</td>
+                        <td rowspan="$result.participantList.size()" id="td_padding"
+                            style="vertical-align: middle;">$!dateTool.format(
+                            "yyyy-MM-dd HH:mm:ss",$!{result.startTime})</td>
+                        <td rowspan="$result.participantList.size()" id="td_padding"
+                            style="vertical-align: middle;">$!dateTool.format(
+                            "yyyy-MM-dd HH:mm:ss",$!{result.endTime})</td>
+                    #end
+                    <td id="td_padding">$!{part.contributorBizId}</td>
+                    <td id="td_padding">$!{part.starLevel}</td>
+                    <td id="td_padding">$!{part.contributorName}</td>
+                    <td id="td_padding">$!{part.role}</td>
+                    <td id="td_padding">#if($!{part.thisActDuration})$!{part.thisActDuration} 小时#end</td>
+                    <td id="td_padding">#if($!{part.thisStarLevel})$!{part.thisStarLevel} 星#end</td>
+                    <td id="td_padding">
+                        #if($velocityCount == 1)
+                            <div class="btn btn-sm btn-primary" data-toggle="modal"
+                                 data-target="#detailModal_$!{result.actId}">活动管理
+                            </div>
+                            <div class="btn btn-sm btn-warning" data-toggle="modal"
+                                 data-target="#detail2Modal_$!{result.actId}aaa$!{part.contributorBizId}">新增人员
+                            </div>
+                        ## login model
+                            #parse("/control/actModel.vm")
+                            #parse("/control/participantModel.vm")
+                        #else
+                            <div class="btn btn-sm btn-info" data-toggle="modal"
+                                 data-target="#detail2Modal_$!{result.actId}aaa$!{part.contributorBizId}">人员管理
+                            </div>
+                            #parse("/control/participantModel.vm")
+                        #end
+                    </td>
+                </tr>
+                #end
+            #end
+        </td>
+        </tr>
+        #end
+    </tbody>
+</table>
+
+<script type="text/javascript">
+
+    $(function () {
+        $(".J_save").click(function () {
+            var form = $(this).parent().parent().find("form");
+            var check = form.find("[name='contributorBizId']").val();
+            var param = {bizId: check};
+            commAjaxByGET("/onefamily/contributorExist.do", param, function (data) {
+                if (data != true) {
+                    alert("人员不存在，请检查编号！！！");
+                    return;
+                }
+                form.submit();
+            })
+        });
+
+        $(".J_search").click(function () {
+            redirectUrl('?keyWord=' + $(this).parent().parent().find('input').val());
+        });
+
+        $(".J_delete").click(function () {
+            if (confirm("确认要删除吗？")) {
+                var form = $(this).parent().parent().find("form");
+                var actId = form.find("[name='actId']").val();
+                var contributorBizId = form.find("[name='contributorBizId']").val();
+                var param = {actId: actId, contributorBizId: contributorBizId};
+                commAjaxByGET("/onefamily/deleteParticipant.do", param, function (data) {
+                    if (data != true) {
+                        alert("删除失败");
+                    } else {
+                        location.reload();
+                    }
+                })
+            }
+        });
+    })
+
+</script>
