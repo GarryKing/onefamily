@@ -32,44 +32,37 @@
 <table class="table table-hover" style="font-size: 14px;">
     <thead>
     <tr>
-        <td>活动编号</td>
-        <td>活动名称</td>
-        <td>开始时间</td>
-        <td>结束时间</td>
-        <td>参与人编号</td>
-        <td>历史星级</td>
-        <td>参与人姓名</td>
-        <td>参与角色</td>
-        <td>参与时长</td>
-        <td>本次星级</td>
+        <td>捐助编号</td>
+        <td>机构名称</td>
+        <td>捐助日期</td>
+        <td>捐助总金额</td>
+        <td>捐助人</td>
+        <td>捐助金额</td>
         <td>操作</td>
     </tr>
     </thead>
     <tbody>
         #foreach($result in $resultList)
 
-            #if( !$result.participantList || $result.participantList.size() ==0)
+            #if( !$result.memberList || $result.memberList.size() ==0)
             <tr>
-                <td id="td_padding">$!{result.actBizId}</td>
-                <td id="td_padding">$!{result.actName}</td>
-                <td id="td_padding">$!dateTool.format("yyyy-MM-dd HH:mm:ss",$!{result.startTime})</td>
-                <td id="td_padding">$!dateTool.format("yyyy-MM-dd HH:mm:ss",$!{result.endTime})</td>
-                <td id="td_padding"></td>
-                <td id="td_padding"></td>
-                <td id="td_padding"></td>
-                <td id="td_padding"></td>
+                <td id="td_padding">$!{result.serialId}</td>
+                <td id="td_padding">$!{result.groupName}</td>
+                <td id="td_padding">$!dateTool.format("yyyy-MM-dd",$!{result.donateTime})</td>
+                <td id="td_padding">$!{result.remark}</td>
+                <td id="td_padding">$!{result.total}</td>
                 <td id="td_padding"></td>
                 <td id="td_padding"></td>
                 <td id="td_padding">
                     <div class="btn btn-sm btn-primary" data-toggle="modal"
-                         data-target="#detailModal_$!{result.actId}">活动管理
+                         data-target="#detailModal_$!{result.donateId}">捐助管理
                     </div>
                     <div class="btn btn-sm btn-info" data-toggle="modal"
-                         data-target="#detail2Modal_$!{result.actId}aaa$!{part.contributorBizId}">人员管理
+                         data-target="#detail2Modal_$!{result.donateId}aaa">人员管理
                     </div>
                 ## login model
                 ##                    #parse("/control/groupModel.vm")
-                    #parse("/control/participantModel.vm")
+##                    #parse("/control/memberModel.vm")
                 </td>
             <td>
             #else
@@ -126,6 +119,10 @@
         $(".J_save").click(function () {
             var form = $(this).parent().parent().find("form");
             var check = form.find("[name='contributorBizId']").val();
+            if (check == undefined) {
+                form.submit();
+                return;
+            }
             var param = {bizId: check};
             commAjaxByGET("/onefamily/contributorExist.do", param, function (data) {
                 if (data != true) {

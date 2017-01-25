@@ -32,6 +32,7 @@
     <update id="GroupDAO.updateGroup">
         UPDATE of_group_donate
         SET
+        serialId=#serialId#,
         groupName=#groupName#,
         donateTime=#donateTime#,
         remark=#remark#,

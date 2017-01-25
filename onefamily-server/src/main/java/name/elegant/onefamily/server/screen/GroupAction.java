@@ -39,9 +39,9 @@ public class GroupAction extends BaseScreen {
         if (!isLogin(request)) return new ModelAndView("redirect:/onefamily/index.html");
         try {
             groupService.insertGroup(assembleDO(request, response));
-            request.getSession().setAttribute("message", request.getParameter("actName") + " 的信息已经创建成功！");
+            request.getSession().setAttribute("message", request.getParameter("groupName") + " 的信息已经创建成功！");
         } catch (Exception e) {
-            request.getSession().setAttribute("message", request.getParameter("actName") + " 的信息创建失败，请检查输入内容！！！");
+            request.getSession().setAttribute("message", request.getParameter("groupName") + " 的信息创建失败，请检查输入内容！！！");
         }
         return new ModelAndView("redirect:/onefamily/groupPage.html");
     }
