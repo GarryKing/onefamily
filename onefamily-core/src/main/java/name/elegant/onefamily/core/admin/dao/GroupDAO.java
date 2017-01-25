@@ -11,7 +11,7 @@ import java.util.List;
  */
 public interface GroupDAO {
 
-    public void insertGroup(GroupDO groupDO);
+    public long insertGroup(GroupDO groupDO);
 
     public void updateGroup(GroupDO groupDO);
 

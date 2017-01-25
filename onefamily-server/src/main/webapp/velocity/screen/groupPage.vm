@@ -1,7 +1,8 @@
 <div class="btn btn-sm btn-primary" data-toggle="modal"
-     data-target="#newModal" style="float: left;margin-right: 30px;">新增活动
+     data-target="#newModal" style="float: left;margin-right: 30px;background-color: #aa6708;border-color: #aa6708;">
+    新增活动
 </div>
-###parse("/control/newGroup.vm")
+#parse("/control/newGroup.vm")
 
 <div class="input-group" style="width: 300px;display: inline-flex;">
     <input class="form-control" placeholder="编号/名称/参与人" value="$!{keyWord}">
@@ -67,7 +68,7 @@
                          data-target="#detail2Modal_$!{result.actId}aaa$!{part.contributorBizId}">人员管理
                     </div>
                 ## login model
-##                    #parse("/control/groupModel.vm")
+                ##                    #parse("/control/groupModel.vm")
                     #parse("/control/participantModel.vm")
                 </td>
             <td>

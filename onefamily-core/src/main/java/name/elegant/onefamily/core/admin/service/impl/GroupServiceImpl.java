@@ -8,6 +8,7 @@ import name.elegant.onefamily.core.admin.service.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -30,7 +31,10 @@ public class GroupServiceImpl implements GroupService {
     }
 
     public void insertGroup(GroupDO groupDO) {
-        groupDAO.insertGroup(groupDO);
+        long id = groupDAO.insertGroup(groupDO);
+        groupDO = groupDAO.queryGroupById(id);
+        groupDO.setSerialId(generateSerialId(id));
+        updateGroup(groupDO);
     }
 
     public void updateGroup(GroupDO groupDO) {
@@ -59,6 +63,14 @@ public class GroupServiceImpl implements GroupService {
 
             }
         }
+    }
+
+    private String generateSerialId(long id) {
+        String result = "JG";
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+        result += sdf.format(new Date()) + "-";
+        result += ((1000000 + id) + "").substring(1);
+        return result;
     }
 
 }

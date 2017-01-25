@@ -15,8 +15,8 @@ import java.util.Map;
 @Repository
 public class IbatisGroupDAO extends BaseDao implements GroupDAO {
 
-    public void insertGroup(GroupDO groupDO) {
-        this.getSqlMapClientTemplate().insert("GroupDAO.insertGroup", groupDO);
+    public long insertGroup(GroupDO groupDO) {
+        return (Long) this.getSqlMapClientTemplate().insert("GroupDAO.insertGroup", groupDO);
     }
 
     public void updateGroup(GroupDO groupDO) {
