@@ -13,7 +13,11 @@ public class MemberDO {
 
     private long donateId;
 
-    private long contribuorId;
+    private long contributorId;
+
+    private String contributorBizId;
+
+    private String contributorName;
 
     private String payAmount;
 
@@ -37,12 +41,28 @@ public class MemberDO {
         this.donateId = donateId;
     }
 
-    public long getContribuorId() {
-        return contribuorId;
+    public long getContributorId() {
+        return contributorId;
     }
 
-    public void setContribuorId(long contribuorId) {
-        this.contribuorId = contribuorId;
+    public void setContributorId(long contributorId) {
+        this.contributorId = contributorId;
+    }
+
+    public String getContributorBizId() {
+        return contributorBizId;
+    }
+
+    public void setContributorBizId(String contributorBizId) {
+        this.contributorBizId = contributorBizId;
+    }
+
+    public String getContributorName() {
+        return contributorName;
+    }
+
+    public void setContributorName(String contributorName) {
+        this.contributorName = contributorName;
     }
 
     public String getPayAmount() {

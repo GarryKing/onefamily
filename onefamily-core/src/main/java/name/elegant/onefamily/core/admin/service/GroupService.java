@@ -15,12 +15,14 @@ public interface GroupService {
 
     void insertGroup(GroupDO groupDO);
 
-    void updateGroup(GroupDO groupDO);
+    void updateGroup(GroupDO groupDO, String insertSerialId);
 
     void addMember(MemberDO memberDO);
 
     void updateMember(MemberDO memberDO);
 
     void deleteMember(long memberId);
+
+    MemberDO queryMemberByMemberId(long memberId);
 
 }

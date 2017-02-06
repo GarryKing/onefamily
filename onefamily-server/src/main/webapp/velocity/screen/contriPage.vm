@@ -51,7 +51,7 @@
             <td id="td_padding">$!{contri.contributorName}</td>
             <td id="td_padding">$!{contri.originalBizId}</td>
             <td id="td_padding">$!{contri.identityCard}</td>
-            <td id="td_padding">$!{contri.type}</td>
+            <td id="td_padding">$!{contri.typeString}</td>
             <td id="td_padding">$!{contri.status}</td>
             <td id="td_padding">$!numberTool.currency($!{contri.totalMoney})</td>
             <td id="td_padding">$!{contri.totalActTime} Сʱ</td>

@@ -18,6 +18,8 @@ public class GroupDO {
 
     private String remark;
 
+    private double total;
+
     private Date createTime;
 
     private Date modifyTime;
@@ -62,6 +64,14 @@ public class GroupDO {
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    public double getTotal() {
+        return total;
+    }
+
+    public void setTotal(double total) {
+        this.total = total;
     }
 
     public Date getCreateTime() {

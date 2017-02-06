@@ -51,10 +51,16 @@
         WHERE memberId = #memberId#
     </select>
 
-    <select id="GroupDAO.queryMemberByDonateId" resultMap="RM-GROUP-MEMBER">
+    <select id="GroupMemberDAO.queryMemberByDonateId" resultMap="RM-GROUP-MEMBER">
         select *
         from of_group_member
         WHERE donateId = #donateId#
+    </select>
+
+    <select id="GroupMemberDAO.queryMemberByDonateAndBizId" resultMap="RM-GROUP-MEMBER">
+        select *
+        from of_group_member
+        WHERE donateId = #donateId# and contributorId = #contributorId#
     </select>
 
 </sqlMap>

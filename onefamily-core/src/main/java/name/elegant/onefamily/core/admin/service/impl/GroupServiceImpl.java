@@ -1,7 +1,11 @@
 package name.elegant.onefamily.core.admin.service.impl;
 
+import name.elegant.onefamily.client.dataobject.onefamily.ContributorDO;
 import name.elegant.onefamily.client.dataobject.onefamily.GroupDO;
 import name.elegant.onefamily.client.dataobject.onefamily.MemberDO;
+import name.elegant.onefamily.client.dataobject.util.text.MoneyUtil;
+import name.elegant.onefamily.client.dataobject.util.text.StringUtil;
+import name.elegant.onefamily.core.admin.dao.ContributorDAO;
 import name.elegant.onefamily.core.admin.dao.GroupDAO;
 import name.elegant.onefamily.core.admin.dao.GroupMemberDAO;
 import name.elegant.onefamily.core.admin.service.GroupService;
@@ -24,6 +28,9 @@ public class GroupServiceImpl implements GroupService {
     @Autowired
     private GroupMemberDAO groupMemberDAO;
 
+    @Autowired
+    private ContributorDAO contributorDAO;
+
     public List<GroupDO> queryGroupByPageNo(int pageNo, int pageSize, String keyWord) {
         List<GroupDO> groupDOList = groupDAO.queryGroupByPageNo(pageNo, pageSize, keyWord);
         fillGroupMembers(groupDOList);
@@ -33,24 +40,51 @@ public class GroupServiceImpl implements GroupService {
     public void insertGroup(GroupDO groupDO) {
         long id = groupDAO.insertGroup(groupDO);
         groupDO = groupDAO.queryGroupById(id);
-        groupDO.setSerialId(generateSerialId(id));
-        updateGroup(groupDO);
+        updateGroup(groupDO, generateSerialId(id));
     }
 
-    public void updateGroup(GroupDO groupDO) {
+    public void updateGroup(GroupDO groupDO, String insertSerialId) {
+        GroupDO old = groupDAO.queryGroupById(groupDO.getDonateId());
+        if (StringUtil.isBlank(insertSerialId))
+            groupDO.setSerialId(old.getSerialId());
+        else
+            groupDO.setSerialId(insertSerialId);
         groupDAO.updateGroup(groupDO);
     }
 
     public void addMember(MemberDO memberDO) {
-        groupMemberDAO.insertMember(memberDO);
+        fillContributorInfo(memberDO);
+        List<MemberDO> list = groupMemberDAO.queryMemberByDonateAndBizId(memberDO.getDonateId(), memberDO.getContributorId());
+        if (list == null || list.size() == 0)
+            groupMemberDAO.insertMember(memberDO);
+        else
+            groupMemberDAO.updateMember(memberDO);
+    }
+
+    private void fillContributorInfo(MemberDO memberDO) {
+        ContributorDO contributorDO = contributorDAO.queryContributorById(memberDO.getContributorId());
+        if (contributorDO == null)
+            contributorDO = contributorDAO.queryContributorByBizId(memberDO.getContributorBizId());
+        if (contributorDO != null) {
+            memberDO.setContributorId(contributorDO.getContributorId());
+            memberDO.setContributorBizId(contributorDO.getBizId());
+            memberDO.setContributorName(contributorDO.getContributorName());
+        }
     }
 
     public void updateMember(MemberDO memberDO) {
+        MemberDO old = groupMemberDAO.queryMemberById(memberDO.getMemberId());
+        memberDO.setDonateId(old.getDonateId());
+        fillContributorInfo(memberDO);
         groupMemberDAO.updateMember(memberDO);
     }
 
     public void deleteMember(long memberId) {
         groupMemberDAO.deleteMember(memberId);
+    }
+
+    public MemberDO queryMemberByMemberId(long memberId) {
+        return groupMemberDAO.queryMemberById(memberId);
     }
 
     private void fillGroupMembers(List<GroupDO> groupDOList) {
@@ -59,6 +93,14 @@ public class GroupServiceImpl implements GroupService {
             try {
                 if (groupDO.getDonateId() <= 0) continue;
                 groupDO.setMemberList(groupMemberDAO.queryMemberByDonateId(groupDO.getDonateId()));
+                if (groupDO.getMemberList() != null) {
+                    for (MemberDO memberDO : groupDO.getMemberList()) {
+                        fillContributorInfo(memberDO);
+                        double old = groupDO.getTotal();
+                        old += MoneyUtil.stringToMoney(memberDO.getPayAmount()).doubleValue();
+                        groupDO.setTotal(old);
+                    }
+                }
             } catch (Exception e) {
 
             }

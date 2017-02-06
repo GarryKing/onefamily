@@ -125,6 +125,10 @@
         $(".J_save").click(function () {
             var form = $(this).parent().parent().find("form");
             var check = form.find("[name='contributorBizId']").val();
+            if (check == undefined) {
+                form.submit();
+                return;
+            }
             var param = {bizId: check};
             commAjaxByGET("/onefamily/contributorExist.do", param, function (data) {
                 if (data != true) {

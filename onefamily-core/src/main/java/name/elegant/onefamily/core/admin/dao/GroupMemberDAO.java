@@ -21,4 +21,6 @@ public interface GroupMemberDAO {
 
     public List<MemberDO> queryMemberByDonateId(long donateId);
 
+    public List<MemberDO> queryMemberByDonateAndBizId(long donateId, long contriId);
+
 }

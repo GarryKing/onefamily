@@ -1,11 +1,11 @@
 <div class="btn btn-sm btn-primary" data-toggle="modal"
-     data-target="#newModal" style="float: left;margin-right: 30px;background-color: #aa6708;border-color: #aa6708;">
-    新增活动
+     data-target="#newModal" style="float: left;margin-right: 30px;">
+    新增机构捐助
 </div>
 #parse("/control/newGroup.vm")
 
 <div class="input-group" style="width: 300px;display: inline-flex;">
-    <input class="form-control" placeholder="编号/名称/参与人" value="$!{keyWord}">
+    <input class="form-control" placeholder="编号/机构名称" value="$!{keyWord}">
     <span class="input-group-btn">
         <button class="btn btn-primary J_search" type="button"">查找</button>
     </span>
@@ -14,15 +14,15 @@
 ##翻页器
 <ul class="pagination" style="margin: 0px;float: right;font-size: 12px;">
     <li>
-        <a href="/onefamily/actPage.html?pageNo=$!{prev}&keyWord=$!{keyWord}" aria-label="Previous">
+        <a href="/onefamily/groupPage.html?pageNo=$!{prev}&keyWord=$!{keyWord}" aria-label="Previous">
             <span aria-hidden="true">上一页</span>
         </a>
     </li>
     <li>
-        <a href="/onefamily/actPage.html?pageNo=$!{curr}&keyWord=$!{keyWord}">$!{curr}</a>
+        <a href="/onefamily/groupPage.html?pageNo=$!{curr}&keyWord=$!{keyWord}">$!{curr}</a>
     </li>
     <li>
-        <a href="/onefamily/actPage.html?pageNo=$!{next}&keyWord=$!{keyWord}" aria-label="Next">
+        <a href="/onefamily/groupPage.html?pageNo=$!{next}&keyWord=$!{keyWord}" aria-label="Next">
             <span aria-hidden="true">下一页</span>
         </a>
     </li>
@@ -35,7 +35,9 @@
         <td>捐助编号</td>
         <td>机构名称</td>
         <td>捐助日期</td>
+        <td>备注</td>
         <td>捐助总金额</td>
+        <td>捐助人编号</td>
         <td>捐助人</td>
         <td>捐助金额</td>
         <td>操作</td>
@@ -43,72 +45,47 @@
     </thead>
     <tbody>
         #foreach($result in $resultList)
-
-            #if( !$result.memberList || $result.memberList.size() ==0)
-            <tr>
-                <td id="td_padding">$!{result.serialId}</td>
-                <td id="td_padding">$!{result.groupName}</td>
-                <td id="td_padding">$!dateTool.format("yyyy-MM-dd",$!{result.donateTime})</td>
-                <td id="td_padding">$!{result.remark}</td>
-                <td id="td_padding">$!{result.total}</td>
-                <td id="td_padding"></td>
-                <td id="td_padding"></td>
-                <td id="td_padding">
-                    <div class="btn btn-sm btn-primary" data-toggle="modal"
-                         data-target="#detailModal_$!{result.donateId}">捐助管理
-                    </div>
-                    <div class="btn btn-sm btn-info" data-toggle="modal"
-                         data-target="#detail2Modal_$!{result.donateId}aaa">人员管理
-                    </div>
-                ## login model
-                ##                    #parse("/control/groupModel.vm")
-##                    #parse("/control/memberModel.vm")
-                </td>
-            <td>
-            #else
-                #foreach($part in $result.participantList)
-                <tr class="part_$!{result.actId}_$!{part.contributorBizId}">
-                    #if($velocityCount == 1)
-                        <td rowspan="$result.participantList.size()" id="td_padding"
-                            style="vertical-align: middle;">$!{result.actBizId}</td>
-                        <td rowspan="$result.participantList.size()" id="td_padding"
-                            style="vertical-align: middle;">$!{result.actName}</td>
-                        <td rowspan="$result.participantList.size()" id="td_padding"
-                            style="vertical-align: middle;">$!dateTool.format(
-                            "yyyy-MM-dd HH:mm:ss",$!{result.startTime})</td>
-                        <td rowspan="$result.participantList.size()" id="td_padding"
-                            style="vertical-align: middle;">$!dateTool.format(
-                            "yyyy-MM-dd HH:mm:ss",$!{result.endTime})</td>
-                    #end
-                    <td id="td_padding">$!{part.contributorBizId}</td>
-                    <td id="td_padding">$!{part.starLevel}</td>
-                    <td id="td_padding">$!{part.contributorName}</td>
-                    <td id="td_padding">$!{part.role}</td>
-                    <td id="td_padding">#if($!{part.thisActDuration})$!{part.thisActDuration} 小时#end</td>
-                    <td id="td_padding">#if($!{part.thisStarLevel})$!{part.thisStarLevel} 星#end</td>
-                    <td id="td_padding">
-                        #if($velocityCount == 1)
-                            <div class="btn btn-sm btn-primary" data-toggle="modal"
-                                 data-target="#detailModal_$!{result.actId}">活动管理
-                            </div>
-                            <div class="btn btn-sm btn-warning" data-toggle="modal"
-                                 data-target="#detail2Modal_$!{result.actId}aaa$!{part.contributorBizId}">新增人员
-                            </div>
-                        ## login model
-                            #parse("/control/actModel.vm")
-                            #parse("/control/participantModel.vm")
-                        #else
-                            <div class="btn btn-sm btn-info" data-toggle="modal"
-                                 data-target="#detail2Modal_$!{result.actId}aaa$!{part.contributorBizId}">人员管理
-                            </div>
-                            #parse("/control/participantModel.vm")
-                        #end
-                    </td>
-                </tr>
-                #end
+        <tr>
+            #if($result.memberList.size())
+                #set($rowSpan = $result.memberList.size() + 1)
             #end
-        </td>
+            <td id="td_padding" rowspan="$rowSpan"
+                style="vertical-align: middle;">$!{result.serialId}</td>
+            <td id="td_padding" rowspan="$rowSpan"
+                style="vertical-align: middle;">$!{result.groupName}</td>
+            <td id="td_padding" rowspan="$rowSpan"
+                style="vertical-align: middle;">$!dateTool.format("yyyy-MM-dd",$!{result.donateTime})</td>
+            <td id="td_padding" rowspan="$rowSpan"
+                style="vertical-align: middle;">$!{result.remark}</td>
+            <td id="td_padding" rowspan="$rowSpan"
+                style="vertical-align: middle;">$!numberTool.currency($!{result.total})</td>
+            <td id="td_padding"></td>
+            <td id="td_padding"></td>
+            <td id="td_padding"></td>
+            <td id="td_padding">
+                <div class="btn btn-sm btn-primary" data-toggle="modal"
+                     data-target="#detailModal_$!{result.donateId}">捐助管理
+                </div>
+                <div class="btn btn-sm btn-warning" data-toggle="modal"
+                     data-target="#detail2Modal_$!{result.donateId}aaa">新增人员
+                </div>
+                #parse("/control/groupModel.vm")
+                #parse("/control/memberModel.vm")
+            </td>
         </tr>
+            #foreach($member in $result.memberList)
+            <tr>
+                <td id="td_padding">$!{member.contributorBizId}</td>
+                <td id="td_padding">$!{member.contributorName}</td>
+                <td id="td_padding">$!{member.payAmount}</td>
+                <td>
+                    <div class="btn btn-sm btn-info" data-toggle="modal"
+                         data-target="#detail2Modal_$!{result.donateId}aaa$!{member.memberId}">人员管理
+                    </div>
+                    #parse("/control/memberModel.vm")
+                </td>
+            </tr>
+            #end
         #end
     </tbody>
 </table>
@@ -140,10 +117,9 @@
         $(".J_delete").click(function () {
             if (confirm("确认要删除吗？")) {
                 var form = $(this).parent().parent().find("form");
-                var actId = form.find("[name='actId']").val();
-                var contributorBizId = form.find("[name='contributorBizId']").val();
-                var param = {actId: actId, contributorBizId: contributorBizId};
-                commAjaxByGET("/onefamily/deleteParticipant.do", param, function (data) {
+                var memberId = form.find("[name='memberId']").val();
+                var param = {memberId: memberId};
+                commAjaxByGET("/onefamily/deleteMember.do", param, function (data) {
                     if (data != true) {
                         alert("删除失败");
                     } else {

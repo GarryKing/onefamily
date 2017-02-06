@@ -73,6 +73,8 @@ public class ContributorDO {
 
     private int type;
 
+    private String typeString;
+
     private String identityCard;
 
     private String sex;
@@ -153,6 +155,23 @@ public class ContributorDO {
 
     public void setType(int type) {
         this.type = type;
+    }
+
+    public String getTypeString() {
+        if (type == 10) {
+            typeString = "组织人";
+        } else if (type == 20) {
+            typeString = "普通成员";
+        } else if (type == 30) {
+            typeString = "益家志者";
+        } else if (type == 40) {
+            typeString = "参加活动群外人员";
+        }
+        return typeString;
+    }
+
+    public void setTypeString(String typeString) {
+        this.typeString = typeString;
     }
 
     public String getIdentityCard() {

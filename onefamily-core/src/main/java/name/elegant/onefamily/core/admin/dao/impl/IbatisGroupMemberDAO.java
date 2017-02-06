@@ -5,7 +5,9 @@ import name.elegant.onefamily.core.admin.dao.GroupMemberDAO;
 import name.elegant.onefamily.core.common.dao.BaseDao;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Garry King on 2017/1/24.
@@ -31,7 +33,14 @@ public class IbatisGroupMemberDAO extends BaseDao implements GroupMemberDAO {
     }
 
     public List<MemberDO> queryMemberByDonateId(long donateId) {
-        return (List<MemberDO>) this.getSqlMapClientTemplate().queryForObject("GroupMemberDAO.queryMemberByDonateId", donateId);
+        return (List<MemberDO>) this.getSqlMapClientTemplate().queryForList("GroupMemberDAO.queryMemberByDonateId", donateId);
+    }
+
+    public List<MemberDO> queryMemberByDonateAndBizId(long donateId, long contriId) {
+        Map<String, Object> param = new HashMap<String, Object>();
+        param.put("donateId", donateId);
+        param.put("contributorId", contriId);
+        return (List<MemberDO>) this.getSqlMapClientTemplate().queryForList("GroupMemberDAO.queryMemberByDonateAndBizId", param);
     }
 
 }

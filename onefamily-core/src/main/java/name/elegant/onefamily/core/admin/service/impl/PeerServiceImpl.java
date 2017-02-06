@@ -33,7 +33,7 @@ public class PeerServiceImpl implements PeerService {
     @Autowired
     private ContributorDAO contributorDAO;
 
-    public static final String FILE_PATH = "E:/ ‹÷˙»ÀÕ∑œÒ/";
+    public static final String FILE_PATH = "/home/admin/portrait/";
 
     public void insertPeer(PeerDO peerDO) throws IOException {
         ContributorDO contributorDO = contributorDAO.queryContributorByBizId(peerDO.getContributorBizId());
